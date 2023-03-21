@@ -1,0 +1,39 @@
+= Pflichtenheft für Praktikumsverwaltung:
+
+== Beschreibung:
+Die Praktikumsverwaltung ist eine Webanwendung, die Unternehmen und Schüler/innen zusammenbringt. Unternehmen können hier ihre Praktikumsplätze ausschreiben und Schüler/innen haben die Möglichkeit, sich darauf zu bewerben.
+
+== Anforderungen:
+=== 2.1 Unternehmen registrieren
+Unternehmen müssen sich auf der Plattform registrieren und ihr Unternehmen und ihre Praktikumsplätze hinzufügen können.
+
+=== 2.2 Schüler registrieren
+Schüler/innen müssen sich ebenfalls auf der Plattform registrieren und ein Profil erstellen können.
+
+=== 2.3 Schüler bewerben
+Schüler/innen müssen in der Lage sein, sich auf Praktikumsplätze zu bewerben, indem sie eine Bewerbung und einen Lebenslauf einreichen.
+
+=== 2.4 Unternehmen Bewerbungen sehen
+Unternehmen müssen die Möglichkeit haben, die eingereichten Bewerbungen zu durchsuchen und mit den Schüler/innen in Kontakt zu treten, die ihnen am meisten zusagen.
+
+== Funktionen:
+=== 3.1 Registrierung und Anmeldung:
+Die Plattform muss eine Registrierung und Anmeldung für Unternehmen und Schüler/innen bereitstellen.
+
+=== 3.2 Profilverwaltung:
+Unternehmen und Schüler/innen müssen ihre Profile verwalten und bearbeiten können.
+
+=== 3.3 Praktikumsplätze ausschreiben:
+Unternehmen müssen in der Lage sein, ihre Praktikumsplätze auf der Plattform zu veröffentlichen.
+
+=== 3.4 Bewerbungen einreichen:
+Schüler/innen müssen in der Lage sein, sich auf Praktikumsplätze zu bewerben, indem sie eine Bewerbung und einen Lebenslauf einreichen.
+
+=== 3.5 Bewerbungsverwaltung:
+Unternehmen müssen die eingereichten Bewerbungen durchsuchen und mit den Schüler/innen in Kontakt treten können.
+
+=== 3.6 Benachrichtigungen:
+Die Plattform muss Benachrichtigungen über neue Praktikumsplätze und Bewerbungen bereitstellen.
+
+=== 3.7 Suchfunktion:
+Die Plattform muss eine Suchfunktion bereitstellen, mit der Schüler/innen nach Praktikumsplätzen suchen können.
