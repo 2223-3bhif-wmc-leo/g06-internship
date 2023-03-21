@@ -3,9 +3,11 @@
 == Firma
 
 * Firma möchte ein Stellenangebot aufgeben.
-* Firmen können Schüler nach Bewerbung Kontaktieren 
+* Firmen können Schüler nach Bewerbung kontaktieren 
 
 == Schüler
 
-* Schüler möchte Bewerbung / Lebenslauf etc. an eine Firma schicken
-* Schüler möchte sehen wie viele Wochen Pflichtpraktika er noch machen muss / schon gemacht hat
+* Schüler möchte Bewerbung / Lebenslauf etc. an eine Firma schicken. (Upload und es wird automatisch an die Firma gesendet)
+* Schüler möchte sehen wie viele Wochen Pflichtpraktika er noch machen muss / schon gemacht hat.
+* Schüler möchten eine List an Stellenangeboten haben. 
+* Schüler möchten die Antworten auf Bewerbungen sehen.
