@@ -1,0 +1,11 @@
+= User Storys
+
+== Firma
+
+* Firma möchte ein Stellenangebot aufgeben.
+* Firmen können Schüler nach Bewerbung Kontaktieren 
+
+== Schüler
+
+* Schüler möchte Bewerbung / Lebenslauf etc. an eine Firma schicken
+* Schüler möchte sehen wie viele Wochen Pflichtpraktika er noch machen muss / schon gemacht hat
