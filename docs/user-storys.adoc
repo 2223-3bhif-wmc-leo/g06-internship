@@ -4,10 +4,10 @@
 
 * Firma möchte ein Stellenangebot aufgeben.
 * Firmen können Schüler nach Bewerbung kontaktieren 
+* Firmen können ihre Stellen verwalten(CRUD)
 
 == Schüler
 
 * Schüler möchte Bewerbung / Lebenslauf etc. an eine Firma schicken. (Upload und es wird automatisch an die Firma gesendet)
-* Schüler möchte sehen wie viele Wochen Pflichtpraktika er noch machen muss / schon gemacht hat.
 * Schüler möchten eine List an Stellenangeboten haben und diese auch suchen können. 
 * Schüler möchten die Antworten auf Bewerbungen sehen.
