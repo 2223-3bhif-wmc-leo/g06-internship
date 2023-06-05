@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+
+class Schueler {
+    -id: int
+    -name: String
+    -email: String
+    -adresse: String
+    -telefon: String
+    -praktikum: Praktikum
+}
+
+class Firma {
+    -id: int
+    -name: String
+    -email: String
+    -adresse: String
+    -telefon: String
+    -praktikum: Praktikum[]
+}
+
+class Praktikum {
+    -id: int
+    -titel: String
+    -beschreibung: String
+    -dauer: int
+    -anforderungen: String
+    -firma: Firma
+    -schueler: Schueler
+    -anmeldungsdatum: Date
+}
+
+Praktikum "*" -- "1" Schueler : < bewirbt
+Firma "1" -- "1" Praktikum : > vergibt
+@enduml
