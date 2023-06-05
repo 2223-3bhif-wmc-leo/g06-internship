@@ -1,8 +1,5 @@
-import { Unit } from "./unit";
-import { verbose } from "sqlite3";
 import { Database as Driver} from "sqlite3";
 import { open, Database } from "sqlite";
-import {create} from "domain";
 
 export const dbFileName = 'internship.db';
 

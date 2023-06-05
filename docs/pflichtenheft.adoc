@@ -37,3 +37,4 @@ Die Plattform muss Benachrichtigungen über neue Praktikumsplätze und Bewerbung
 
 === 3.7 Suchfunktion:
 Die Plattform muss eine Suchfunktion bereitstellen, mit der Schüler/innen nach Praktikumsplätzen suchen können.
+
