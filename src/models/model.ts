@@ -3,7 +3,6 @@ export interface IFirma {
     name: string;
     email: string;
     telefon: string;
-    praktikum: IPraktikum[];
 }
 
 export interface IPraktikum {
@@ -13,7 +12,7 @@ export interface IPraktikum {
     dauertage: number;
     anforderungen: string;
     firma: IFirma;
-    schueler: ISchueler[];
+    schueler: ISchueler;
 }
 
 export interface ISchueler {
@@ -22,5 +21,4 @@ export interface ISchueler {
     email: string;
     adresse: string;
     telefon: string;
-    praktikum: IPraktikum[];
 }

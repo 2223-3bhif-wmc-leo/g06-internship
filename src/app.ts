@@ -20,9 +20,9 @@ app.use('/api/schueler', schuelerRouter);
 
 (async () => {
     const db = await DB.createDBConnection();
-    await db.run('drop table Schueler;');
-    await db.run('drop table Firma;');
-    await db.run('drop table Praktikum;');
+    // await db.run('drop table Schueler;');
+    // await db.run('drop table Firma;');
+    // await db.run('drop table Praktikum;');
 })();
 
 app.listen(port, (): void => {

@@ -30,7 +30,6 @@ export class SchulerService extends ServiceBase {
             email: rawResult.email,
             adresse: rawResult.adresse,
             telefon: rawResult.telefon,
-            praktikum: []
         };
     }
     public async update(schueler: ISchueler): Promise<boolean> {

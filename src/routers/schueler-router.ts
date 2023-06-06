@@ -60,7 +60,6 @@ router.put('/:id', async (req: Request, res: Response) => {
             email: req.body.email,
             adresse: req.body.adresse,
             telefon: req.body.telefon,
-            praktikum: []
         };
 
         const success: boolean = await (existing ? service.update(schueler) : service.insert(schueler));

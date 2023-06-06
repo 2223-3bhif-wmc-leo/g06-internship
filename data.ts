@@ -30,14 +30,13 @@ export class DB {
     public static async ensureSampleDataInserted(connection: Database): Promise<void> {
 
         await connection.run(`DELETE FROM Firma;`);
-
         await connection.run(`INSERT INTO Firma (name, email, telefon) VALUES ('HTL Leonding', 'htl@leonding', '+43 54561561');`);
 
 
-        await connection.run(`DELETE FROM Praktikum;`);
         await connection.run(`DELETE FROM Schueler;`);
         await connection.run(`INSERT INTO Schueler (name, email, adresse, telefon) VALUES ('Fabian Stroschneider', 'f.stro@htl', '4020 Linz', '+43 7867676876786');`);
 
+        await connection.run(`DELETE FROM Praktikum;`);
         await connection.run(`INSERT INTO Praktikum (titel, beschreibung, dauertage, anforderungen, anmeldungsdatum, firma, schueler) VALUES ('Praktikant', 'irgendwas', 30, 'kompetent', '05-07-2023', 1, 1);`);
     }
 
