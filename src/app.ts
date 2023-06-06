@@ -7,6 +7,7 @@ import cors from "cors";
 import firmenRouter from "./routers/firmen-router";
 import praktikaRouter from "./routers/praktikum-router";
 import schuelerRouter from "./routers/schueler-router";
+import { join } from "path";
 
 const port: number = 3000;
 const app: Express = express();
@@ -14,6 +15,8 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors());
 
+
+app.use("/", express.static(join(__dirname, "public")));
 app.use('/api/firmen', firmenRouter);
 app.use('/api/praktika', praktikaRouter);
 app.use('/api/schueler', schuelerRouter);

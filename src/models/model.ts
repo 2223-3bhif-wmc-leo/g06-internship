@@ -6,13 +6,14 @@ export interface IFirma {
 }
 
 export interface IPraktikum {
-    id: number;
-    bezeichnung: string;
+    id?: number;
+    titel: string;
     beschreibung: string;
     dauertage: number;
     anforderungen: string;
     firma: IFirma;
     schueler: ISchueler;
+    anmeldungsdatum: Date;
 }
 
 export interface ISchueler {
