@@ -10,7 +10,7 @@ export class DB {
             driver: Driver
         });
         await this.ensureTablesCreated(db);
-        await DB.ensureSampleDataInserted(db);
+        //await DB.ensureSampleDataInserted(db);
 
         return db;
     }

@@ -93,7 +93,6 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
             res.sendStatus(StatusCodes.CREATED);
         }
         else{
-            await unit.complete(false);
             res.sendStatus(StatusCodes.NOT_FOUND);}
     }
     catch (e) {
@@ -101,7 +100,7 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
     finally {
-        await unit.complete();
+        await unit.complete(false);
     }
 
 }).put('/:id', async (req: Request, res: Response) => {
@@ -117,6 +116,7 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
             res.sendStatus(StatusCodes.OK);
         }
         else{
+            await unit.complete(false);
             res.sendStatus(StatusCodes.NOT_FOUND);
         }
     }
@@ -125,7 +125,7 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
     finally {
-        await unit.complete(false);
+        await unit.complete();
     }
 });
 

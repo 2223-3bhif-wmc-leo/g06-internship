@@ -15,13 +15,13 @@ export class FirmenService extends ServiceBase {
         return await stmt.all<IFirma[]>();
     }
 
-    public async getById(id: number): Promise<IFirma>{
+    public async getById(id: number): Promise<IFirma | null>{
         const stmt = await this.unit.prepare("select * from Firma where id = ?", id);
         const rawResult: ISchueler | null = ServiceBase.nullIfUndefined(await stmt.get<ISchueler>());
 
 
         return rawResult === null ? null : {
-            id: id,
+            id: rawResult.id,
             name: rawResult.name,
             email: rawResult.email,
             telefon: rawResult.telefon
