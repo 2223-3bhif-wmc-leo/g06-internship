@@ -16,7 +16,7 @@ export class PraktikumService extends ServiceBase {
                 dauertage = ?3,  
                 anforderungen = ?4, 
                 firma = ?5,  
-                anmeldungsdatum = ?6, 
+                anmeldungsdatum = ?6
                 where id = ?7`,
     {
                     1: praktikum.titel,

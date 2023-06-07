@@ -21,5 +21,19 @@ Content-Type: application/json
   "anmeldungsdatum": "2019-01-01"
 }
 
+### Add praktikum
+PUT http://localhost:3000/api/praktika/5
+Content-Type: application/json
+
+{
+"titel": "KYSSSSS",
+"beschreibung": "Beschreibung 1",
+"anforderungen": "Baba programmierer",
+"firma": 1,
+"schueler": 1,
+"dauertage": 30,
+"anmeldungsdatum": "2019-01-01"
+}
+
 ### Delete schueler
 DELETE http://localhost:3000/api/praktika/4

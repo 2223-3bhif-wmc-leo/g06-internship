@@ -104,7 +104,38 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
     }
 
 }).put('/:id', async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const unit: Unit = await Unit.create(false);
+    const praktikaService: PraktikumService = new PraktikumService(unit);
 
+    try{
+        const praktikum: IPraktikum = {
+            id: id,
+            titel: req.body.titel,
+            beschreibung: req.body.beschreibung,
+            dauertage: req.body.dauertage,
+            anforderungen: req.body.anforderungen,
+            firma: req.body.firma,
+            schueler: req.body.schueler,
+            anmeldungsdatum: req.body.anmeldungsdatum
+        }
+        const success = await praktikaService.updatePraktikum(praktikum);
+        if(success){
+            await unit.complete(true);
+            res.sendStatus(StatusCodes.OK);
+        }
+        else{
+            await unit.complete(false);
+            res.sendStatus(StatusCodes.NOT_FOUND);
+        }
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+    finally {
+        await unit.complete();
+    }
 }).delete('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(false);
