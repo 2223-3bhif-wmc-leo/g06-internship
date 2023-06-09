@@ -10,7 +10,7 @@ export class DB {
             driver: Driver
         });
         await this.ensureTablesCreated(db);
-        //await DB.ensureSampleDataInserted(db);
+        await DB.ensureSampleDataInserted(db);
 
         return db;
     }
@@ -30,14 +30,17 @@ export class DB {
     public static async ensureSampleDataInserted(connection: Database): Promise<void> {
 
         await connection.run(`DELETE FROM Firma;`);
-        await connection.run(`INSERT INTO Firma (name, email, telefon, passwort) VALUES ('HTL Leonding', 'htl@leonding', '+43 54561561', '123');`);
+        await connection.run(`INSERT INTO Firma (name, email, telefon, passwort, addresse, beschreibung) 
+                    VALUES ('HTL Leonding', 'htl@leonding', '+43 54561561', '123', 'straße1', 'wir sind eine firma');`);
 
 
         await connection.run(`DELETE FROM Schueler;`);
-        await connection.run(`INSERT INTO Schueler (name, email, adresse, telefon, passwort) VALUES ('Fabian Stroschneider', 'f.stro@htl', '4020 Linz', '+43 7867676876786', '123');`);
+        await connection.run(`INSERT INTO Schueler (name, email, adresse, telefon, passwort) 
+                    VALUES ('Fabian Stroschneider', 'f.stro@htl', '4020 Linz', '+43 7867676876786', '123');`);
 
         await connection.run(`DELETE FROM Praktikum;`);
-        await connection.run(`INSERT INTO Praktikum (titel, beschreibung, dauertage, anforderungen, anmeldungsdatum, firma, schueler) VALUES ('Praktikant', 'irgendwas', 30, 'kompetent', '05-07-2023', 1, 1);`);
+        await connection.run(`INSERT INTO Praktikum (titel, beschreibung, dauertage, anforderungen, anmeldungsdatum, firma, schueler) 
+                    VALUES ('Praktikant', 'irgendwas', 30, 'kompetent', '05-07-2023', 1, 1);`);
     }
 
     // TODO: Add praktikum (see cld)
@@ -47,6 +50,8 @@ export class DB {
               name      TEXT      NOT NULL,
               email     TEXT      NOT NULL,
               passwort  TEXT      NOT NULL,
+              beschreibung TEXT    NOT NULL,
+              addresse   TEXT      NOT NULL,
               telefon   TEXT      NOT NULL
           ) strict`
         );

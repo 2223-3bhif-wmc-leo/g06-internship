@@ -3,6 +3,8 @@ export interface IFirma {
     name: string;
     email: string;
     telefon: string;
+    beschreibung: string;
+    addresse: string;
     passwort: string;
 }
 
