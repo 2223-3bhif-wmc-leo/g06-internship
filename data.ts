@@ -30,11 +30,11 @@ export class DB {
     public static async ensureSampleDataInserted(connection: Database): Promise<void> {
 
         await connection.run(`DELETE FROM Firma;`);
-        await connection.run(`INSERT INTO Firma (name, email, telefon) VALUES ('HTL Leonding', 'htl@leonding', '+43 54561561');`);
+        await connection.run(`INSERT INTO Firma (name, email, telefon, passwort) VALUES ('HTL Leonding', 'htl@leonding', '+43 54561561', '123');`);
 
 
         await connection.run(`DELETE FROM Schueler;`);
-        await connection.run(`INSERT INTO Schueler (name, email, adresse, telefon) VALUES ('Fabian Stroschneider', 'f.stro@htl', '4020 Linz', '+43 7867676876786');`);
+        await connection.run(`INSERT INTO Schueler (name, email, adresse, telefon, passwort) VALUES ('Fabian Stroschneider', 'f.stro@htl', '4020 Linz', '+43 7867676876786', '123');`);
 
         await connection.run(`DELETE FROM Praktikum;`);
         await connection.run(`INSERT INTO Praktikum (titel, beschreibung, dauertage, anforderungen, anmeldungsdatum, firma, schueler) VALUES ('Praktikant', 'irgendwas', 30, 'kompetent', '05-07-2023', 1, 1);`);
@@ -46,6 +46,7 @@ export class DB {
               id        INTEGER   NOT NULL primary key,
               name      TEXT      NOT NULL,
               email     TEXT      NOT NULL,
+              passwort  TEXT      NOT NULL,
               telefon   TEXT      NOT NULL
           ) strict`
         );
@@ -54,6 +55,7 @@ export class DB {
             id        INTEGER   NOT NULL PRIMARY KEY,
             name      TEXT      NOT NULL,
             email     TEXT      NOT NULL,
+            passwort  TEXT      NOT NULL,
             adresse   TEXT      NOT NULL,
             telefon   TEXT      NOT NULL
             ) strict`

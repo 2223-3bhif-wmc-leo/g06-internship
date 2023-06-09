@@ -24,7 +24,8 @@ export class FirmenService extends ServiceBase {
             id: rawResult.id,
             name: rawResult.name,
             email: rawResult.email,
-            telefon: rawResult.telefon
+            telefon: rawResult.telefon,
+            passwort: rawResult.passwort
         };
     }
 
