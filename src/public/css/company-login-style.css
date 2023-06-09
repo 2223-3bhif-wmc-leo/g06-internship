@@ -17,14 +17,21 @@ h1 {
     margin-bottom: 20px;
 }
 
-.buttons {
+form {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.button {
+input {
     margin: 10px;
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+}
+
+.submit-button {
+    margin-top: 20px;
     padding: 15px 30px;
     font-size: 18px;
     background-color: #3366cc;
@@ -34,6 +41,6 @@ h1 {
     cursor: pointer;
 }
 
-.button:hover {
+.submit-button:hover {
     background-color: #254c99;
 }
