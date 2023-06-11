@@ -64,15 +64,15 @@ router.delete('/:id', async (req: Request, res: Response) => {
         const service: FirmenService = new FirmenService(unit);
         const firma: IFirma | null = await service.getById(id);
 
-        if(firma === null){
+        if (firma === null) {
             res.sendStatus(StatusCodes.NOT_FOUND);
-        }else{
+        } else {
             const success = await service.delete(id);
 
-            if(success){
+            if (success) {
                 await unit.complete(true);
                 res.sendStatus(StatusCodes.OK);
-            }else{
+            } else {
                 await unit.complete(false);
                 res.sendStatus(StatusCodes.BAD_REQUEST);
             }

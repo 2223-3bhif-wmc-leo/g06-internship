@@ -10,12 +10,12 @@ export class FirmenService extends ServiceBase {
 
     // TODO: Implementieren Sie hier die Methoden für die Firmen-Entität
 
-    public async getAll():Promise<IFirma[]>{
+    public async getAll(): Promise<IFirma[]> {
         const stmt = await this.unit.prepare("select * from Firma");
         return await stmt.all<IFirma[]>();
     }
 
-    public async getById(id: number): Promise<IFirma | null>{
+    public async getById(id: number): Promise<IFirma | null> {
         const stmt = await this.unit.prepare("select * from Firma where id = ?", id);
         const rawResult: IFirma | null = ServiceBase.nullIfUndefined(await stmt.get<(IFirma)>());
 
@@ -26,8 +26,8 @@ export class FirmenService extends ServiceBase {
             email: rawResult.email,
             telefon: rawResult.telefon,
             passwort: rawResult.passwort,
-            addresse : rawResult.addresse,
-            beschreibung : rawResult.beschreibung
+            addresse: rawResult.addresse,
+            beschreibung: rawResult.beschreibung
         };
     }
 

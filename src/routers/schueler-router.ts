@@ -3,8 +3,6 @@ import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
 import {SchulerService} from "../services/schueler-service";
-import {FirmenService} from "../services/firmen-service";
-import {PraktikumService} from "../services/praktikum-service";
 import {ISchueler} from "../models/model";
 
 const router: Router = express.Router();
@@ -53,7 +51,7 @@ router.get('/', async (_: Request, res: Response) => {
             id: id,
             name: req.body.name,
             email: req.body.email,
-            passwort : req.body.passwort,
+            passwort: req.body.passwort,
             adresse: req.body.adresse,
             telefon: req.body.telefon,
         };
@@ -103,11 +101,10 @@ router.get('/', async (_: Request, res: Response) => {
     let email = req.query.email;
     let passwort = req.query.passwort;
 
-    if(email === undefined || passwort === undefined) {
+    if (email === undefined || passwort === undefined) {
         res.sendStatus(StatusCodes.BAD_REQUEST);
         return;
-    }
-    else {
+    } else {
         email = email.toString();
         passwort = passwort.toString();
     }
@@ -119,7 +116,7 @@ router.get('/', async (_: Request, res: Response) => {
         const schueler: ISchueler | null = await service.login(email, passwort);
 
         if (schueler === null) {
-            res.sendStatus(StatusCodes.NOT_FOUND);
+            res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
         } else {
             res.status(StatusCodes.OK).json(schueler);
         }
