@@ -70,6 +70,8 @@ router.get('/', async (_: Request, res: Response) => {
             bewerbungFileName: req.body.bewerbungFileName
         };
 
+        console.log(bewerber)
+
         const success: boolean = await service.insert(bewerber);
         if (success) {
             await unit.complete(true);

@@ -51,12 +51,12 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="/upload" method="POST" enctype="multipart/form-data">
+                                <form >
                                     <div class="form-group">
-                                        <label for="file">Choose File:</label>
-                                        <input type="file" class="form-control-file" id="file" name="file">
+                                        <label for="fileInput">Bewerbung: </label>
+                                        <input type="file" class="form-control-file" id="fileInput" name="file">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                    <button type="button" class="btn btn-primary" id="uploadBtn">Upload</button>
                                 </form>
                             </div>
                         </div>

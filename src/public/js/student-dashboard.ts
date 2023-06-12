@@ -1,6 +1,15 @@
 let internships = [];
 let previousInternship = null;
 let previousInternshipDetails = null;
+let currentStudent = 1;
+
+window.addEventListener("load", () => {
+    const uploadButton = document.getElementById("uploadBtn");
+    uploadButton.addEventListener("click", async () => {
+        await applyForInternship();
+    });
+});
+
 
 async function fetchRestEndpoint(
     route: string,
@@ -125,7 +134,6 @@ async function showInternshipDetails(internship) {
     });*/
     applyButton.setAttribute("data-toggle", "modal");
     applyButton.setAttribute("data-target", "#fileUploadModal");
-
     applyButtonContainer.append(applyButton, document.getElementById("fileUploadModal"));
 
 
@@ -154,9 +162,47 @@ async function showInternshipDetails(internship) {
     previousInternship = internship;
 }
 
-async function applyForInternship(internship) {
 
-    //const modal = document.getElementById("fileUploadModal");
-    //modal.modal("show");
+async function applyForInternship() {
+    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    if(file != null || file != undefined){
+        await uploadFile(file);
+    }
+    else {
+        alert("Please select a file");
+    }
+}
 
+async function uploadFile(file): Promise<void> {
+    try {
+        console.log(file);
+        const formData = new FormData();
+        formData.append('file', file);
+        /*formData.append('internshipId', previousInternship.id.toString());
+        formData.append('studentId', "1")*/
+
+        const responseFile  = await fetch('http://localhost:3000/upload', {
+            method: 'POST',
+            body: formData,
+            /*headers: {
+                'Content-Type': 'multipart/form-data' // Set the correct encoding type
+            }*/
+        });
+
+        const resonseBewerbung = await fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
+            praktikumId: previousInternship.id,
+            schuelerId: currentStudent,
+            bewerbungFileName: file.name
+        });
+
+        if (responseFile.ok && resonseBewerbung.ok) {
+            alert("Bewerbung erfolgreich abgeschickt");
+            console.log('File uploaded successfully');
+        } else {
+            throw new Error('Failed to upload file');
+        }
+    } catch (error) {
+        console.error('Error uploading file:', error.message);
+    }
 }

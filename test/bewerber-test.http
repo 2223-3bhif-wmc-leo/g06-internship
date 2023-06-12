@@ -26,4 +26,4 @@ Content-Type: application/json
 }
 
 ### Delete bewerber
-DELETE http://localhost:3000/api/bewerber/2
+DELETE http://localhost:3000/api/bewerber/5

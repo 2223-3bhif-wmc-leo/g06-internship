@@ -10,6 +10,8 @@ import praktikaRouter from "./routers/praktikum-router";
 import schuelerRouter from "./routers/schueler-router";
 import { join } from "path";
 import bewerberRouter from "./routers/bewerber-router";
+import {Unit} from "./unit";
+import * as bodyParser from "body-parser";
 
 const port: number = 3000;
 const app: Express = express();
@@ -30,8 +32,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
     }
-
-
 
     res.send('File uploaded successfully.');
 });
