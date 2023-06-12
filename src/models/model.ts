@@ -32,4 +32,5 @@ export interface IBewerber {
     id?: number;
     praktikumId: IPraktikum;
     schuelerId: ISchueler;
+    bewerbungFileName: string;
 }

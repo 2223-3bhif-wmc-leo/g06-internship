@@ -45,7 +45,8 @@ router.get('/', async (_: Request, res: Response) => {
         const bewerber: IBewerber = {
             id: id,
             schuelerId: req.body.schuelerId,
-            praktikumId: req.body.praktikumId
+            praktikumId: req.body.praktikumId,
+            bewerbungFileName: req.body.bewerbungFileName
         };
 
         const success: boolean = await service.update(bewerber);
@@ -65,7 +66,8 @@ router.get('/', async (_: Request, res: Response) => {
     try {
         const bewerber: IBewerber = {
             schuelerId: req.body.schuelerId,
-            praktikumId: req.body.praktikumId
+            praktikumId: req.body.praktikumId,
+            bewerbungFileName: req.body.bewerbungFileName
         };
 
         const success: boolean = await service.insert(bewerber);

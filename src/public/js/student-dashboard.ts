@@ -23,8 +23,7 @@ async function fetchRestEndpoint(
     }
 }
 async function loadInternships(){
-    const response = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
-    internships = response;
+    internships = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
     console.log(internships);
     await showInternships(internships);
 }
@@ -121,11 +120,13 @@ async function showInternshipDetails(internship) {
     applyButton.setAttribute("type", "button");
     applyButton.setAttribute("class", "btn btn-primary");
     applyButton.innerText = "Apply";
-    applyButton.addEventListener("click", () => {
+    /*applyButton.addEventListener("click", () => {
         applyForInternship(internship);
-    });
+    });*/
+    applyButton.setAttribute("data-toggle", "modal");
+    applyButton.setAttribute("data-target", "#fileUploadModal");
 
-    applyButtonContainer.append(applyButton);
+    applyButtonContainer.append(applyButton, document.getElementById("fileUploadModal"));
 
 
     const info = document.createElement("div");
@@ -154,5 +155,8 @@ async function showInternshipDetails(internship) {
 }
 
 async function applyForInternship(internship) {
+
+    //const modal = document.getElementById("fileUploadModal");
+    //modal.modal("show");
 
 }

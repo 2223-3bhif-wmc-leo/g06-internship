@@ -10,7 +10,8 @@ Content-Type: application/json
 
 {
   "praktikumId": 1,
-  "schuelerId": 1
+  "schuelerId": 1,
+  "bewerbungFileName": "test.pdf"
 }
 
 ### Update bewerber
@@ -19,7 +20,9 @@ Content-Type: application/json
 
 {
   "praktikumId": 1,
-  "schuelerId": 2
+  "schuelerId": 2,
+  "bewerbungFileName": "test.pdf"
+
 }
 
 ### Delete bewerber

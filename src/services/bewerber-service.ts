@@ -19,11 +19,12 @@ export class BewerberService extends ServiceBase {
     }
 
     public async update(bewerber: IBewerber): Promise<boolean> {
-        const stmt = await this.unit.prepare('update Bewerber set praktikum = ?2, schueler = ?3 where id = ?1',
+        const stmt = await this.unit.prepare('update Bewerber set praktikum = ?2, schueler = ?3, bewerbungFileName = ?4 where id = ?1',
             {
                 1: bewerber.id,
                 2: bewerber.praktikumId,
-                3: bewerber.schuelerId
+                3: bewerber.schuelerId,
+                4: bewerber.bewerbungFileName
             }
         );
         const [success, _] = await this.executeStmt(stmt);
@@ -31,11 +32,12 @@ export class BewerberService extends ServiceBase {
     }
 
     public async insert(bewerber: IBewerber): Promise<boolean> {
-        const stmt = await this.unit.prepare('insert into Bewerber (id, praktikum, schueler) values (?1, ?2, ?3)',
+        const stmt = await this.unit.prepare('insert into Bewerber (id, praktikum, schueler, bewerbungFileName) values (?1, ?2, ?3,?4)',
             {
                 1: bewerber.id,
                 2: bewerber.praktikumId,
-                3: bewerber.schuelerId
+                3: bewerber.schuelerId,
+                4: bewerber.bewerbungFileName
             }
         );
         const [success, _] = await this.executeStmt(stmt);
