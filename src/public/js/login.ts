@@ -101,7 +101,7 @@ async function login() {
 
             try {
                 response = await fetchRestEndpoint(
-                    `http://localhost:3000/api/company/login/try?email=${loginData.email}&passwort=${loginData.password}`,
+                    `http://localhost:3000/api/firmen/login/try?email=${loginData.email}&passwort=${loginData.password}`,
                     "GET");
             } catch (error) {
                 console.log(error);
