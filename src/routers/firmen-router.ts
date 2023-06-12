@@ -5,7 +5,7 @@ import {StatusCodes} from "http-status-codes";
 import {SchulerService} from "../services/schueler-service";
 import {FirmenService} from "../services/firmen-service";
 import {PraktikumService} from "../services/praktikum-service";
-import {IFirma} from "../models/model";
+import {IFirma, ISchueler} from "../models/model";
 
 const router: Router = express.Router();
 router.get('/', async (_: Request, res: Response) => {
@@ -123,6 +123,35 @@ router.delete('/:id', async (req: Request, res: Response) => {
                 await unit.complete(false);
                 res.sendStatus(StatusCodes.BAD_REQUEST);
             }
+        }
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete();
+    }
+}).get('/login/try', async (req: Request, res: Response) => {
+    let email = req.query.email;
+    let passwort = req.query.passwort;
+
+    if (email === undefined || passwort === undefined) {
+        res.sendStatus(StatusCodes.BAD_REQUEST);
+        return;
+    } else {
+        email = email.toString();
+        passwort = passwort.toString();
+    }
+
+    const unit: Unit = await Unit.create(true);
+
+    try {
+        const service: FirmenService = new FirmenService(unit);
+        const firma: IFirma | null = await service.login(email, passwort);
+
+        if (firma === null) {
+            res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
+        } else {
+            res.status(StatusCodes.OK).json(firma);
         }
     } catch (error) {
         console.log(error);

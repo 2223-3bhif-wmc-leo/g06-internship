@@ -67,4 +67,22 @@ export class FirmenService extends ServiceBase {
         const [success, _] = await this.executeStmt(stmt);
         return success;
     }
+
+    public async login(email: string, passwort: string): Promise<IFirma | null> {
+        const stmt = await this.unit.prepare("select * from Firma where email = ?1 and passwort = ?2", {
+            1: email,
+            2: passwort
+        });
+        const rawResult: IFirma | null = ServiceBase.nullIfUndefined(await stmt.get<(IFirma)>());
+
+        return rawResult === null ? null : {
+            id: rawResult.id,
+            name: rawResult.name,
+            email: rawResult.email,
+            telefon: rawResult.telefon,
+            passwort: rawResult.passwort,
+            addresse: rawResult.addresse,
+            beschreibung: rawResult.beschreibung
+        };
+    }
 }

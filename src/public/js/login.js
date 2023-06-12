@@ -142,7 +142,7 @@ function login() {
                     _a.label = 2;
                 case 2:
                     _a.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/company/login/try?email=".concat(loginData.email, "&passwort=").concat(loginData.password), "GET")];
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/login/try?email=".concat(loginData.email, "&passwort=").concat(loginData.password), "GET")];
                 case 3:
                     response = _a.sent();
                     return [3 /*break*/, 5];
