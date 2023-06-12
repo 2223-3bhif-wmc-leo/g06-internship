@@ -1,5 +1,3 @@
-import {ISchueler} from "../../models/model";
-
 async function fetchRestEndpoint(
     route: string,
     method: "GET" | "POST" | "PUT" | "DELETE",
@@ -30,8 +28,8 @@ async function loadStudent() {
 async function getStudent(id: Number): Promise<any> {
     return await fetchRestEndpoint("http://localhost:3000/api/schueler/" + id, "GET");
 }
-async function showStudent(student: ISchueler) {
-    const studentCard = document.getElementById("student-card");
+async function showStudent(student) {
+    const studentCard = document.getElementById("profile");
     const studentCardHeading = document.createElement("div");
     studentCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
 
@@ -43,7 +41,13 @@ async function showStudent(student: ISchueler) {
     studentCardText.classList.add("mb-1");
     studentCardText.innerText = student.email;
 
-    studentCardHeading.appendChild(studentCardTitle);
-    studentCardHeading.appendChild(studentCardText);
-    studentCard.appendChild(studentCardHeading);
+    const studentCardTelefon = document.createElement("p");
+    studentCardTelefon.classList.add("mb-1");
+    studentCardTelefon.innerText = student.telefon;
+
+    const studentCardAdresse = document.createElement("p");
+    studentCardAdresse.classList.add("mb-1");
+    studentCardAdresse.innerText = student.adresse;
+
+    studentCard.append(studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse);
 }
