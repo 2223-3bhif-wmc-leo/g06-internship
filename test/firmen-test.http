@@ -4,7 +4,7 @@ GET http://localhost:3000/api/firmen/1
 
 
 ### Add firma
-POST http://localhost:3000/api/schueler/2
+POST http://localhost:3000/api/firmen/
 Content-Type: application/json
 
 {

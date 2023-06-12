@@ -64,13 +64,11 @@ function fetchRestEndpoint(route, method, data) {
 }
 function loadInternships() {
     return __awaiter(this, void 0, void 0, function () {
-        var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika", "GET")];
                 case 1:
-                    response = _a.sent();
-                    internships = response;
+                    internships = _a.sent();
                     console.log(internships);
                     return [4 /*yield*/, showInternships(internships)];
                 case 2:

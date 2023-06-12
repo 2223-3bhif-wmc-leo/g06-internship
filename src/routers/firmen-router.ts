@@ -43,11 +43,43 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 //post not finished!
+/*router.post('/', async (req: Request, res: Response) => {
+    const unit: Unit = await Unit.create(false);
+    try {
+        const service: FirmenService = new FirmenService(unit);
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete();
+    }
+});*/
+
 router.post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
     try {
         const service: FirmenService = new FirmenService(unit);
 
+        const firma: IFirma = {
+            id: Number(req.body.id),
+            name: req.body.name,
+            email: req.body.email,
+            telefon: req.body.telefon,
+            beschreibung: req.body.beschreibung,
+            addresse: req.body.addresse,
+            passwort: req.body.passwort
+        }
+
+        const success = await service.insert(firma);
+
+        if (success) {
+            await unit.complete(true);
+            res.sendStatus(StatusCodes.CREATED);
+        } else {
+            await unit.complete(false);
+            res.sendStatus(StatusCodes.BAD_REQUEST);
+        }
     } catch (error) {
         console.log(error);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
