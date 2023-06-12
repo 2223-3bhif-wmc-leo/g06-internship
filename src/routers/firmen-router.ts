@@ -8,8 +8,6 @@ import {PraktikumService} from "../services/praktikum-service";
 import {IFirma} from "../models/model";
 
 const router: Router = express.Router();
-
-// TODO: Implementieren Sie hier die Routen für die Firmen-Entität
 router.get('/', async (_: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
     try {
@@ -42,46 +40,63 @@ router.get('/:id', async (req: Request, res: Response) => {
     }
 });
 
-//post not finished!
-/*router.post('/', async (req: Request, res: Response) => {
-    const unit: Unit = await Unit.create(false);
-    try {
-        const service: FirmenService = new FirmenService(unit);
-
-    } catch (error) {
-        console.log(error);
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    } finally {
-        await unit.complete();
-    }
-});*/
-
 router.post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
+    const firmaService: FirmenService = new FirmenService(unit);
+
+
+    const firma: IFirma = {
+        name: req.body.name,
+        email: req.body.email,
+        passwort: req.body.passwort,
+        beschreibung: req.body.beschreibung,
+        addresse: req.body.adresse,
+        telefon: req.body.telefon
+    };
+
     try {
-        const service: FirmenService = new FirmenService(unit);
-
-        const firma: IFirma = {
-            id: Number(req.body.id),
-            name: req.body.name,
-            email: req.body.email,
-            telefon: req.body.telefon,
-            beschreibung: req.body.beschreibung,
-            addresse: req.body.addresse,
-            passwort: req.body.passwort
-        }
-
-        const success = await service.insert(firma);
-
+        const success = await firmaService.insert(firma);
         if (success) {
             await unit.complete(true);
             res.sendStatus(StatusCodes.CREATED);
         } else {
             await unit.complete(false);
-            res.sendStatus(StatusCodes.BAD_REQUEST);
+            res.sendStatus(StatusCodes.NOT_FOUND);
         }
-    } catch (error) {
-        console.log(error);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete(false);
+    }
+});
+
+router.put('/:id', async (req: Request, res: Response) => {
+    const id: number = Number(req.params.id);
+    const unit: Unit = await Unit.create(false);
+    const firmaService: FirmenService = new FirmenService(unit);
+
+    const firma: IFirma = {
+        id: id,
+        name: req.body.name,
+        email: req.body.email,
+        passwort: req.body.passwort,
+        beschreibung: req.body.beschreibung,
+        addresse: req.body.adresse,
+        telefon: req.body.telefon
+    };
+
+    try {
+        const success = await firmaService.update(firma);
+        if (success) {
+            await unit.complete(true);
+            res.sendStatus(StatusCodes.OK);
+        } else {
+            await unit.complete(false);
+            res.sendStatus(StatusCodes.NOT_FOUND);
+        }
+    } catch (e) {
+        console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     } finally {
         await unit.complete();
