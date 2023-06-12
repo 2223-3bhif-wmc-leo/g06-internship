@@ -8,11 +8,11 @@ POST http://localhost:3000/api/firmen
 Content-Type: application/json
 
 {
-    "name": "Micosoft",
+    "name": "Linux",
     "email" : "firma@email.com",
     "passwort" : "123456789",
     "beschreibung" : "Wir sind eine Firma",
-    "adresse" : "Daffingerstraße 600",
+    "adresse" : "Kreimlstrasse 5",
     "telefon" : "123456789"
   }
 
