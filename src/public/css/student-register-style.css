@@ -1,52 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+.gradient-custom {
+    background: #f093fb;
+    background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+    background: linear-gradient(to right, #dc3545, #ff7f50)
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 10px;
+    line-height: 1.5;
+    padding-left: .75em;
+    padding-right: .75em;
 }
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-input {
-    margin: 10px;
-    padding: 10px;
-    width: 300px;
-    font-size: 16px;
-}
-
-.submit-button {
-    margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #3366cc;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.submit-button:hover {
-    background-color: #254c99;
-}
-
-label {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px;
+.card-registration .select-arrow {
+    top: 13px;
 }

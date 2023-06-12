@@ -18,88 +18,71 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
-
+            <li>
+                <a class="nav-link" href="login.html">Login</a>
+            </li>
         </ul>
     </div>
 </nav>
 
-<section class="h-100 gradient-form">
+<section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Register as a student</h3>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="studentName">Name</label>
+                                        <input type="text" id="studentName" class="form-control form-control-md" placeholder="Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline datepicker w-100">
+                                        <label for="studentPassword" class="password">Password</label>
+                                        <input type="password" class="form-control form-control-md" id="studentPassword" placeholder="Password"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="email" for="studentEmail">Email</label>
+                                        <input type="email" id="studentEmail" class="form-control form-control-md" placeholder="Email"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label for="studentPhoneNumber">Phone number</label>
+                                        <input type="tel" id="studentPhoneNumber" class="form-control form-control-md" placeholder="Phone number"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="studentAddress">Address</label>
+                                        <input type="text" id="studentAddress" class="form-control form-control-md" placeholder="Address" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-2">
+                                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </div>
         </div>
     </div>
 </section>
-
-<form class="row g-3">
-    <div class="form-group">
-        <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4">
-    </div>
-    <div class="form-group">
-        <label for="inputPassword4" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword4">
-    </div>
-    <div class="form-group">
-        <label for="inputAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-        <label for="inputAddress2" class="form-label">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-group">
-        <label for="inputCity" class="form-label">City</label>
-        <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group">
-        <label for="inputState" class="form-label">State</label>
-        <select id="inputState" class="form-select">
-            <option selected>Choose...</option>
-            <option>...</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                Check me out
-            </label>
-        </div>
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign in</button>
-    </div>
-</form>
-<!--<div class="container">
-    <h1>Student Registration</h1>
-    <form>
-        <label for="name">Name</label><input type="text" id="name" placeholder="Name" required>
-        <label for="email">Email</label><input type="email" id="email" placeholder="Email" required>
-        <label for="password">Password</label><input type="password" id="password" placeholder="Password" required>
-        <label for="address">Address</label><input type="text" id="address" placeholder="Address" required>
-        <label for="phone">Phone</label><input type="tel" id="phone" placeholder="Phone" required>
-        <button type="submit" class="submit-button">Register</button>
-    </form>
-</div>-->
 </body>
 </html>
