@@ -49,12 +49,18 @@ async function postStudent() {
         let response;
 
         console.log(registerData);
-        response = await fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData);
-        console.log(response);
-        if (response.status === 201) {
-            alert("Successfully registered");
+
+        try {
+            response = await fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData);
+        } catch (error) {
+            console.log(error);
+        }
+
+        if (response) {
+            console.log(response);
+            alert("Register successful");
         } else {
-            alert("Something went wrong");
+            alert("Register failed");
         }
     }
 }
