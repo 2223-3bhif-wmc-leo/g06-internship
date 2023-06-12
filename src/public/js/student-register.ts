@@ -1,4 +1,3 @@
-
 let studentSubmitBtn;
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -41,27 +40,21 @@ async function postStudent() {
         alert("Please fill in all fields");
     } else {
         let registerData = {
-            name: this.name,
-            email: this.email,
-            passwort: this.password,
-            adresse: this.address,
-            telefon: this.telefon
+            name: name,
+            email: email,
+            passwort: password,
+            adresse: address,
+            telefon: phoneNumber
         }
         let response;
 
         console.log(registerData);
-
-        try {
-            response = await fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData);
-        } catch (error) {
-            console.log(error);
-        }
-
-        if (response) {
-            console.log(response);
-            console.log("Register successful");
+        response = await fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData);
+        console.log(response);
+        if (response.status === 201) {
+            alert("Successfully registered");
         } else {
-            alert("Register failed");
+            alert("Something went wrong");
         }
     }
 }
