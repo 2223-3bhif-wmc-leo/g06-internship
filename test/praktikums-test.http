@@ -1,9 +1,6 @@
 ### Get all praktika of a firme
 GET http://localhost:3000/api/praktika/firma/1
 
-### Get all praktika of a schueler
-GET http://localhost:3000/api/praktika/schueler/1
-
 ### Get a specific praktikum
 GET http://localhost:3000/api/praktika/2
 
@@ -12,13 +9,12 @@ POST http://localhost:3000/api/praktika
 Content-Type: application/json
 
 {
-  "titel": "Informatik Praktikum",
-  "beschreibung": "1 Monat Praktikum in der Informatik",
-  "anforderungen": "Baba programmierer",
+  "titel": "Prakikum in der Informatik",
+  "beschreibung": "1 Montat praktikum in der Informatik \n Aufgaben: \n Entwickeln von Software \n Testen von Software \n Dokumentation von Software",
+  "anforderungen": "Currently pursuing a degree in Computer Science or related field  \n  Strong programming skills in languages such as Java, Python, or C++  \n Good problem-solving abilities   \nExcellent communication and teamwork skills",
   "firma": 1,
-  "schueler": null,
   "dauertage": 30,
-  "anmeldungsdatum": "2019-01-01"
+  "gehalt": 1000
 }
 
 ### Add praktikum
@@ -30,9 +26,8 @@ Content-Type: application/json
 "beschreibung": "Beschreibung 1",
 "anforderungen": "Baba programmierer",
 "firma": 1,
-"schueler": 1,
 "dauertage": 30,
-"anmeldungsdatum": "2019-01-01"
+"gehalt": 1000
 }
 
 ### Delete schueler

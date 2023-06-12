@@ -38,23 +38,6 @@ router.get('/', async (req: Request, res: Response) => {
         await unit.complete();
     }
 
-}).get('/schueler/:id', async (req: Request, res: Response) => {
-    const schuelerId: number = parseInt(req.params.id);
-    const unit: Unit = await Unit.create(true);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
-    try {
-        const praktikaOfSchueler = await praktikaService.getPraktikenOfSchueler(schuelerId);
-        if (praktikaOfSchueler.length > 0) {
-            res.status(StatusCodes.OK).json(praktikaOfSchueler);
-        } else {
-            res.sendStatus(StatusCodes.NOT_FOUND);
-        }
-    } catch (e) {
-        console.log(e);
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    } finally {
-        await unit.complete();
-    }
 }).get('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
@@ -82,8 +65,8 @@ router.get('/', async (req: Request, res: Response) => {
         dauertage: req.body.dauertage,
         anforderungen: req.body.anforderungen,
         firma: req.body.firma,
-        schueler: req.body.schueler,
-        anmeldungsdatum: req.body.anmeldungsdatum
+        gehalt: req.body.gehalt,
+        aufgegeben : new Date().toDateString()
     }
 
     try {
@@ -99,7 +82,7 @@ router.get('/', async (req: Request, res: Response) => {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     } finally {
-        await unit.complete();
+        await unit.complete(false);
     }
 
 }).put('/:id', async (req: Request, res: Response) => {
@@ -115,8 +98,7 @@ router.get('/', async (req: Request, res: Response) => {
             dauertage: req.body.dauertage,
             anforderungen: req.body.anforderungen,
             firma: req.body.firma,
-            schueler: req.body.schueler,
-            anmeldungsdatum: req.body.anmeldungsdatum
+            gehalt: req.body.gehalt,
         }
         const success = await praktikaService.updatePraktikum(praktikum);
         if(success){

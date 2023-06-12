@@ -10,22 +10,23 @@ export class PraktikumService extends ServiceBase {
     public async updatePraktikum(praktikum: IPraktikum): Promise<boolean> {
         const stmt = await this.unit.prepare("" +
             `update Praktikum
-             set titel           = ?1,
-                 beschreibung    = ?2,
-                 dauertage       = ?3,
-                 anforderungen   = ?4,
-                 firma           = ?5,
-                 anmeldungsdatum = ?6,
-                 where id = ?7`,
+             set titel         = ?1,
+                 beschreibung  = ?2,
+                 dauertage     = ?3,
+                 anforderungen = ?4,
+                 firma         = ?5,
+                 aufgegeben    = ?6,
+                 gehalt        = ?7
+             where id = ?8`,
             {
                 1: praktikum.titel,
                 2: praktikum.beschreibung,
                 3: praktikum.dauertage,
-                4: praktikum.firma,
-                5: praktikum.schueler,
-                6: praktikum.anmeldungsdatum,
-                7: praktikum.id
-
+                4: praktikum.anforderungen,
+                5: praktikum.firma,
+                6: praktikum.aufgegeben,
+                7: praktikum.gehalt,
+                8: praktikum.id
             }
         );
         const [success, _] = await this.executeStmt(stmt);
@@ -34,15 +35,15 @@ export class PraktikumService extends ServiceBase {
 
     public async insertPraktikum(praktikum: IPraktikum): Promise<boolean> {
         const stmt = await this.unit.prepare(
-            "insert into Praktikum (titel, beschreibung, dauertage, anforderungen, firma,schueler, anmeldungsdatum) values (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+            "insert into Praktikum (titel, beschreibung, dauertage, anforderungen, firma, gehalt, aufgegeben) values (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
             {
                 1: praktikum.titel,
                 2: praktikum.beschreibung,
                 3: praktikum.dauertage,
                 4: praktikum.anforderungen,
                 5: praktikum.firma,
-                6: praktikum.schueler,
-                7: praktikum.anmeldungsdatum
+                6: praktikum.gehalt,
+                7: praktikum.aufgegeben
             }
         );
         const [success, _] = await this.executeStmt(stmt);
@@ -73,12 +74,6 @@ export class PraktikumService extends ServiceBase {
     public async getPraktikaOfFirma(firmenId: number): Promise<IPraktikum[]> {
         const stmt = await this.unit.prepare(
             "select * from Praktikum where firma = ?1", firmenId);
-        return stmt.all<IPraktikum[]>();
-    }
-
-    public async getPraktikenOfSchueler(schuelerId: number): Promise<IPraktikum[]> {
-        const stmt = await this.unit.prepare(
-            "select * from Praktikum where schueler = ?1", schuelerId);
         return stmt.all<IPraktikum[]>();
     }
 }

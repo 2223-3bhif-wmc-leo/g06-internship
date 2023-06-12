@@ -80,11 +80,10 @@ export class DB {
                                   beschreibung    TEXT    NOT NULL,
                                   dauertage       INTEGER NOT NULL,
                                   anforderungen   TEXT    NOT NULL,
+                                  aufgegeben      Text    NULL,
+                                  gehalt          TEXT    Null,
                                   firma           integer NOT NULL,
-                                  schueler        integer,
-                                  anmeldungsdatum TEXT    NOT NULL,
                                   constraint fk_praktikum_firma foreign key (firma) references Firma (id) on delete cascade,
-                                  constraint fk_praktikum_schueler foreign key (schueler) references Schueler (id),
                                   CONSTRAINT PK_Praktikum primary key (id)
                               ) strict`
         );

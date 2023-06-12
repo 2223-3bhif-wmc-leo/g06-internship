@@ -15,8 +15,8 @@ export interface IPraktikum {
     dauertage: number;
     anforderungen: string;
     firma: IFirma;
-    schueler: ISchueler;
-    anmeldungsdatum: Date;
+    aufgegeben?: string;
+    gehalt?: string;
 }
 
 export interface ISchueler {
