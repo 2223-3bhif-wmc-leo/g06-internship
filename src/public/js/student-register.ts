@@ -1,3 +1,4 @@
+
 let studentSubmitBtn;
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -40,11 +41,11 @@ async function postStudent() {
         alert("Please fill in all fields");
     } else {
         let registerData = {
-            name: name,
-            email: email,
-            passwort: password,
-            adresse: address,
-            telefon: phoneNumber
+            name: this.name,
+            email: this.email,
+            passwort: this.password,
+            adresse: this.address,
+            telefon: this.telefon
         }
         let response;
 
@@ -58,7 +59,11 @@ async function postStudent() {
 
         if (response) {
             console.log(response);
+<<<<<<< HEAD
             alert("Register successful");
+=======
+            console.log("Register successful");
+>>>>>>> 66001a56591afb9585a8b780ef6794d918c23a9b
         } else {
             alert("Register failed");
         }
