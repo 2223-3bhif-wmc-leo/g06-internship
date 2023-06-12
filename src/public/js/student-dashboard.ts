@@ -10,7 +10,6 @@ window.addEventListener("load", () => {
     });
 });
 
-
 async function fetchRestEndpoint(
     route: string,
     method: "GET" | "POST" | "PUT" | "DELETE",
