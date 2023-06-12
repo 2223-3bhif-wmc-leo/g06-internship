@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "name": "Linux",
-    "email" : "firma@email.com",
+    "email" : "ds@email.com",
     "passwort" : "123456789",
     "beschreibung" : "Wir sind eine Firma",
     "adresse" : "Kreimlstrasse 5",

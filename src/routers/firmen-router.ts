@@ -55,7 +55,14 @@ router.post('/', async (req: Request, res: Response) => {
     };
 
     try {
-        const success = await firmaService.insert(firma);
+        let success = false;
+
+        if(await (await firmaService.getAll()).find(s => s.email === firma.email)){
+            res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
+            return;
+        }else {
+            success = await firmaService.insert(firma);
+        }
         if (success) {
             await unit.complete(true);
             res.sendStatus(StatusCodes.CREATED);
