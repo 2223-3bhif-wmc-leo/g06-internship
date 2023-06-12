@@ -109,6 +109,7 @@ async function login() {
 
             if (response) {
                 console.log(response);
+                window.location.href = "http://localhost:3000/company-dashboard.html";
             } else {
                 alert("Login failed");
             }
@@ -125,7 +126,7 @@ async function login() {
 
             if (response) {
                 console.log(response);
-                window.location.href = "http://localhost:3000/student/dashboard";
+                window.location.href = "http://localhost:3000/student-dashboard.html";
             } else {
                 alert("Login failed");
             }
@@ -134,4 +135,3 @@ async function login() {
         }
     }
 }
-
