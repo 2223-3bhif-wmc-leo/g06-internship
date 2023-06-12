@@ -1,4 +1,3 @@
-import {ISchueler} from "../../models/model";
 
 let studentSubmitBtn;
 
@@ -41,7 +40,7 @@ async function postStudent() {
     if (password === null || email === "" || password === "" || address === "" || phoneNumber === "") {
         alert("Please fill in all fields");
     } else {
-        let registerData: ISchueler = {
+        let registerData = {
             name: this.name,
             email: this.email,
             passwort: this.password,
