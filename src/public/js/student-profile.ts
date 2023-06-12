@@ -1,4 +1,3 @@
-
 async function fetchRestEndpoint(
     route: string,
     method: "GET" | "POST" | "PUT" | "DELETE",
@@ -50,5 +49,5 @@ async function showStudent(student) {
     studentCardAdresse.classList.add("mb-1");
     studentCardAdresse.innerText = student.adresse;
 
-    studentCard.append(studentCardHeading,studentCardTitle,studentCardText,studentCardTelefon,studentCardAdresse);
+    studentCard.append(studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse);
 }

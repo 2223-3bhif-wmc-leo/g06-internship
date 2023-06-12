@@ -22,11 +22,12 @@ Content-Type: application/json
 
 {
   "name": "Arnold Schwarzenegger",
-  "email": "terminator@htl",
+  "email": "arnold@htl",
   "passwort": "123456",
   "adresse": "Musterstraße",
   "telefon": "0123456789"
 }
+
 
 ### Delete schueler
 DELETE http://localhost:3000/api/schueler/1
