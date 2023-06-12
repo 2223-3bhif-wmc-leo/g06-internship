@@ -1,0 +1,36 @@
+### Get specific firma
+GET http://localhost:3000/api/firmen/1
+
+
+
+### Add firma
+POST http://localhost:3000/api/schueler/2
+Content-Type: application/json
+
+{
+    "name": "Micosoft",
+    "adresse": "Daffingerstraße 600",
+    "email" : "firma@email.com",
+    "telefon" : "123456789",
+    "password" : "123456789",
+    "beschreibung" : "Wir sind eine Firma",
+    "addresse" : "Daffingerstraße 600"
+  }
+
+### Update firma
+PUT http://localhost:3000/api/firma/
+Content-Type: application/json
+
+{
+  "name": "Micosoft",
+  "adresse": "Daffingerstraße 600",
+  "email" : "firma@email.com",
+  "telefon" : "123456789",
+  "password" : "123456789",
+  "beschreibung" : "Wir sind eine Firma",
+  "addresse" : "Daffingerstraße 600"
+}
+
+
+### Delete firma
+DELETE http://localhost:3000/api/firma/1

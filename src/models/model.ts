@@ -3,6 +3,9 @@ export interface IFirma {
     name: string;
     email: string;
     telefon: string;
+    beschreibung: string;
+    addresse: string;
+    passwort: string;
 }
 
 export interface IPraktikum {
@@ -20,6 +23,7 @@ export interface ISchueler {
     id: number;
     name: string;
     email: string;
+    passwort: string;
     adresse: string;
     telefon: string;
 }

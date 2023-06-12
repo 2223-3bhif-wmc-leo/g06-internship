@@ -3,8 +3,6 @@ import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
 import {SchulerService} from "../services/schueler-service";
-import {FirmenService} from "../services/firmen-service";
-import {PraktikumService} from "../services/praktikum-service";
 import {ISchueler} from "../models/model";
 
 const router: Router = express.Router();
@@ -21,9 +19,7 @@ router.get('/', async (_: Request, res: Response) => {
     } finally {
         await unit.complete();
     }
-});
-
-router.get('/:id', async (req: Request, res: Response) => {
+}).get('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
 
     const unit: Unit = await Unit.create(true);
@@ -41,10 +37,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     } finally {
         await unit.complete();
     }
-});
-
-// TODO: Implementieren der put Methode (failed)
-router.put('/:id', async (req: Request, res: Response) => {
+}).put('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
 
     const unit: Unit = await Unit.create(false);
@@ -58,6 +51,7 @@ router.put('/:id', async (req: Request, res: Response) => {
             id: id,
             name: req.body.name,
             email: req.body.email,
+            passwort: req.body.passwort,
             adresse: req.body.adresse,
             telefon: req.body.telefon,
         };
@@ -77,10 +71,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     } finally {
         await unit.complete(false);
     }
-});
-
-// TODO: Implementieren der put Methode (bad)
-router.delete('/:id', async (req: Request, res: Response) => {
+}).delete('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
 
     const unit: Unit = await Unit.create(false);
@@ -106,5 +97,34 @@ router.delete('/:id', async (req: Request, res: Response) => {
         await unit.complete(false);
     }
 
+}).get('/login/try', async (req: Request, res: Response) => {
+    let email = req.query.email;
+    let passwort = req.query.passwort;
+
+    if (email === undefined || passwort === undefined) {
+        res.sendStatus(StatusCodes.BAD_REQUEST);
+        return;
+    } else {
+        email = email.toString();
+        passwort = passwort.toString();
+    }
+
+    const unit: Unit = await Unit.create(true);
+
+    try {
+        const service: SchulerService = new SchulerService(unit);
+        const schueler: ISchueler | null = await service.login(email, passwort);
+
+        if (schueler === null) {
+            res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
+        } else {
+            res.status(StatusCodes.OK).json(schueler);
+        }
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete();
+    }
 });
 export default router;

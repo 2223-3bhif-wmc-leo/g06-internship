@@ -2,10 +2,7 @@
 import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
-import {SchulerService} from "../services/schueler-service";
-import {FirmenService} from "../services/firmen-service";
 import {PraktikumService} from "../services/praktikum-service";
-import {isNullOrUndefined} from "util";
 import {IPraktikum} from "../models/model";
 
 const router: Router = express.Router();
@@ -15,20 +12,17 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
     const firmaId: number = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
     const praktikaService: PraktikumService = new PraktikumService(unit);
-    try{
+    try {
         const praktikaOfFirma = await praktikaService.getPraktikaOfFirma(firmaId);
-        if(praktikaOfFirma.length > 0){
+        if (praktikaOfFirma.length > 0) {
             res.status(StatusCodes.OK).json(praktikaOfFirma);
-        }
-        else{
+        } else {
             res.sendStatus(StatusCodes.NOT_FOUND);
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    finally {
+    } finally {
         await unit.complete();
     }
 
@@ -36,40 +30,34 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
     const schuelerId: number = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
     const praktikaService: PraktikumService = new PraktikumService(unit);
-    try{
+    try {
         const praktikaOfSchueler = await praktikaService.getPraktikenOfSchueler(schuelerId);
-        if(praktikaOfSchueler.length > 0){
+        if (praktikaOfSchueler.length > 0) {
             res.status(StatusCodes.OK).json(praktikaOfSchueler);
-        }
-        else{
+        } else {
             res.sendStatus(StatusCodes.NOT_FOUND);
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    finally {
+    } finally {
         await unit.complete();
     }
 }).get('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
     const praktikaService: PraktikumService = new PraktikumService(unit);
-    try{
+    try {
         const praktikum = await praktikaService.getPraktikumById(id);
-        if(praktikum !== null){
+        if (praktikum !== null) {
             res.status(StatusCodes.OK).json(praktikum);
-        }
-        else{
+        } else {
             res.sendStatus(StatusCodes.NOT_FOUND);
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    finally {
+    } finally {
         await unit.complete();
     }
 }).post('/', async (req: Request, res: Response) => {
@@ -86,20 +74,18 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
         anmeldungsdatum: req.body.anmeldungsdatum
     }
 
-    try{
+    try {
         const success = await praktikaService.insertPraktikum(praktikum);
-        if(success){
+        if (success) {
             await unit.complete(true);
             res.sendStatus(StatusCodes.CREATED);
+        } else {
+            res.sendStatus(StatusCodes.NOT_FOUND);
         }
-        else{
-            res.sendStatus(StatusCodes.NOT_FOUND);}
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    finally {
+    } finally {
         await unit.complete(false);
     }
 
@@ -140,22 +126,19 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(false);
     const praktikaService: PraktikumService = new PraktikumService(unit);
-    try{
+    try {
         const success = await praktikaService.delete(id);
-        if(success){
+        if (success) {
             await unit.complete(true);
             res.sendStatus(StatusCodes.OK);
-        }
-        else{
+        } else {
             await unit.complete(false);
             res.sendStatus(StatusCodes.NOT_FOUND);
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    finally {
+    } finally {
         await unit.complete();
     }
 });

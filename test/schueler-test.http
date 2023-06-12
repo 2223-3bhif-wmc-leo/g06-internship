@@ -11,9 +11,13 @@ Content-Type: application/json
 {
   "name": "Max Mustermann",
   "email": "max@mustermann",
+  "password": "123456",
   "address": "Musterstraße 1",
   "telefon": "0123456789"
 }
 
 ### Delete schueler
 DELETE http://localhost:3000/api/schueler/1
+
+### Login
+GET http://localhost:3000/api/schueler/login/try?email=f.stro@htl&passwort=123

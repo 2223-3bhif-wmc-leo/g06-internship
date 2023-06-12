@@ -2,7 +2,8 @@ import {Unit} from "../unit";
 import {Statement} from "sqlite";
 
 export abstract class ServiceBase {
-    constructor(protected readonly unit: Unit) {}
+    constructor(protected readonly unit: Unit) {
+    }
 
     protected async executeStmt(stmt: Statement): Promise<[success: boolean, id: number | null]> {
         const result = await stmt.run();
