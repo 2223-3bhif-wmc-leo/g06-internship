@@ -34,9 +34,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _this = this;
 var internships = [];
 var previousInternship = null;
 var previousInternshipDetails = null;
+var currentStudent = 1;
+window.addEventListener("load", function () {
+    var uploadButton = document.getElementById("uploadBtn");
+    uploadButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, applyForInternship()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -210,10 +225,65 @@ function showInternshipDetails(internship) {
         });
     });
 }
-function applyForInternship(internship) {
+function applyForInternship() {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
+        var fileInput, file;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    fileInput = document.getElementById("fileInput");
+                    file = (_a = fileInput.files) === null || _a === void 0 ? void 0 : _a[0];
+                    if (!(file != null || file != undefined)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, uploadFile(file)];
+                case 1:
+                    _b.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    alert("Please select a file");
+                    _b.label = 3;
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function uploadFile(file) {
+    return __awaiter(this, void 0, void 0, function () {
+        var formData, responseFile, resonseBewerbung, error_1;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    console.log(file);
+                    formData = new FormData();
+                    formData.append('file', file);
+                    return [4 /*yield*/, fetch('http://localhost:3000/upload', {
+                            method: 'POST',
+                            body: formData
+                        })];
+                case 1:
+                    responseFile = _a.sent();
+                    return [4 /*yield*/, fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
+                            praktikumId: previousInternship.id,
+                            schuelerId: currentStudent,
+                            bewerbungFileName: file.name
+                        })];
+                case 2:
+                    resonseBewerbung = _a.sent();
+                    if (responseFile.ok && resonseBewerbung.ok) {
+                        alert("Bewerbung erfolgreich abgeschickt");
+                        console.log('File uploaded successfully');
+                    }
+                    else {
+                        throw new Error('Failed to upload file');
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error('Error uploading file:', error_1.message);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
         });
     });
 }
