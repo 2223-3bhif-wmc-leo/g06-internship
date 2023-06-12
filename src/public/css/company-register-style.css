@@ -1,9 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+.gradient-custom {
+    background: #f093fb;
+    background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+    background: linear-gradient(to right, #dc3545, #ff7f50)
 }
 
-.gradient-form {
-    background-color: #eee;
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 10px;
+    line-height: 1.5;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+.card-registration .select-arrow {
+    top: 13px;
 }
