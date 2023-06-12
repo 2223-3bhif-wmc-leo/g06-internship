@@ -66,7 +66,7 @@ function fetchRestEndpoint(route, method, data) {
 }
 function postStudent() {
     return __awaiter(this, void 0, void 0, function () {
-        var name, email, password, address, phoneNumber, registerData, response, error_1;
+        var name, email, password, address, phoneNumber, registerData, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -78,38 +78,29 @@ function postStudent() {
                     console.log(name, email, password, address, phoneNumber);
                     if (!(password === null || email === "" || password === "" || address === "" || phoneNumber === "")) return [3 /*break*/, 1];
                     alert("Please fill in all fields");
-                    return [3 /*break*/, 6];
+                    return [3 /*break*/, 3];
                 case 1:
                     registerData = {
-                        name: this.name,
-                        email: this.email,
-                        passwort: this.password,
-                        adresse: this.address,
-                        telefon: this.telefon
+                        name: name,
+                        email: email,
+                        passwort: password,
+                        adresse: address,
+                        telefon: phoneNumber
                     };
                     response = void 0;
                     console.log(registerData);
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 4, , 5]);
                     return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData)];
-                case 3:
+                case 2:
                     response = _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_1 = _a.sent();
-                    console.log(error_1);
-                    return [3 /*break*/, 5];
-                case 5:
-                    if (response) {
-                        console.log(response);
-                        console.log("Register successful");
+                    console.log(response);
+                    if (response.status === 201) {
+                        alert("Successfully registered");
                     }
                     else {
-                        alert("Register failed");
+                        alert("Something went wrong");
                     }
-                    _a.label = 6;
-                case 6: return [2 /*return*/];
+                    _a.label = 3;
+                case 3: return [2 /*return*/];
             }
         });
     });
