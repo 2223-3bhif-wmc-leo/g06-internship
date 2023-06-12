@@ -8,6 +8,7 @@ import firmenRouter from "./routers/firmen-router";
 import praktikaRouter from "./routers/praktikum-router";
 import schuelerRouter from "./routers/schueler-router";
 import { join } from "path";
+import bewerberRouter from "./routers/bewerber-router";
 
 const port: number = 3000;
 const app: Express = express();
@@ -20,6 +21,7 @@ app.use("/", express.static(join(__dirname, "public")));
 app.use('/api/firmen', firmenRouter);
 app.use('/api/praktika', praktikaRouter);
 app.use('/api/schueler', schuelerRouter);
+app.use('/api/bewerber', bewerberRouter);
 
 (async () => {
     const db = await DB.createDBConnection();
