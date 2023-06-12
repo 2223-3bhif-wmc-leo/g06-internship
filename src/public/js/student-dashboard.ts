@@ -1,6 +1,7 @@
 let internships = [];
 let previousInternship = null;
 let previousInternshipDetails = null;
+const currentStudent = 1;
 
 async function fetchRestEndpoint(
     route: string,
@@ -156,7 +157,17 @@ async function showInternshipDetails(internship) {
 
 async function applyForInternship(internship) {
 
-    //const modal = document.getElementById("fileUploadModal");
-    //modal.modal("show");
 
+
+    fetchRestEndpoint("http://localhost:3000/api/bewerbungen", "POST", {
+        praktikum: internship.id,
+        //student: currentStudent.id,
+        //file: "
+    })
+
+}
+
+async function sendFile() {
+    const file = document.getElementById("file");
+    const formData = new FormData();
 }
