@@ -49,6 +49,12 @@ export class PraktikumService extends ServiceBase {
         return success;
     }
 
+    public async getPraktika(): Promise<IPraktikum[]> {
+        const stmt = await this.unit.prepare(
+            "select * from Praktikum");
+        return stmt.all<IPraktikum[]>();
+    }
+
     public async getPraktikumById(id: number): Promise<IPraktikum | null> {
         const stmt = await this.unit.prepare(
             "select * from Praktikum where id = ?1", id);

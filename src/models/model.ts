@@ -1,5 +1,5 @@
 export interface IFirma {
-    id: number;
+    id?: number;
     name: string;
     email: string;
     telefon: string;
@@ -20,10 +20,16 @@ export interface IPraktikum {
 }
 
 export interface ISchueler {
-    id: number;
+    id?: number;
     name: string;
     email: string;
     passwort: string;
     adresse: string;
     telefon: string;
+}
+
+export interface IBewerber {
+    id?: number;
+    praktikumId: IPraktikum;
+    schuelerId: ISchueler;
 }

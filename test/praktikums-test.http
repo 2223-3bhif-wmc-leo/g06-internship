@@ -5,18 +5,18 @@ GET http://localhost:3000/api/praktika/firma/1
 GET http://localhost:3000/api/praktika/schueler/1
 
 ### Get a specific praktikum
-GET http://localhost:3000/api/praktika/3
+GET http://localhost:3000/api/praktika/2
 
 ### Add praktikum
 POST http://localhost:3000/api/praktika
 Content-Type: application/json
 
 {
-  "titel": "244 1",
-  "beschreibung": "Beschreibung 1",
+  "titel": "Informatik Praktikum",
+  "beschreibung": "1 Monat Praktikum in der Informatik",
   "anforderungen": "Baba programmierer",
   "firma": 1,
-  "schueler": 1,
+  "schueler": null,
   "dauertage": 30,
   "anmeldungsdatum": "2019-01-01"
 }

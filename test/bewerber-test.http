@@ -1,0 +1,26 @@
+### Get all bewerber
+GET http://localhost:3000/api/bewerber
+
+### Get specific bewerber
+GET http://localhost:3000/api/bewerber/1
+
+### Add bewerber
+POST http://localhost:3000/api/bewerber
+Content-Type: application/json
+
+{
+  "praktikumId": 1,
+  "schuelerId": 1
+}
+
+### Update bewerber
+PUT http://localhost:3000/api/bewerber/1
+Content-Type: application/json
+
+{
+  "praktikumId": 1,
+  "schuelerId": 2
+}
+
+### Delete bewerber
+DELETE http://localhost:3000/api/bewerber/2

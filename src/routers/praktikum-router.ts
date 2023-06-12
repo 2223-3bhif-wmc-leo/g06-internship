@@ -7,8 +7,20 @@ import {IPraktikum} from "../models/model";
 
 const router: Router = express.Router();
 
-// TODO: Implementieren Sie hier die Routen für die Praktikum-Entität
-router.get('/firma/:id', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
+    const unit: Unit = await Unit.create(true);
+    const praktikaService: PraktikumService = new PraktikumService(unit);
+    try {
+        const praktika = await praktikaService.getPraktika();
+        res.status(StatusCodes.OK).json(praktika);
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete();
+    }
+}).get('/firma/:id', async (req: Request, res: Response) => {
     const firmaId: number = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
     const praktikaService: PraktikumService = new PraktikumService(unit);
@@ -80,13 +92,14 @@ router.get('/firma/:id', async (req: Request, res: Response) => {
             await unit.complete(true);
             res.sendStatus(StatusCodes.CREATED);
         } else {
+            await unit.complete(false);
             res.sendStatus(StatusCodes.NOT_FOUND);
         }
     } catch (e) {
         console.log(e);
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     } finally {
-        await unit.complete(false);
+        await unit.complete();
     }
 
 }).put('/:id', async (req: Request, res: Response) => {

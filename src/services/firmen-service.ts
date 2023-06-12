@@ -8,8 +8,6 @@ export class FirmenService extends ServiceBase {
         super(unit);
     }
 
-    // TODO: Implementieren Sie hier die Methoden für die Firmen-Entität
-
     public async getAll(): Promise<IFirma[]> {
         const stmt = await this.unit.prepare("select * from Firma");
         return await stmt.all<IFirma[]>();
