@@ -59,11 +59,7 @@ async function postStudent() {
 
         if (response) {
             console.log(response);
-<<<<<<< HEAD
             alert("Register successful");
-=======
-            console.log("Register successful");
->>>>>>> 66001a56591afb9585a8b780ef6794d918c23a9b
         } else {
             alert("Register failed");
         }
