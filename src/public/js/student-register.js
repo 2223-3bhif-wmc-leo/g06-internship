@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,28 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var companyBtn;
-var studentBtn;
-var loginBtn;
-var companyH;
-var studentH;
-var loginType = null;
-var tempHr;
-var loginHeader;
-var registerBtn;
+exports.__esModule = true;
+var studentSubmitBtn;
 window.addEventListener("DOMContentLoaded", function () {
-    companyBtn = document.getElementById("companyBtn");
-    studentBtn = document.getElementById("studentBtn");
-    loginBtn = document.getElementById("loginBtn");
-    companyH = document.getElementById("company-header");
-    studentH = document.getElementById("student-header");
-    tempHr = document.getElementById("temp-hr");
-    loginHeader = document.getElementById("login-header");
-    registerBtn = document.getElementById("registerBtn");
-    registerBtn.addEventListener("click", register);
-    loginBtn.addEventListener("click", login);
-    companyBtn.addEventListener("click", selectCompany);
-    studentBtn.addEventListener("click", selectStudent);
+    studentSubmitBtn = document.getElementById("studentSubmitBtn");
+    studentSubmitBtn.addEventListener("click", postStudent);
 });
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
@@ -82,67 +66,35 @@ function fetchRestEndpoint(route, method, data) {
         });
     });
 }
-function register() {
+function postStudent() {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            if (loginType === "company") {
-                window.location.href = "http://localhost:3000/company-register.html";
-            }
-            else if (loginType === "student") {
-                window.location.href = "http://localhost:3000/student-register.html";
-            }
-            else {
-                alert("Please select a login type");
-            }
-            return [2 /*return*/];
-        });
-    });
-}
-function selectCompany() {
-    loginHeader.innerText = "Company Login";
-    tempHr.classList.add("noDisplay");
-    companyH.classList.remove("noDisplay");
-    loginType = "company";
-    studentBtn.classList.remove("gradient-custom-2");
-    studentBtn.classList.add("btnInactive");
-    companyBtn.classList.remove("btnInactive");
-    companyBtn.classList.add("gradient-custom-2");
-    studentH.classList.add("noDisplay");
-}
-function selectStudent() {
-    loginHeader.innerText = "Student Login";
-    tempHr.classList.add("noDisplay");
-    studentH.classList.remove("noDisplay");
-    loginType = "student";
-    companyBtn.classList.remove("gradient-custom-2");
-    companyBtn.classList.add("btnInactive");
-    studentBtn.classList.remove("btnInactive");
-    studentBtn.classList.add("gradient-custom-2");
-    companyH.classList.add("noDisplay");
-}
-function login() {
-    return __awaiter(this, void 0, void 0, function () {
-        var email, password, loginData, response, error_1, response, error_2;
+        var name, email, password, address, phoneNumber, registerData, response, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    email = document.getElementById("email").value;
-                    password = document.getElementById("password").value;
-                    console.log(email, password);
-                    if (!(password === null || email === "")) return [3 /*break*/, 1];
+                    name = document.getElementById("studentName").value;
+                    email = document.getElementById("studentEmail").value;
+                    password = document.getElementById("studentPassword").value;
+                    address = document.getElementById("studentAddress").value;
+                    phoneNumber = document.getElementById("studentPhoneNumber").value;
+                    console.log(name, email, password, address, phoneNumber);
+                    if (!(password === null || email === "" || password === "" || address === "" || phoneNumber === "")) return [3 /*break*/, 1];
                     alert("Please fill in all fields");
-                    return [3 /*break*/, 12];
+                    return [3 /*break*/, 6];
                 case 1:
-                    loginData = {
-                        email: email,
-                        password: password
+                    registerData = {
+                        name: this.name,
+                        email: this.email,
+                        passwort: this.password,
+                        adresse: this.address,
+                        telefon: this.telefon
                     };
-                    if (!(loginType === "company")) return [3 /*break*/, 6];
                     response = void 0;
+                    console.log(registerData);
                     _a.label = 2;
                 case 2:
                     _a.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/company/login/try?email=".concat(loginData.email, "&passwort=").concat(loginData.password), "GET")];
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData)];
                 case 3:
                     response = _a.sent();
                     return [3 /*break*/, 5];
@@ -153,39 +105,13 @@ function login() {
                 case 5:
                     if (response) {
                         console.log(response);
-                        window.location.href = "http://localhost:3000/company-dashboard.html";
+                        console.log("Register successful");
                     }
                     else {
-                        alert("Login failed");
+                        alert("Register failed");
                     }
-                    return [3 /*break*/, 12];
-                case 6:
-                    if (!(loginType === "student")) return [3 /*break*/, 11];
-                    response = void 0;
-                    _a.label = 7;
-                case 7:
-                    _a.trys.push([7, 9, , 10]);
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler/login/try?email=".concat(loginData.email, "&passwort=").concat(loginData.password), "GET")];
-                case 8:
-                    response = _a.sent();
-                    return [3 /*break*/, 10];
-                case 9:
-                    error_2 = _a.sent();
-                    console.log(error_2);
-                    return [3 /*break*/, 10];
-                case 10:
-                    if (response) {
-                        console.log(response);
-                        window.location.href = "http://localhost:3000/student-dashboard.html";
-                    }
-                    else {
-                        alert("Login failed");
-                    }
-                    return [3 /*break*/, 12];
-                case 11:
-                    alert("Please select a login type");
-                    _a.label = 12;
-                case 12: return [2 /*return*/];
+                    _a.label = 6;
+                case 6: return [2 /*return*/];
             }
         });
     });
