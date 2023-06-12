@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/student-dashboard-style.css">
-    <script src="js/student-profile.ts"></script>
+    <script src="js/student-profile.js"></script>
 </head>
 <body onload="loadStudent()">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,13 +25,16 @@
 <div>
     <h1>My Profile</h1>
 </div>
-<div class="profile">
-    <div class="profile-details">
-        <h2>Your Name</h2>
-        <p>Occupation: Your Occupation</p>
-        <p>Location: Your Location</p>
-        <p>Email: your.email@example.com</p>
+<div class="row">
+    <div class="col">
+        <div id="profile"></div>
     </div>
 </div>
+<script>
+    var exports = {};
+</script>
+<script>
+    function require() {
+    }</script>
 </body>
 </html>
