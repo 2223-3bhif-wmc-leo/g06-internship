@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,7 +34,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -90,9 +88,9 @@ function getStudent(id) {
 }
 function showStudent(student) {
     return __awaiter(this, void 0, void 0, function () {
-        var studentCard, studentCardHeading, studentCardTitle, studentCardText;
+        var studentCard, studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse;
         return __generator(this, function (_a) {
-            studentCard = document.getElementById("student-card");
+            studentCard = document.getElementById("profile");
             studentCardHeading = document.createElement("div");
             studentCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
             studentCardTitle = document.createElement("h5");
@@ -101,9 +99,13 @@ function showStudent(student) {
             studentCardText = document.createElement("p");
             studentCardText.classList.add("mb-1");
             studentCardText.innerText = student.email;
-            studentCardHeading.appendChild(studentCardTitle);
-            studentCardHeading.appendChild(studentCardText);
-            studentCard.appendChild(studentCardHeading);
+            studentCardTelefon = document.createElement("p");
+            studentCardTelefon.classList.add("mb-1");
+            studentCardTelefon.innerText = student.telefon;
+            studentCardAdresse = document.createElement("p");
+            studentCardAdresse.classList.add("mb-1");
+            studentCardAdresse.innerText = student.adresse;
+            studentCard.append(studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse);
             return [2 /*return*/];
         });
     });
