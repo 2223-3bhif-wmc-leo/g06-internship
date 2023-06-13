@@ -58,6 +58,7 @@ async function createInternship() {
             response = await fetchRestEndpoint("http://localhost:3000/api/praktika", "POST", internship);
         } catch (error) {
             console.log(error);
+            alert("Something went wrong");
         }
 
         if (response) {
@@ -281,12 +282,23 @@ async function showStudentDetails(student) {
 
 async function loadInternships() {
     await setCurrentCompany()
-    const myInternships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET");
-    await showInternships(myInternships);
+    try {
+        const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET");
+        await showInternships(internships);
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
 
 async function getFirma(id: Number): Promise<any> {
-    return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
+    try {
+        return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
+    }
+    catch (e) {
+        console.log(e);
+        return null;
+    }
 }
 
 async function showInternships(internships) {
@@ -375,7 +387,7 @@ async function showInternshipDetails(internship) {
         "                                                <textarea id=\"updateInternshipDescription\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
         "                                            </div>\n" +
         "\n" +
-        "                                            <div class=\"mt-4 pt-2\">\n" +
+        "                                            <div id='btnDiv' class=\"mt-4 pt-2\">\n" +
         "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Update\" id=\"internshipUpdateBtn\"/>\n" +
         "                                            </div>\n" +
         "                                        </form>\n" +
@@ -388,6 +400,13 @@ async function showInternshipDetails(internship) {
 
 
     setInternshipDetails(internship)
+
+    const btnDiv = document.getElementById("btnDiv");
+    const internshipDeleteBtn = document.createElement("button");
+    internshipDeleteBtn.classList.add("btn", "btn-danger", "btn-lg", "me-2");
+    internshipDeleteBtn.addEventListener("click", () => deleteInternship(internship.id) );
+    internshipDeleteBtn.innerText = "Delete";
+    btnDiv.append(internshipDeleteBtn);
 
     const internshipUpdateBtn = document.getElementById("internshipUpdateBtn");
     internshipUpdateBtn.addEventListener("click", () => updateInternship());
@@ -419,8 +438,6 @@ async function updateInternship() {
     const internshipRequirements : any = (<HTMLInputElement>document.getElementById("updateInternshipRequirements"));
     const internshipDescription : any = (<HTMLInputElement>document.getElementById("updateInternshipDescription"));
 
-
-
     const internship = {
         titel: internshipTitle.value,
         dauertage: internshipDuration.value,
@@ -431,6 +448,24 @@ async function updateInternship() {
     };
     console.log(internship);
 
-    await fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship);
+    try {
+        await fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship);
+        window.location.reload();
+    }
+    catch (e){
+        alert("Error updating internship");
+        console.log(e);
+    }
 
 }
+
+async function deleteInternship(id) {
+    try {
+        await fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE");
+        window.location.reload();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+

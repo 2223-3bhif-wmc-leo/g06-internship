@@ -163,5 +163,26 @@ router.get('/', async (_: Request, res: Response) => {
     } finally {
         await unit.complete();
     }
+}).get('/praktikum/:id', async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const unit: Unit = await Unit.create(true);
+    const schuelerService: SchulerService = new SchulerService(unit);
+
+    try {
+        const schueler: ISchueler | null = await schuelerService.getById(id);
+        if (schueler === null) {
+            res.status(StatusCodes.NOT_FOUND).send(false);
+        } else {
+            res.status(StatusCodes.OK).json(schueler);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+    finally {
+        await unit.complete();
+    }
+
 });
 export default router;
