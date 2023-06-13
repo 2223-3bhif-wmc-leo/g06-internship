@@ -117,7 +117,7 @@ function getCompany(id) {
 }
 function showCompany(company) {
     return __awaiter(this, void 0, void 0, function () {
-        var nameField, emailField, descriptionField, addressField, phoneField, passwordField;
+        var nameField, emailField, descriptionField, addressField, phoneField, passwordField, name, email;
         return __generator(this, function (_a) {
             nameField = document.getElementById("nameField");
             nameField.setAttribute("value", company.name);
@@ -131,6 +131,10 @@ function showCompany(company) {
             phoneField.setAttribute("value", company.telefon);
             passwordField = document.getElementById("passwordField");
             passwordField.setAttribute("value", company.passwort);
+            name = document.getElementById("name");
+            name.setAttribute("value", company.name);
+            email = document.getElementById("email");
+            email.setAttribute("value", company.email);
             return [2 /*return*/];
         });
     });

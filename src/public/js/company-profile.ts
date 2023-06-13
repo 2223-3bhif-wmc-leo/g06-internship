@@ -69,6 +69,12 @@ async function showCompany(company) {
 
     const passwordField = document.getElementById("passwordField");
     passwordField.setAttribute("value", company.passwort);
+
+    const name = document.getElementById("name");
+    name.setAttribute("value", company.name);
+
+    const email = document.getElementById("email");
+    email.setAttribute("value", company.email);
 }
 
 async function updateCompany() {
