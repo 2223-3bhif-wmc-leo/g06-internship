@@ -376,7 +376,7 @@ async function showInternshipDetails(internship) {
         "                                                <textarea id=\"updateInternshipDescription\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
         "                                            </div>\n" +
         "\n" +
-        "                                            <div class=\"mt-4 pt-2\">\n" +
+        "                                            <div id='btnDiv' class=\"mt-4 pt-2\">\n" +
         "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Update\" id=\"internshipUpdateBtn\"/>\n" +
         "                                            </div>\n" +
         "                                        </form>\n" +
@@ -389,6 +389,13 @@ async function showInternshipDetails(internship) {
 
 
     setInternshipDetails(internship)
+
+    const btnDiv = document.getElementById("btnDiv");
+    const internshipDeleteBtn = document.createElement("button");
+    internshipDeleteBtn.classList.add("btn", "btn-danger", "btn-lg", "me-2");
+    internshipDeleteBtn.addEventListener("click", () => deleteInternship(internship.id) );
+    internshipDeleteBtn.innerText = "Delete";
+    btnDiv.append(internshipDeleteBtn);
 
     const internshipUpdateBtn = document.getElementById("internshipUpdateBtn");
     internshipUpdateBtn.addEventListener("click", () => updateInternship());
@@ -420,8 +427,6 @@ async function updateInternship() {
     const internshipRequirements : any = (<HTMLInputElement>document.getElementById("updateInternshipRequirements"));
     const internshipDescription : any = (<HTMLInputElement>document.getElementById("updateInternshipDescription"));
 
-
-
     const internship = {
         titel: internshipTitle.value,
         dauertage: internshipDuration.value,
@@ -434,4 +439,44 @@ async function updateInternship() {
 
     await fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship);
 
+}
+
+async function deleteInternship(id) {
+    await fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE");
+    window.location.reload();
+}
+
+async function loadStudentsOfCompany(id) {
+    const students = await fetchRestEndpoint("http://localhost:3000/schueler/praktikum/" + id, "GET");
+
+    const studentList = document.getElementById("student-list");
+    console.log(students);
+
+    for(let student of students) {
+        const internshipCard = document.createElement("a");
+
+        const internshipCardHeading = document.createElement("div");
+        internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
+
+        const internshipCardTitle = document.createElement("h5");
+        internshipCardTitle.classList.add("mb-1");
+        internshipCardTitle.innerText = student.titel;
+
+
+        const internshipCardSmall = document.createElement("small");
+        internshipCardSmall.innerText = student.dauertage + " Tage, Posted: " + student.aufgegeben
+
+        const firma = await getFirma(student.firma);
+
+        const internshipCardText = document.createElement("p");
+        internshipCardText.classList.add("mb-1");
+        internshipCardText.innerText = firma.name;
+
+        const internshipCardSmall2 = document.createElement("small");
+        internshipCardSmall2.innerText = firma.addresse;
+
+        internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
+        internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
+        studentList.append(internshipCard);
+    }
 }

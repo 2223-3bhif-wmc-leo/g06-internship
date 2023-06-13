@@ -79,4 +79,9 @@ export class SchulerService extends ServiceBase {
         );
         return ServiceBase.nullIfUndefined(await stmt.get<ISchueler>());
     }
+
+    public async getSchuelerByPraktikumId(praktikumId: number): Promise<ISchueler[]> {
+        const stmt: Statement = await this.unit.prepare('select * from schueler where id in (select schueler from Bewerber where praktikum = ?1)',praktikumId);
+        return stmt.all<ISchueler[]>();
+    }
 }
