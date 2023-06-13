@@ -16,6 +16,19 @@ Content-Type: application/json
   "telefon": "0123456789"
 }
 
+### Add schueler
+POST http://localhost:3000/api/schueler
+Content-Type: application/json
+
+{
+  "name": "Arnold Schwarzenegger",
+  "email": "arnold@htl",
+  "passwort": "123456",
+  "adresse": "Musterstraße",
+  "telefon": "0123456789"
+}
+
+
 ### Delete schueler
 DELETE http://localhost:3000/api/schueler/1
 

@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    height: 100vh; /* Set container height to full viewport height */
+}
+
+.sidebar {
+    float: left;
+    flex: 0 0 30%; /* Set sidebar width to 30% of the container */
+    background-color: #f1f1f1;
+    padding: 20px;
+    height: 100%; /* Set sidebar height to 100% of the container */
+}
+
+.details {
+    flex: 1; /* Let the details section take the remaining width */
+    padding: 20px;
+    height: 100%; /* Set details section height to 100% of the container */
+}
+.w-40{
+    width: 40%;
+}
+.internship-details {
+    min-height: 80vh;
+    color: black;
+}
+.overflow {
+    overflow: scroll;
+    height: 100vh;
+}
+/* ... Rest of the CSS styles remain the same */
+
+.info {
+    color: #999;
+    font-style: italic;
+    margin-top: 10px;
+}

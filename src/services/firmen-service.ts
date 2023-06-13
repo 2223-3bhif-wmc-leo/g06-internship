@@ -17,7 +17,6 @@ export class FirmenService extends ServiceBase {
         const stmt = await this.unit.prepare("select * from Firma where id = ?", id);
         const rawResult: IFirma | null = ServiceBase.nullIfUndefined(await stmt.get<(IFirma)>());
 
-
         return rawResult === null ? null : {
             id: rawResult.id,
             name: rawResult.name,
@@ -30,7 +29,8 @@ export class FirmenService extends ServiceBase {
     }
 
     public async update(firma: IFirma): Promise<boolean> {
-        const stmt: Statement = await this.unit.prepare('update Firma set name = ?2, email = ?3, telefon = ?4, addresse =?5, beschreibung =?6 where id = ?1',
+        const stmt = await this.unit.prepare("" +
+            'update Firma set name = ?2, email = ?3, telefon = ?4, addresse =?5, beschreibung =?6 where id = ?1',
             {
                 1: firma.id,
                 2: firma.name,
@@ -46,14 +46,15 @@ export class FirmenService extends ServiceBase {
     }
 
     public async insert(firma: IFirma): Promise<boolean> {
-        const stmt: Statement = await this.unit.prepare('insert into Firma (id, name, email, telefon, beschreibung, addresse) values (?1, ?2, ?3, ?4, ?5, ?6)',
+        const stmt = await this.unit.prepare(
+            "insert into Firma (name, email, passwort, beschreibung, addresse, telefon) values (?1, ?2, ?3, ?4, ?5, ?6)",
             {
-                1: firma.id,
-                2: firma.name,
-                3: firma.email,
-                4: firma.telefon,
-                5: firma.beschreibung,
-                6: firma.addresse
+                1: firma.name,
+                2: firma.email,
+                3: firma.passwort,
+                4: firma.beschreibung,
+                5: firma.addresse,
+                6: firma.telefon
             }
         );
 
@@ -65,5 +66,23 @@ export class FirmenService extends ServiceBase {
         const stmt: Statement = await this.unit.prepare('delete from Firma where id = ?', id);
         const [success, _] = await this.executeStmt(stmt);
         return success;
+    }
+
+    public async login(email: string, passwort: string): Promise<IFirma | null> {
+        const stmt = await this.unit.prepare("select * from Firma where email = ?1 and passwort = ?2", {
+            1: email,
+            2: passwort
+        });
+        const rawResult: IFirma | null = ServiceBase.nullIfUndefined(await stmt.get<(IFirma)>());
+
+        return rawResult === null ? null : {
+            id: rawResult.id,
+            name: rawResult.name,
+            email: rawResult.email,
+            telefon: rawResult.telefon,
+            passwort: rawResult.passwort,
+            addresse: rawResult.addresse,
+            beschreibung: rawResult.beschreibung
+        };
     }
 }

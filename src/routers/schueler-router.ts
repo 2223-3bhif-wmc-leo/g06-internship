@@ -3,7 +3,8 @@ import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
 import {SchulerService} from "../services/schueler-service";
-import {ISchueler} from "../models/model";
+import {IFirma, ISchueler} from "../models/model";
+import {FirmenService} from "../services/firmen-service";
 
 const router: Router = express.Router();
 
@@ -70,6 +71,41 @@ router.get('/', async (_: Request, res: Response) => {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     } finally {
         await unit.complete(false);
+    }
+}).post('/', async (req: Request, res: Response) => {
+    const unit: Unit = await Unit.create(false);
+    const schuelerService: SchulerService = new SchulerService(unit);
+
+
+    const schueler: ISchueler = {
+        name: req.body.name,
+        email: req.body.email,
+        passwort: req.body.passwort,
+        adresse: req.body.adresse,
+        telefon: req.body.telefon,
+    };
+
+    try {
+        let success = false;
+
+        if(await (await schuelerService.getAll()).find(s => s.email === schueler.email)){
+            res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
+            return;
+        }else {
+            success = await schuelerService.insert(schueler);
+        }
+        if (success) {
+            await unit.complete(true);
+            res.sendStatus(StatusCodes.CREATED);
+        } else {
+            await unit.complete(false);
+            res.sendStatus(StatusCodes.NOT_FOUND);
+        }
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete(true);
     }
 }).delete('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);

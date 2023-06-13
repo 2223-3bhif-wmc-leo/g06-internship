@@ -7,9 +7,6 @@ export class SchulerService extends ServiceBase {
     constructor(unit: Unit) {
         super(unit);
     }
-
-    // TODO: Implementieren Sie hier die Methoden für die Schuler-Entität
-
     public async getAll(): Promise<ISchueler[]> {
         const stmt: Statement = await this.unit.prepare(`SELECT *
                                                          FROM Schueler;`);
