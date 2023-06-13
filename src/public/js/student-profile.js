@@ -155,6 +155,7 @@ function updateStudent() {
                 case 1:
                     response = _a.sent();
                     console.log(response);
+                    window.location.href = "http://localhost:3000/student-dashboard.html";
                     return [2 /*return*/];
             }
         });

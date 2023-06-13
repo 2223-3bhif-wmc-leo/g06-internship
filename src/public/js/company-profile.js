@@ -164,6 +164,7 @@ function updateCompany() {
                 case 1:
                     response = _a.sent();
                     console.log(response);
+                    window.location.href = "http://localhost:3000/company-dashboard.html";
                     return [2 /*return*/];
             }
         });

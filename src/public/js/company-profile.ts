@@ -98,6 +98,7 @@ async function updateCompany() {
 
     const response = await fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "PUT", company);
     console.log(response);
+    window.location.href = "http://localhost:3000/company-dashboard.html";
 }
 
 async function deleteCompany() {
