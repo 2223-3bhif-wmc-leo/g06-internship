@@ -5,7 +5,7 @@ let previousInternshipDetails = null;
 window.addEventListener("load", async () => {
     await loadInternships();
 
-    const createBtn = document.getElementById("createInternshipBtn");
+    const createBtn = document.getElementById("internshipCreateBtn");
     createBtn.addEventListener("click", async () => {
         createInternship();
     });
@@ -43,11 +43,12 @@ async function createInternship() {
         alert("Please fill in all fields");
     }else {
         const internship = {
-            title: title,
-            duration: duration,
-            salary: salary,
-            reqirements: reqirements,
-            description: description
+            titel: title,
+            beschreibung: description,
+            dauertage: duration,
+            anforderungen: reqirements,
+            firma: currentCompanyId,
+            gehalt: salary 
         };
 
         console.log(internship);

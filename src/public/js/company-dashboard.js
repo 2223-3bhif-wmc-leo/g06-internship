@@ -46,7 +46,7 @@ window.addEventListener("load", function () { return __awaiter(_this, void 0, vo
             case 0: return [4 /*yield*/, loadInternships()];
             case 1:
                 _a.sent();
-                createBtn = document.getElementById("createInternshipBtn");
+                createBtn = document.getElementById("internshipCreateBtn");
                 createBtn.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
                     return __generator(this, function (_a) {
                         createInternship();
@@ -57,14 +57,6 @@ window.addEventListener("load", function () { return __awaiter(_this, void 0, vo
         }
     });
 }); });
-window.addEventListener("load", function () {
-    var uploadButton = document.getElementById("updateBtn");
-    uploadButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/];
-        });
-    }); });
-});
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -106,11 +98,12 @@ function createInternship() {
                     return [3 /*break*/, 6];
                 case 1:
                     internship = {
-                        title: title,
-                        duration: duration,
-                        salary: salary,
-                        reqirements: reqirements,
-                        description: description
+                        titel: title,
+                        beschreibung: description,
+                        dauertage: duration,
+                        anforderungen: reqirements,
+                        firma: currentCompanyId,
+                        gehalt: salary
                     };
                     console.log(internship);
                     response = void 0;
@@ -455,7 +448,7 @@ function showInternshipDetails(internship) {
                 "                            <div class=\"col-12 col-lg-9 col-xl-7\">\n" +
                 "                                <div class=\"card shadow-2-strong card-registration\" style=\"border-radius: 15px;\">\n" +
                 "                                    <div class=\"card-body p-4 p-md-5\">\n" +
-                "                                        <h3 class=\"mb-4 pb-2 pb-md-0 mb-md-5\">Register as a company</h3>\n" +
+                "                                        <h3 class=\"mb-4 pb-2 pb-md-0 mb-md-5\">Update</h3>\n" +
                 "                                        <form>\n" +
                 "                                            <div class=\"row\">\n" +
                 "                                                <div class=\"col-md-6 mb-4\">\n" +
