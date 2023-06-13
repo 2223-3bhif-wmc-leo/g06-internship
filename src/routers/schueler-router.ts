@@ -118,7 +118,7 @@ router.get('/', async (_: Request, res: Response) => {
         let success = false;
 
         if(await (await schuelerService.getAll()).find(s => s.email === schueler.email)){
-            res.status(StatusCodes.NOT_ACCEPTABLE).send(true);
+            res.status(StatusCodes.NOT_ACCEPTABLE).send(false);
             return;
         }else {
             let [success1, generatedID] = await schuelerService.insert(schueler);
