@@ -88,4 +88,11 @@ async function updateStudent() {
 
     const response = await fetchRestEndpoint("http://localhost:3000/api/schueler/" +currentStudentID, "PUT", student);
     console.log(response);
+    window.location.href = "http://localhost:3000/student-dashboard.html";
+}
+
+async function deleteStudent() {
+    const response = await fetchRestEndpoint("http://localhost:3000/api/schueler/" + currentStudentID, "DELETE");
+    console.log(response);
+    window.location.href = "http://localhost:3000/index.html";
 }

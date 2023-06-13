@@ -34,3 +34,9 @@
     font-style: italic;
     margin-top: 10px;
 }
+
+.company-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}

@@ -102,11 +102,12 @@ function createInternship() {
                     return [3 /*break*/, 6];
                 case 1:
                     internship = {
-                        title: title,
-                        duration: duration,
-                        salary: salary,
-                        reqirements: reqirements,
-                        description: description
+                        titel: title,
+                        beschreibung: description,
+                        dauertage: duration,
+                        anforderungen: reqirements,
+                        firma: currentCompanyId,
+                        gehalt: salary
                     };
                     response = void 0;
                     _a.label = 2;

@@ -69,6 +69,12 @@ async function showCompany(company) {
 
     const passwordField = document.getElementById("passwordField");
     passwordField.setAttribute("value", company.passwort);
+
+    const name = document.getElementById("name");
+    name.setAttribute("value", company.name);
+
+    const email = document.getElementById("email");
+    email.setAttribute("value", company.email);
 }
 
 async function updateCompany() {
@@ -92,4 +98,11 @@ async function updateCompany() {
 
     const response = await fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "PUT", company);
     console.log(response);
+    window.location.href = "http://localhost:3000/company-dashboard.html";
+}
+
+async function deleteCompany() {
+    const response = await fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "DELETE");
+    console.log(response);
+    window.location.href = "http://localhost:3000/index.html";
 }

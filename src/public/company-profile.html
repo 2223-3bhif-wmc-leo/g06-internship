@@ -31,7 +31,9 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+            <div id="company" class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://plus.safety4sea.com/wp-content/uploads/Corporate-icon-300x300.png"><span class="font-weight-bold"><input class="form-control" id="name" disabled="true"><span class="text-black-50"><input class="form-control" id="email" disabled="true"></span><span> </span>
+
+            </div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -60,8 +62,13 @@
                         <label class="labels">Password</label>
                         <input type="password" class="form-control" id="passwordField" value=""></div>
                 </div>
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" onclick="updateCompany()" type="button">Save Profile</button></div>
+                <div class="mt-5 text-left">
+                    <button class="btn btn-primary profile-button" onclick="updateCompany()" type="button">Save Profile</button>
+                    <button class="btn btn-primary profile-button" onclick="deleteCompany()"  type="button">Delete Profile</button>
+                </div>
+                <div class="mt-5 text center">
+                    <a class="nav-link" href="index.html">Log out <span class="sr-only">(current)</span></a>
+                </div>
             </div>
         </div>
     </div>

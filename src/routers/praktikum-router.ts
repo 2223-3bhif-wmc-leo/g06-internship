@@ -73,14 +73,14 @@ router.get('/', async (req: Request, res: Response) => {
         const success = await praktikaService.insertPraktikum(praktikum);
         if (success) {
             await unit.complete(true);
-            res.sendStatus(StatusCodes.CREATED);
+            res.status(StatusCodes.CREATED).send(true);
         } else {
             await unit.complete(false);
-            res.sendStatus(StatusCodes.NOT_FOUND);
+            res.status(StatusCodes.NOT_FOUND).send(false);
         }
     } catch (e) {
         console.log(e);
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(false);
     } finally {
         await unit.complete(false);
     }

@@ -129,10 +129,10 @@ router.delete('/:id', async (req: Request, res: Response) => {
 
             if (success) {
                 await unit.complete(true);
-                res.sendStatus(StatusCodes.OK);
+                res.status(StatusCodes.OK).send(true)
             } else {
                 await unit.complete(false);
-                res.sendStatus(StatusCodes.BAD_REQUEST);
+                res.status(StatusCodes.BAD_REQUEST).send(false);
             }
         }
     } catch (error) {
