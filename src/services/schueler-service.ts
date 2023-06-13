@@ -32,13 +32,14 @@ export class SchulerService extends ServiceBase {
     }
 
     public async update(schueler: ISchueler): Promise<boolean> {
-        const stmt: Statement = await this.unit.prepare('update Schueler set name = ?2, email = ?3, adresse = ?4, telefon = ?5, passwort =?6 where id = ?1',
+        const stmt = await this.unit.prepare("" +
+            'update Schueler set name = ?2, email = ?3, adresse = ?4, telefon =?5, passwort =?6 where id = ?1',
             {
                 1: schueler.id,
                 2: schueler.name,
                 3: schueler.email,
-                4: schueler.adresse,
-                5: schueler.telefon
+                4: schueler.telefon,
+                5: schueler.passwort
             }
         );
 

@@ -29,25 +29,40 @@ async function getStudent(id: Number): Promise<any> {
     return await fetchRestEndpoint("http://localhost:3000/api/schueler/" + id, "GET");
 }
 async function showStudent(student) {
-    const studentCard = document.getElementById("profile");
-    const studentCardHeading = document.createElement("div");
-    studentCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
+    const nameField = document.getElementById("nameField");
+    nameField.setAttribute("value", student.name);
 
-    const studentCardTitle = document.createElement("h5");
-    studentCardTitle.classList.add("mb-1");
-    studentCardTitle.innerText = student.name;
+    const phoneField = document.getElementById("phoneField");
+    phoneField.setAttribute("value", student.telefon);
 
-    const studentCardText = document.createElement("p");
-    studentCardText.classList.add("mb-1");
-    studentCardText.innerText = student.email;
+    const addressField = document.getElementById("addressField");
+    addressField.setAttribute("value", student.adresse);
 
-    const studentCardTelefon = document.createElement("p");
-    studentCardTelefon.classList.add("mb-1");
-    studentCardTelefon.innerText = student.telefon;
+    const emailField = document.getElementById("emailField");
+    emailField.setAttribute("value", student.email);
 
-    const studentCardAdresse = document.createElement("p");
-    studentCardAdresse.classList.add("mb-1");
-    studentCardAdresse.innerText = student.adresse;
+    const passwordField = document.getElementById("passwordField");
+    passwordField.setAttribute("value", student.passwort);
+}
 
-    studentCard.append(studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse);
+async function updateStudent() {
+    const nameField = document.getElementById("nameField");
+    const phoneField = document.getElementById("phoneField");
+    const addressField = document.getElementById("addressField");
+    const emailField = document.getElementById("emailField");
+    const passwordField = document.getElementById("passwordField");
+
+    const student = {
+        name: nameField.getAttribute("value"),
+        telefon: phoneField.getAttribute("value"),
+        adresse: addressField.getAttribute("value"),
+        email: emailField.getAttribute("value"),
+        passwort: passwordField.getAttribute("value")
+    }
+
+    console.log(student);
+
+    const response = await fetchRestEndpoint("http://localhost:3000/api/schueler/1", "PUT", student);
+    console.log(response);
+    alert("Update successful");
 }

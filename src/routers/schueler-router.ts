@@ -40,28 +40,24 @@ router.get('/', async (_: Request, res: Response) => {
     }
 })/*.put('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
-
     const unit: Unit = await Unit.create(false);
+    const service: SchulerService = new SchulerService(unit);
+
+    const schueler: ISchueler = {
+        id: id,
+        name: req.body.name,
+        email: req.body.email,
+        passwort: req.body.passwort,
+        adresse: req.body.adresse,
+        telefon: req.body.telefon,
+    };
 
     try {
-        const service: SchulerService = new SchulerService(unit);
-
-        let schueler: ISchueler | null = await service.getById(id);
-        const existing: boolean = schueler !== null;
-        schueler = {
-            id: id,
-            name: req.body.name,
-            email: req.body.email,
-            passwort: req.body.passwort,
-            adresse: req.body.adresse,
-            telefon: req.body.telefon,
-        };
-
-        const success: boolean = await (existing ? service.update(schueler) : service.insert(schueler));
+        const success = await service.update(schueler);
 
         if (success) {
             await unit.complete(true);
-            res.status(existing ? StatusCodes.NO_CONTENT : StatusCodes.CREATED).json(schueler);
+            res.sendStatus(StatusCodes.OK);
         } else {
             await unit.complete(false);
             res.sendStatus(StatusCodes.BAD_REQUEST);
