@@ -5,9 +5,9 @@ let previousInternshipDetails = null;
 window.addEventListener("load", async () => {
     await loadInternships();
 
-    const createBtn = document.getElementById("createInternshipBtn");
+    const createBtn = document.getElementById("internshipCreateBtn");
     createBtn.addEventListener("click", async () => {
-        createInternship();
+        await createInternship();
     });
 });
 
@@ -39,9 +39,9 @@ async function createInternship() {
     const reqirements = (<HTMLInputElement>document.getElementById("internshipRequirements")).value;
     const description = (<HTMLInputElement>document.getElementById("internshipDescription")).value;
 
-    if(title === "" || duration === "" || salary === "" || reqirements === "" || description === "") {
+    if (title === "" || duration === "" || salary === "" || reqirements === "" || description === "") {
         alert("Please fill in all fields");
-    }else {
+    } else {
         const internship = {
             title: title,
             duration: duration,
@@ -50,19 +50,19 @@ async function createInternship() {
             description: description
         };
 
-        console.log(internship);
+        //console.log(internship);
         let response;
 
         try {
             response = await fetchRestEndpoint("http://localhost:3000/api/praktika", "POST", internship);
-        }catch (error) {
+        } catch (error) {
             console.log(error);
         }
 
-        if(response) {
+        if (response) {
             alert("Internship created");
             window.location.href = "http://localhost:3000/company-dashboard.html";
-        }else {
+        } else {
             alert("Something went wrong");
         }
     }
@@ -73,7 +73,7 @@ async function setCurrentCompany() {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
         let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
+        for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
             while (c.charAt(0) == ' ') {
                 c = c.substring(1);
@@ -84,6 +84,7 @@ async function setCurrentCompany() {
         }
         return "";
     }
+
     console.log(document.cookie)
     currentCompanyId = Number(getCookie("company"));
     console.log(currentCompanyId);
@@ -278,11 +279,9 @@ async function showStudentDetails(student) {
 }*/
 
 async function loadInternships() {
-    setCurrentCompany()
-    const internshipsDiv = document.getElementById("myInternships");
+    await setCurrentCompany()
     const myInternships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET");
-    console.log(myInternships);
-    showInternships(myInternships);
+    await showInternships(myInternships);
 }
 
 async function getFirma(id: Number): Promise<any> {
@@ -292,6 +291,8 @@ async function getFirma(id: Number): Promise<any> {
 async function showInternships(internships) {
     const listGroup = document.getElementById("list-group");
     for (const internship of internships) {
+        console.log(internship);
+
         const internshipCard = document.createElement("a");
         internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
         internshipCard.setAttribute("id", internship.id)
@@ -347,51 +348,34 @@ async function showInternshipDetails(internship) {
         "                                            <div class=\"row\">\n" +
         "                                                <div class=\"col-md-6 mb-4\">\n" +
         "                                                    <div class=\"form-outline\">\n" +
-        "                                                        <label class=\"form-label\" for=\"companyName\">Name</label>\n" +
-        "                                                        <input type=\"text\" id=\"companyName\" class=\"form-control form-control-md\" placeholder=\"Name\"/>\n" +
+        "                                                        <label class=\"form-label\" for=\"updateInternshipTitle\">Title</label>\n" +
+        "                                                        <input type=\"text\" id=\"updateInternshipTitle\" class=\"form-control form-control-md\" />\n" +
         "                                                    </div>\n" +
         "                                                </div>\n" +
         "                                                <div class=\"col-md-6 mb-4\">\n" +
         "\n" +
-        "                                                    <div class=\"form-outline datepicker w-100\">\n" +
-        "                                                        <label for=\"companyPassword\" class=\"password\">Password</label>\n" +
-        "                                                        <input type=\"password\" class=\"form-control form-control-md\" id=\"companyPassword\" placeholder=\"Password\"/>\n" +
+        "                                                    <div class=\"form-outline w-100\">\n" +
+        "                                                        <label for=\"updateInternshipDuration\" class=\"text\">Duration</label>\n" +
+        "                                                        <input type=\"number\" class=\"form-control form-control-md\" id=\"updateInternshipDuration\" />\n" +
         "                                                    </div>\n" +
         "\n" +
         "                                                </div>\n" +
         "                                            </div>\n" +
-        "\n" +
-        "                                            <div class=\"row\">\n" +
-        "                                                <div class=\"col-md-6 mb-4\">\n" +
-        "                                                    <div class=\"form-outline\">\n" +
-        "                                                        <label class=\"email\" for=\"companyEmail\">Email</label>\n" +
-        "                                                        <input type=\"email\" id=\"companyEmail\" class=\"form-control form-control-md\" placeholder=\"Company email\"/>\n" +
-        "                                                    </div>\n" +
-        "                                                </div>\n" +
-        "                                                <div class=\"col-md-6 mb-4\">\n" +
-        "                                                    <div class=\"form-outline\">\n" +
-        "                                                        <label for=\"companyPhoneNumber\">Phone number</label>\n" +
-        "                                                        <input type=\"tel\" id=\"companyPhoneNumber\" class=\"form-control form-control-md\" placeholder=\"Company phone number\"/>\n" +
-        "                                                    </div>\n" +
-        "                                                </div>\n" +
-        "                                            </div>\n" +
-        "\n" +
-        "                                            <div class=\"row\">\n" +
-        "                                                <div class=\"col-md-12 mb-4 pb-2\">\n" +
-        "                                                    <div class=\"form-outline\">\n" +
-        "                                                        <label class=\"form-label\" for=\"companyAddress\">Address</label>\n" +
-        "                                                        <input type=\"text\" id=\"companyAddress\" class=\"form-control form-control-md\" placeholder=\"Company address\" />\n" +
-        "                                                    </div>\n" +
-        "                                                </div>\n" +
-        "                                            </div>\n" +
-        "\n" +
         "                                            <div>\n" +
-        "                                                <label for=\"companyDescription\">Description</label>\n" +
-        "                                                <textarea id=\"companyDescription\" class=\"form-control form-control-md\" placeholder=\"What makes your company special?\" rows=\"4\"></textarea>\n" +
+        "                                                <label for=\"updateInternshipSalary\">Salary</label>\n" +
+        "                                                <input type=\"number\" id=\"updateInternshipSalary\" class=\"form-control form-control-md\" />\n" +
+        "                                            </div>\n" +
+        "                                            <div>\n" +
+        "                                                <label for=\"updateInternshipRequirements\">Requirements</label>\n" +
+        "                                                <textarea id=\"updateInternshipRequirements\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
+        "                                            </div>\n" +
+        "                                            <div>\n" +
+        "                                                <label for=\"updateInternshipDescription\">Description</label>\n" +
+        "                                                <textarea id=\"updateInternshipDescription\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
         "                                            </div>\n" +
         "\n" +
         "                                            <div class=\"mt-4 pt-2\">\n" +
-        "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Submit\" id=\"companySubmitBtn\"/>\n" +
+        "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Update\" id=\"internshipUpdateBtn\"/>\n" +
         "                                            </div>\n" +
         "                                        </form>\n" +
         "                                    </div>\n" +
@@ -399,9 +383,53 @@ async function showInternshipDetails(internship) {
         "                            </div>\n" +
         "                        </div>\n" +
         "                    </div>\n" +
-        "                </section>"
+        "                </section>";
 
 
+    setInternshipDetails(internship)
+
+    const internshipUpdateBtn = document.getElementById("internshipUpdateBtn");
+    internshipUpdateBtn.addEventListener("click", () => updateInternship());
+
+
+    //console.log(internship);
     previousInternshipDetails = internshipDetailsContent;
     previousInternship = internship;
+}
+
+function setInternshipDetails(internship) {
+    const internshipTitle = (<HTMLInputElement>document.getElementById("updateInternshipTitle"));
+    const internshipDuration = (<HTMLInputElement>document.getElementById("updateInternshipDuration"));
+    const internshipSalary = (<HTMLInputElement>document.getElementById("updateInternshipSalary"));
+    const internshipRequirements = (<HTMLInputElement>document.getElementById("updateInternshipRequirements"));
+    const internshipDescription = (<HTMLInputElement>document.getElementById("updateInternshipDescription"));
+
+    internshipTitle.setAttribute("value", internship.titel);
+    internshipDuration.setAttribute("value", internship.dauertage);
+    internshipSalary.setAttribute("value", internship.gehalt);
+    internshipRequirements.textContent = internship.anforderungen;
+    internshipDescription.textContent = internship.beschreibung;
+}
+
+async function updateInternship() {
+    const internshipTitle : any = (<HTMLInputElement>document.getElementById("updateInternshipTitle"));
+    const internshipDuration : any = (<HTMLInputElement>document.getElementById("updateInternshipDuration"));
+    const internshipSalary : any = (<HTMLInputElement>document.getElementById("updateInternshipSalary"));
+    const internshipRequirements : any = (<HTMLInputElement>document.getElementById("updateInternshipRequirements"));
+    const internshipDescription : any = (<HTMLInputElement>document.getElementById("updateInternshipDescription"));
+
+
+
+    const internship = {
+        titel: internshipTitle.value,
+        dauertage: internshipDuration.value,
+        gehalt: internshipSalary.value,
+        anforderungen: internshipRequirements.value,
+        beschreibung: internshipDescription.value,
+        firma: currentCompanyId
+    };
+    console.log(internship);
+
+    await fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship);
+
 }

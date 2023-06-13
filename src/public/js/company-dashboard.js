@@ -46,25 +46,21 @@ window.addEventListener("load", function () { return __awaiter(_this, void 0, vo
             case 0: return [4 /*yield*/, loadInternships()];
             case 1:
                 _a.sent();
-                createBtn = document.getElementById("createInternshipBtn");
+                createBtn = document.getElementById("internshipCreateBtn");
                 createBtn.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
                     return __generator(this, function (_a) {
-                        createInternship();
-                        return [2 /*return*/];
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, createInternship()];
+                            case 1:
+                                _a.sent();
+                                return [2 /*return*/];
+                        }
                     });
                 }); });
                 return [2 /*return*/];
         }
     });
 }); });
-window.addEventListener("load", function () {
-    var uploadButton = document.getElementById("updateBtn");
-    uploadButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/];
-        });
-    }); });
-});
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -112,7 +108,6 @@ function createInternship() {
                         reqirements: reqirements,
                         description: description
                     };
-                    console.log(internship);
                     response = void 0;
                     _a.label = 2;
                 case 2:
@@ -353,17 +348,18 @@ async function showStudentDetails(student) {
 }*/
 function loadInternships() {
     return __awaiter(this, void 0, void 0, function () {
-        var internshipsDiv, myInternships;
+        var myInternships;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    setCurrentCompany();
-                    internshipsDiv = document.getElementById("myInternships");
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET")];
+                case 0: return [4 /*yield*/, setCurrentCompany()];
                 case 1:
+                    _a.sent();
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET")];
+                case 2:
                     myInternships = _a.sent();
-                    console.log(myInternships);
-                    showInternships(myInternships);
+                    return [4 /*yield*/, showInternships(myInternships)];
+                case 3:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
@@ -391,6 +387,7 @@ function showInternships(internships) {
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
+                                    console.log(internship);
                                     internshipCard = document.createElement("a");
                                     internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
                                     internshipCard.setAttribute("id", internship.id);
@@ -436,7 +433,7 @@ function showInternships(internships) {
 }
 function showInternshipDetails(internship) {
     return __awaiter(this, void 0, void 0, function () {
-        var previousInternshipCard, internshipCard, internshipDetails, internshipDetailsContent;
+        var previousInternshipCard, internshipCard, internshipDetails, internshipDetailsContent, internshipUpdateBtn;
         return __generator(this, function (_a) {
             if (previousInternship != null) {
                 previousInternshipCard = document.getElementById(previousInternship.id);
@@ -455,56 +452,39 @@ function showInternshipDetails(internship) {
                 "                            <div class=\"col-12 col-lg-9 col-xl-7\">\n" +
                 "                                <div class=\"card shadow-2-strong card-registration\" style=\"border-radius: 15px;\">\n" +
                 "                                    <div class=\"card-body p-4 p-md-5\">\n" +
-                "                                        <h3 class=\"mb-4 pb-2 pb-md-0 mb-md-5\">Register as a company</h3>\n" +
+                "                                        <h3 class=\"mb-4 pb-2 pb-md-0 mb-md-5\">Update</h3>\n" +
                 "                                        <form>\n" +
                 "                                            <div class=\"row\">\n" +
                 "                                                <div class=\"col-md-6 mb-4\">\n" +
                 "                                                    <div class=\"form-outline\">\n" +
-                "                                                        <label class=\"form-label\" for=\"companyName\">Name</label>\n" +
-                "                                                        <input type=\"text\" id=\"companyName\" class=\"form-control form-control-md\" placeholder=\"Name\"/>\n" +
+                "                                                        <label class=\"form-label\" for=\"updateInternshipTitle\">Title</label>\n" +
+                "                                                        <input type=\"text\" id=\"updateInternshipTitle\" class=\"form-control form-control-md\" />\n" +
                 "                                                    </div>\n" +
                 "                                                </div>\n" +
                 "                                                <div class=\"col-md-6 mb-4\">\n" +
                 "\n" +
-                "                                                    <div class=\"form-outline datepicker w-100\">\n" +
-                "                                                        <label for=\"companyPassword\" class=\"password\">Password</label>\n" +
-                "                                                        <input type=\"password\" class=\"form-control form-control-md\" id=\"companyPassword\" placeholder=\"Password\"/>\n" +
+                "                                                    <div class=\"form-outline w-100\">\n" +
+                "                                                        <label for=\"updateInternshipDuration\" class=\"text\">Duration</label>\n" +
+                "                                                        <input type=\"number\" class=\"form-control form-control-md\" id=\"updateInternshipDuration\" />\n" +
                 "                                                    </div>\n" +
                 "\n" +
                 "                                                </div>\n" +
                 "                                            </div>\n" +
-                "\n" +
-                "                                            <div class=\"row\">\n" +
-                "                                                <div class=\"col-md-6 mb-4\">\n" +
-                "                                                    <div class=\"form-outline\">\n" +
-                "                                                        <label class=\"email\" for=\"companyEmail\">Email</label>\n" +
-                "                                                        <input type=\"email\" id=\"companyEmail\" class=\"form-control form-control-md\" placeholder=\"Company email\"/>\n" +
-                "                                                    </div>\n" +
-                "                                                </div>\n" +
-                "                                                <div class=\"col-md-6 mb-4\">\n" +
-                "                                                    <div class=\"form-outline\">\n" +
-                "                                                        <label for=\"companyPhoneNumber\">Phone number</label>\n" +
-                "                                                        <input type=\"tel\" id=\"companyPhoneNumber\" class=\"form-control form-control-md\" placeholder=\"Company phone number\"/>\n" +
-                "                                                    </div>\n" +
-                "                                                </div>\n" +
-                "                                            </div>\n" +
-                "\n" +
-                "                                            <div class=\"row\">\n" +
-                "                                                <div class=\"col-md-12 mb-4 pb-2\">\n" +
-                "                                                    <div class=\"form-outline\">\n" +
-                "                                                        <label class=\"form-label\" for=\"companyAddress\">Address</label>\n" +
-                "                                                        <input type=\"text\" id=\"companyAddress\" class=\"form-control form-control-md\" placeholder=\"Company address\" />\n" +
-                "                                                    </div>\n" +
-                "                                                </div>\n" +
-                "                                            </div>\n" +
-                "\n" +
                 "                                            <div>\n" +
-                "                                                <label for=\"companyDescription\">Description</label>\n" +
-                "                                                <textarea id=\"companyDescription\" class=\"form-control form-control-md\" placeholder=\"What makes your company special?\" rows=\"4\"></textarea>\n" +
+                "                                                <label for=\"updateInternshipSalary\">Salary</label>\n" +
+                "                                                <input type=\"number\" id=\"updateInternshipSalary\" class=\"form-control form-control-md\" />\n" +
+                "                                            </div>\n" +
+                "                                            <div>\n" +
+                "                                                <label for=\"updateInternshipRequirements\">Requirements</label>\n" +
+                "                                                <textarea id=\"updateInternshipRequirements\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
+                "                                            </div>\n" +
+                "                                            <div>\n" +
+                "                                                <label for=\"updateInternshipDescription\">Description</label>\n" +
+                "                                                <textarea id=\"updateInternshipDescription\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
                 "                                            </div>\n" +
                 "\n" +
                 "                                            <div class=\"mt-4 pt-2\">\n" +
-                "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Submit\" id=\"companySubmitBtn\"/>\n" +
+                "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Update\" id=\"internshipUpdateBtn\"/>\n" +
                 "                                            </div>\n" +
                 "                                        </form>\n" +
                 "                                    </div>\n" +
@@ -513,9 +493,53 @@ function showInternshipDetails(internship) {
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                </section>";
+            setInternshipDetails(internship);
+            internshipUpdateBtn = document.getElementById("internshipUpdateBtn");
+            internshipUpdateBtn.addEventListener("click", function () { return updateInternship(); });
+            //console.log(internship);
             previousInternshipDetails = internshipDetailsContent;
             previousInternship = internship;
             return [2 /*return*/];
+        });
+    });
+}
+function setInternshipDetails(internship) {
+    var internshipTitle = document.getElementById("updateInternshipTitle");
+    var internshipDuration = document.getElementById("updateInternshipDuration");
+    var internshipSalary = document.getElementById("updateInternshipSalary");
+    var internshipRequirements = document.getElementById("updateInternshipRequirements");
+    var internshipDescription = document.getElementById("updateInternshipDescription");
+    internshipTitle.setAttribute("value", internship.titel);
+    internshipDuration.setAttribute("value", internship.dauertage);
+    internshipSalary.setAttribute("value", internship.gehalt);
+    internshipRequirements.textContent = internship.anforderungen;
+    internshipDescription.textContent = internship.beschreibung;
+}
+function updateInternship() {
+    return __awaiter(this, void 0, void 0, function () {
+        var internshipTitle, internshipDuration, internshipSalary, internshipRequirements, internshipDescription, internship;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    internshipTitle = document.getElementById("updateInternshipTitle");
+                    internshipDuration = document.getElementById("updateInternshipDuration");
+                    internshipSalary = document.getElementById("updateInternshipSalary");
+                    internshipRequirements = document.getElementById("updateInternshipRequirements");
+                    internshipDescription = document.getElementById("updateInternshipDescription");
+                    internship = {
+                        titel: internshipTitle.value,
+                        dauertage: internshipDuration.value,
+                        gehalt: internshipSalary.value,
+                        anforderungen: internshipRequirements.value,
+                        beschreibung: internshipDescription.value,
+                        firma: currentCompanyId
+                    };
+                    console.log(internship);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     });
 }
