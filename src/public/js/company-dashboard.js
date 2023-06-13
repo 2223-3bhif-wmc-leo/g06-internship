@@ -37,11 +37,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var currentCompanyId;
 window.addEventListener("load", function () { return __awaiter(_this, void 0, void 0, function () {
+    var createBtn;
+    var _this = this;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, loadInternships()];
             case 1:
                 _a.sent();
+                createBtn = document.getElementById("createInternshipBtn");
+                createBtn.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        createInternship();
+                        return [2 /*return*/];
+                    });
+                }); });
                 return [2 /*return*/];
         }
     });
@@ -67,6 +76,55 @@ function fetchRestEndpoint(route, method, data) {
                     return [4 /*yield*/, res.json()];
                 case 2: return [2 /*return*/, _a.sent()];
                 case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+function createInternship() {
+    return __awaiter(this, void 0, void 0, function () {
+        var title, duration, salary, reqirements, description, internship, response, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    title = document.getElementById("internshipTitle").value;
+                    duration = document.getElementById("internshipDuration").value;
+                    salary = document.getElementById("internshipSalary").value;
+                    reqirements = document.getElementById("internshipRequirements").value;
+                    description = document.getElementById("internshipDescription").value;
+                    if (!(title === "" || duration === "" || salary === "" || reqirements === "" || description === "")) return [3 /*break*/, 1];
+                    alert("Please fill in all fields");
+                    return [3 /*break*/, 6];
+                case 1:
+                    internship = {
+                        title: title,
+                        duration: duration,
+                        salary: salary,
+                        reqirements: reqirements,
+                        description: description
+                    };
+                    console.log(internship);
+                    response = void 0;
+                    _a.label = 2;
+                case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika", "POST", internship)];
+                case 3:
+                    response = _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    return [3 /*break*/, 5];
+                case 5:
+                    if (response) {
+                        alert("Internship created");
+                        window.location.href = "http://localhost:3000/company-dashboard.html";
+                    }
+                    else {
+                        alert("Something went wrong");
+                    }
+                    _a.label = 6;
+                case 6: return [2 /*return*/];
             }
         });
     });

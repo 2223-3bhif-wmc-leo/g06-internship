@@ -53,56 +53,39 @@
                             <div class="col-12 col-lg-9 col-xl-7">
                                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                                     <div class="card-body p-4 p-md-5">
-                                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Register as a company</h3>
+                                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Create new Internship</h3>
                                         <form>
                                             <div class="row">
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
-                                                        <label class="form-label" for="companyName">Name</label>
-                                                        <input type="text" id="companyName" class="form-control form-control-md" placeholder="Name"/>
+                                                        <label class="form-label" for="internshipTitle">Title</label>
+                                                        <input type="text" id="internshipTitle" class="form-control form-control-md" placeholder="Title"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-4">
 
-                                                    <div class="form-outline datepicker w-100">
-                                                        <label for="companyPassword" class="password">Password</label>
-                                                        <input type="password" class="form-control form-control-md" id="companyPassword" placeholder="Password"/>
+                                                    <div class="form-outline w-100">
+                                                        <label for="internshipDuration" class="text">Duration</label>
+                                                        <input type="number" class="form-control form-control-md" id="internshipDuration" placeholder="Duration"/>
                                                     </div>
 
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="form-outline">
-                                                        <label class="email" for="companyEmail">Email</label>
-                                                        <input type="email" id="companyEmail" class="form-control form-control-md" placeholder="Company email"/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="form-outline">
-                                                        <label for="companyPhoneNumber">Phone number</label>
-                                                        <input type="tel" id="companyPhoneNumber" class="form-control form-control-md" placeholder="Company phone number"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12 mb-4 pb-2">
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="companyAddress">Address</label>
-                                                        <input type="text" id="companyAddress" class="form-control form-control-md" placeholder="Company address" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <div>
-                                                <label for="companyDescription">Description</label>
-                                                <textarea id="companyDescription" class="form-control form-control-md" placeholder="What makes your company special?" rows="4"></textarea>
+                                                <label for="internshipSalary">Salary</label>
+                                                <input type="number" id="internshipSalary" class="form-control form-control-md" placeholder="Salary"/>
+                                            </div>
+                                            <div>
+                                                <label for="internshipRequirements">Requirements</label>
+                                                <textarea id="internshipRequirements" class="form-control form-control-md" placeholder="What requirements does your internship have?" rows="4"></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="internshipDescription">Description</label>
+                                                <textarea id="internshipDescription" class="form-control form-control-md" placeholder="What will you do while working?" rows="4"></textarea>
                                             </div>
 
                                             <div class="mt-4 pt-2">
-                                                <input class="btn btn-primary btn-lg" type="button" value="Submit" id="companySubmitBtn"/>
+                                                <input class="btn btn-primary btn-lg" type="button" value="Submit" id="internshipCreateBtn"/>
                                             </div>
                                         </form>
                                     </div>

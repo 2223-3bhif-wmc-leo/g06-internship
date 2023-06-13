@@ -2,12 +2,10 @@ let currentCompanyId;
 
 window.addEventListener("load", async () => {
     await loadInternships();
-});
 
-window.addEventListener("load", () => {
-    const uploadButton = document.getElementById("updateBtn");
-    uploadButton.addEventListener("click", async () => {
-
+    const createBtn = document.getElementById("createInternshipBtn");
+    createBtn.addEventListener("click", async () => {
+        createInternship();
     });
 });
 
@@ -32,7 +30,41 @@ async function fetchRestEndpoint(
     }
 }
 
+async function createInternship() {
+    const title = (<HTMLInputElement>document.getElementById("internshipTitle")).value;
+    const duration = (<HTMLInputElement>document.getElementById("internshipDuration")).value;
+    const salary = (<HTMLInputElement>document.getElementById("internshipSalary")).value;
+    const reqirements = (<HTMLInputElement>document.getElementById("internshipRequirements")).value;
+    const description = (<HTMLInputElement>document.getElementById("internshipDescription")).value;
 
+    if(title === "" || duration === "" || salary === "" || reqirements === "" || description === "") {
+        alert("Please fill in all fields");
+    }else {
+        const internship = {
+            title: title,
+            duration: duration,
+            salary: salary,
+            reqirements: reqirements,
+            description: description
+        };
+
+        console.log(internship);
+        let response;
+
+        try {
+            response = await fetchRestEndpoint("http://localhost:3000/api/praktika", "POST", internship);
+        }catch (error) {
+            console.log(error);
+        }
+
+        if(response) {
+            alert("Internship created");
+            window.location.href = "http://localhost:3000/company-dashboard.html";
+        }else {
+            alert("Something went wrong");
+        }
+    }
+}
 
 async function setCurrentCompany() {
     function getCookie(cname) {
