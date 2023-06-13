@@ -120,6 +120,7 @@ function createInternship() {
                 case 4:
                     error_1 = _a.sent();
                     console.log(error_1);
+                    alert("Something went wrong");
                     return [3 /*break*/, 5];
                 case 5:
                     if (response) {
