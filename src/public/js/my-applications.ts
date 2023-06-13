@@ -1,3 +1,4 @@
+const currentStudent = 1;
 window.addEventListener("load", async () => {
    await loadInternships();
 });
@@ -25,14 +26,11 @@ async function fetchRestEndpoint(
 
 async function loadInternships() {
     const internshipsDiv = document.getElementById("myInternships");
-    const internships = await fetchRestEndpoint("http://localhost:3000/api/bewerber", "GET");
-    const myInternships = internships.filter(internship => internship.bewerber_id === 1);
-
+    const myInternships = await fetchRestEndpoint("http://localhost:3000/api/bewerber/schueler/" + currentStudent, "GET");
 
     for (const internship of myInternships) {
         const internshipCard = document.createElement("div");
-        const praktikum = await fetchRestEndpoint("http://localhost:3000/api/praktika/" + internship.praktikum_id, "GET");
-        internshipCard.innerText = internship.prakikum.titel;
+        internshipCard.innerText = internship.titel;
         internshipsDiv.appendChild(internshipCard);
     }
     console.log(myInternships);

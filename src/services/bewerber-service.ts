@@ -1,5 +1,5 @@
 import {ServiceBase} from "./service-base";
-import {IBewerber} from "../models/model";
+import {IBewerber, IPraktikum} from "../models/model";
 import {Unit} from "../unit";
 
 export class BewerberService extends ServiceBase {
@@ -47,5 +47,10 @@ export class BewerberService extends ServiceBase {
         const stmt = await this.unit.prepare('delete from Bewerber where id = ?', id);
         const [success, _] = await this.executeStmt(stmt);
         return success;
+    }
+
+    public async getPraktikaByStudentId(schuelerId: number): Promise<IPraktikum[]> {
+        const stmt = await this.unit.prepare('select * from Praktikum where id in (select praktikum from Bewerber where schueler = ?)', schuelerId);
+        return await stmt.all<IPraktikum[]>();
     }
 }
