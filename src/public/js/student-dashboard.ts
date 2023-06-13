@@ -7,7 +7,7 @@ let currentStudentID = 1;
 window.addEventListener("load", () => {
     const uploadButton = document.getElementById("uploadBtn");
     uploadButton.addEventListener("click", async () => {
-        //await applyForInternship();
+        await applyForInternship();
 
     });
 });
@@ -53,12 +53,19 @@ async function fetchRestEndpoint(
         return await res.json();
     }
 }
+
+async function loadInternships() {
+    internships = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
+    console.log(internships);
+    await showInternships(internships);
+}
+
 async function getFirma(id: Number): Promise<any> {
     return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
 }
 
 
-/*async function showInternships(internships) {
+async function showInternships(internships) {
     await setCurrentUser();
 
     const listGroup = document.getElementById("list-group");
@@ -193,14 +200,14 @@ async function uploadFile(file): Promise<void> {
         const formData = new FormData();
         formData.append('file', file);
         /*formData.append('internshipId', previousInternship.id.toString());
-        formData.append('studentId', "1")
+        formData.append('studentId', "1")*/
 
         const responseFile = await fetch('http://localhost:3000/upload', {
             method: 'POST',
             body: formData,
-            headers: {
+            /*headers: {
                 'Content-Type': 'multipart/form-data' // Set the correct encoding type
-            }
+            }*/
         });
 
         const resonseBewerbung: boolean = await fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
@@ -218,4 +225,4 @@ async function uploadFile(file): Promise<void> {
     } catch (error) {
         console.error('Error uploading file:', error.message);
     }
-}*/
+}

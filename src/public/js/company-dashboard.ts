@@ -42,7 +42,7 @@ async function setCurrentCompany() {
     console.log(currentCompanyId);
 }
 
-async function loadInternships() {
+/*async function loadInternships() {
     await setCurrentCompany();
 
     const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/"+currentCompanyId, "GET");
@@ -228,4 +228,4 @@ async function showStudentDetails(student) {
     studentDetailsCard.appendChild(studentDetailsCardBody);
 
     studentDetails.appendChild(studentDetailsCard);
-}
+}*/
