@@ -92,7 +92,7 @@ function showInternships(internships) {
         return __generator(this, function (_a) {
             listGroup = document.getElementById("list-group");
             _loop_1 = function (internship) {
-                var internshipCard = document.createElement("a");
+                var internshipCard = document.createElement("div");
                 internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
                 internshipCard.setAttribute("id", internship.id);
                 internshipCard.addEventListener("click", function () { return showInternshipDetails(internship); });
@@ -101,6 +101,7 @@ function showInternships(internships) {
                 var internshipCardTitle = document.createElement("h5");
                 internshipCardTitle.classList.add("mb-1");
                 internshipCardTitle.innerText = internship.titel;
+                listGroup.appendChild(internshipCardTitle);
             };
             for (_i = 0, internships_1 = internships; _i < internships_1.length; _i++) {
                 internship = internships_1[_i];

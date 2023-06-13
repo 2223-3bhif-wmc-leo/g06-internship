@@ -19,6 +19,7 @@ async function fetchRestEndpoint(
     }
 }
 
+
 async function loadInternships() {
     const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
     console.log(internships);
@@ -30,9 +31,9 @@ async function getFirma(id: Number): Promise<any> {
 }
 
 async function showInternships(internships) {
-    const listGroup = document.getElementById("list-group");
+    let listGroup = document.getElementById("list-group");
     for (const internship of internships) {
-        const internshipCard = document.createElement("a");
+        const internshipCard = document.createElement("div");
         internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
         internshipCard.setAttribute("id", internship.id)
         internshipCard.addEventListener("click", () => showInternshipDetails(internship));
@@ -43,6 +44,7 @@ async function showInternships(internships) {
         const internshipCardTitle = document.createElement("h5");
         internshipCardTitle.classList.add("mb-1");
         internshipCardTitle.innerText = internship.titel;
+        listGroup.appendChild(internshipCardTitle);
     }
 }
 
