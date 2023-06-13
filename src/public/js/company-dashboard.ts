@@ -281,12 +281,23 @@ async function showStudentDetails(student) {
 
 async function loadInternships() {
     await setCurrentCompany()
-    const myInternships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET");
-    await showInternships(myInternships);
+    try {
+        const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET");
+        await showInternships(internships);
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
 
 async function getFirma(id: Number): Promise<any> {
-    return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
+    try {
+        return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
+    }
+    catch (e) {
+        console.log(e);
+        return null;
+    }
 }
 
 async function showInternships(internships) {
@@ -436,46 +447,24 @@ async function updateInternship() {
     };
     console.log(internship);
 
-    await fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship);
+    try {
+        await fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship);
+        window.location.reload();
+    }
+    catch (e){
+        alert("Error updating internship");
+        console.log(e);
+    }
 
 }
 
 async function deleteInternship(id) {
-    await fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE");
-    window.location.reload();
-}
-
-async function loadStudentsOfCompany(id) {
-    const students = await fetchRestEndpoint("http://localhost:3000/schueler/praktikum/" + id, "GET");
-
-    const studentList = document.getElementById("student-list");
-    console.log(students);
-
-    for(let student of students) {
-        const internshipCard = document.createElement("a");
-
-        const internshipCardHeading = document.createElement("div");
-        internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
-
-        const internshipCardTitle = document.createElement("h5");
-        internshipCardTitle.classList.add("mb-1");
-        internshipCardTitle.innerText = student.titel;
-
-
-        const internshipCardSmall = document.createElement("small");
-        internshipCardSmall.innerText = student.dauertage + " Tage, Posted: " + student.aufgegeben
-
-        const firma = await getFirma(student.firma);
-
-        const internshipCardText = document.createElement("p");
-        internshipCardText.classList.add("mb-1");
-        internshipCardText.innerText = firma.name;
-
-        const internshipCardSmall2 = document.createElement("small");
-        internshipCardSmall2.innerText = firma.addresse;
-
-        internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
-        internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
-        studentList.append(internshipCard);
+    try {
+        await fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE");
+        window.location.reload();
+    }
+    catch (e) {
+        console.log(e);
     }
 }
+

@@ -349,29 +349,45 @@ async function showStudentDetails(student) {
 }*/
 function loadInternships() {
     return __awaiter(this, void 0, void 0, function () {
-        var myInternships;
+        var internships, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, setCurrentCompany()];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET")];
+                    _a.label = 2;
                 case 2:
-                    myInternships = _a.sent();
-                    return [4 /*yield*/, showInternships(myInternships)];
+                    _a.trys.push([2, 5, , 6]);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET")];
                 case 3:
+                    internships = _a.sent();
+                    return [4 /*yield*/, showInternships(internships)];
+                case 4:
                     _a.sent();
-                    return [2 /*return*/];
+                    return [3 /*break*/, 6];
+                case 5:
+                    e_1 = _a.sent();
+                    console.log(e_1);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });
 }
 function getFirma(id) {
     return __awaiter(this, void 0, void 0, function () {
+        var e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET")];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET")];
                 case 1: return [2 /*return*/, _a.sent()];
+                case 2:
+                    e_2 = _a.sent();
+                    console.log(e_2);
+                    return [2 /*return*/, null];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -524,7 +540,7 @@ function setInternshipDetails(internship) {
 }
 function updateInternship() {
     return __awaiter(this, void 0, void 0, function () {
-        var internshipTitle, internshipDuration, internshipSalary, internshipRequirements, internshipDescription, internship;
+        var internshipTitle, internshipDuration, internshipSalary, internshipRequirements, internshipDescription, internship, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -542,66 +558,41 @@ function updateInternship() {
                         firma: currentCompanyId
                     };
                     console.log(internship);
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship)];
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/" + currentCompanyId, "PUT", internship)];
+                case 2:
                     _a.sent();
-                    return [2 /*return*/];
+                    window.location.reload();
+                    return [3 /*break*/, 4];
+                case 3:
+                    e_3 = _a.sent();
+                    alert("Error updating internship");
+                    console.log(e_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
 function deleteInternship(id) {
     return __awaiter(this, void 0, void 0, function () {
+        var e_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE")];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE")];
                 case 1:
                     _a.sent();
                     window.location.reload();
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
-function loadStudentsOfCompany(id) {
-    return __awaiter(this, void 0, void 0, function () {
-        var students, studentList, _i, students_1, student, internshipCard, internshipCardHeading, internshipCardTitle, internshipCardSmall, firma, internshipCardText, internshipCardSmall2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/schueler/praktikum/" + id, "GET")];
-                case 1:
-                    students = _a.sent();
-                    studentList = document.getElementById("student-list");
-                    console.log(students);
-                    _i = 0, students_1 = students;
-                    _a.label = 2;
+                    return [3 /*break*/, 3];
                 case 2:
-                    if (!(_i < students_1.length)) return [3 /*break*/, 5];
-                    student = students_1[_i];
-                    internshipCard = document.createElement("a");
-                    internshipCardHeading = document.createElement("div");
-                    internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
-                    internshipCardTitle = document.createElement("h5");
-                    internshipCardTitle.classList.add("mb-1");
-                    internshipCardTitle.innerText = student.titel;
-                    internshipCardSmall = document.createElement("small");
-                    internshipCardSmall.innerText = student.dauertage + " Tage, Posted: " + student.aufgegeben;
-                    return [4 /*yield*/, getFirma(student.firma)];
-                case 3:
-                    firma = _a.sent();
-                    internshipCardText = document.createElement("p");
-                    internshipCardText.classList.add("mb-1");
-                    internshipCardText.innerText = firma.name;
-                    internshipCardSmall2 = document.createElement("small");
-                    internshipCardSmall2.innerText = firma.addresse;
-                    internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
-                    internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
-                    studentList.append(internshipCard);
-                    _a.label = 4;
-                case 4:
-                    _i++;
-                    return [3 /*break*/, 2];
-                case 5: return [2 /*return*/];
+                    e_4 = _a.sent();
+                    console.log(e_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
