@@ -127,7 +127,6 @@ function updateStudent() {
                 case 1:
                     response = _a.sent();
                     console.log(response);
-                    alert("Update successful");
                     return [2 /*return*/];
             }
         });
