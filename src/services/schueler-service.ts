@@ -46,7 +46,7 @@ export class SchulerService extends ServiceBase {
         return success;
     }
 
-    public async insert(schueler: ISchueler): Promise<boolean> {
+    public async insert(schueler: ISchueler): Promise<[boolean, number | null]> {
         const stmt: Statement = await this.unit.prepare('insert into Schueler (id, name, email, adresse, telefon, passwort) values (?1, ?2, ?3, ?4, ?5, ?6)',
             {
                 1: schueler.id,
@@ -58,8 +58,7 @@ export class SchulerService extends ServiceBase {
             }
         );
 
-        const [success, _] = await this.executeStmt(stmt);
-        return success;
+        return await this.executeStmt(stmt);
     }
 
     public async delete(id: number): Promise<boolean> {

@@ -34,33 +34,32 @@ async function postStudent() {
     let address = (<HTMLInputElement>document.getElementById("studentAddress")).value;
     let phoneNumber = (<HTMLInputElement>document.getElementById("studentPhoneNumber")).value;
 
-
-    console.log(name, email, password, address, phoneNumber);
-
     if (password === null || email === "" || password === "" || address === "" || phoneNumber === "") {
         alert("Please fill in all fields");
     } else {
         let registerData = {
-            name: this.name,
-            email: this.email,
-            passwort: this.password,
-            adresse: this.address,
-            telefon: this.telefon
+            name: name,
+            email: email,
+            passwort: password,
+            adresse: address,
+            telefon: phoneNumber
         }
         let response;
-
-        console.log(registerData);
 
         try {
             response = await fetchRestEndpoint("http://localhost:3000/api/schueler", "POST", registerData);
         } catch (error) {
             console.log(error);
+            if(error.message === "POST http://localhost:3000/api/schueler 406 (Not Acceptable)") {
+                alert("Email already exists");
+            }
         }
 
         if (response) {
-            console.log(response);
             alert("Register successful");
+            window.location.href = "http://localhost:3000/login.html";
         } else {
+            if(response !== undefined)
             alert("Register failed");
         }
     }

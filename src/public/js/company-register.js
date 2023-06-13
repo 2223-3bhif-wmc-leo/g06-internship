@@ -13,7 +13,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var companySubmitBtn;
 window.addEventListener("DOMContentLoaded", function () {
     companySubmitBtn = document.getElementById("companySubmitBtn");
-    companySubmitBtn.addEventListener("click", postStudent);
+    companySubmitBtn.addEventListener("click", postCompany);
 });
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
@@ -64,9 +64,9 @@ function fetchRestEndpoint(route, method, data) {
         });
     });
 }
-function postStudent() {
+function postCompany() {
     return __awaiter(this, void 0, void 0, function () {
-        var name, email, password, address, phoneNumber, description, registerData, response;
+        var name, email, password, address, phoneNumber, description, registerData, response, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -78,7 +78,7 @@ function postStudent() {
                     description = document.getElementById("companyDescription").value;
                     if (!(password === null || email === "" || password === "" || address === "" || phoneNumber === "" || description === "")) return [3 /*break*/, 1];
                     alert("Please fill in all fields");
-                    return [3 /*break*/, 3];
+                    return [3 /*break*/, 6];
                 case 1:
                     registerData = {
                         name: name,
@@ -89,19 +89,31 @@ function postStudent() {
                         beschreibung: description
                     };
                     response = void 0;
-                    console.log(registerData);
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen", "POST", registerData)];
+                    _a.label = 2;
                 case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen", "POST", registerData)];
+                case 3:
                     response = _a.sent();
-                    console.log(response);
-                    if (response.status === 201) {
-                        alert("Successfully registered");
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    if (error_1.message === "POST http://localhost:3000/api/firmen 406 (Not Acceptable)") {
+                        alert("Email already exists");
+                    }
+                    return [3 /*break*/, 5];
+                case 5:
+                    if (response) {
+                        alert("Register successful");
+                        window.location.href = "http://localhost:3000/login.html";
                     }
                     else {
-                        alert("Something went wrong");
+                        if (response !== undefined)
+                            alert("Register failed");
                     }
-                    _a.label = 3;
-                case 3: return [2 /*return*/];
+                    _a.label = 6;
+                case 6: return [2 /*return*/];
             }
         });
     });

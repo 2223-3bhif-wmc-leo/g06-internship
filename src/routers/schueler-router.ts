@@ -38,7 +38,7 @@ router.get('/', async (_: Request, res: Response) => {
     } finally {
         await unit.complete();
     }
-}).put('/:id', async (req: Request, res: Response) => {
+})/*.put('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
 
     const unit: Unit = await Unit.create(false);
@@ -72,7 +72,7 @@ router.get('/', async (_: Request, res: Response) => {
     } finally {
         await unit.complete(false);
     }
-}).post('/', async (req: Request, res: Response) => {
+})*/.post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
     const schuelerService: SchulerService = new SchulerService(unit);
 
@@ -85,25 +85,29 @@ router.get('/', async (_: Request, res: Response) => {
         telefon: req.body.telefon,
     };
 
+    let schuelerGeneratedId: number|null = null;
+
     try {
         let success = false;
 
         if(await (await schuelerService.getAll()).find(s => s.email === schueler.email)){
-            res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
+            res.status(StatusCodes.NOT_ACCEPTABLE).send(true);
             return;
         }else {
-            success = await schuelerService.insert(schueler);
+            let [success1, generatedID] = await schuelerService.insert(schueler);
+            success = success1;
+            schuelerGeneratedId = generatedID;
         }
         if (success) {
             await unit.complete(true);
-            res.sendStatus(StatusCodes.CREATED);
+            res.status(StatusCodes.CREATED).send(true).send(schuelerGeneratedId);
         } else {
             await unit.complete(false);
-            res.sendStatus(StatusCodes.NOT_FOUND);
+            res.status(StatusCodes.NOT_FOUND).send(true);
         }
     } catch (e) {
         console.log(e);
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(true);
     } finally {
         await unit.complete(true);
     }

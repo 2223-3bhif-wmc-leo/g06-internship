@@ -45,7 +45,7 @@ export class FirmenService extends ServiceBase {
         return success;
     }
 
-    public async insert(firma: IFirma): Promise<boolean> {
+    public async insert(firma: IFirma): Promise<[boolean, number|null]> {
         const stmt = await this.unit.prepare(
             "insert into Firma (name, email, passwort, beschreibung, addresse, telefon) values (?1, ?2, ?3, ?4, ?5, ?6)",
             {
@@ -58,8 +58,7 @@ export class FirmenService extends ServiceBase {
             }
         );
 
-        const [success, _] = await this.executeStmt(stmt);
-        return success;
+        return await this.executeStmt(stmt);
     }
 
     public async delete(id: number): Promise<boolean> {
