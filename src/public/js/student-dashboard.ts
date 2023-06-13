@@ -218,6 +218,7 @@ async function uploadFile(file): Promise<void> {
 
         if (responseFile && resonseBewerbung) {
             alert("Bewerbung erfolgreich abgeschickt");
+            window.location.reload();
             console.log('File uploaded successfully');
         } else {
             throw new Error('Failed to upload file');
