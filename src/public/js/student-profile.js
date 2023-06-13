@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var currentStudentID;
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -76,11 +77,38 @@ function loadStudent() {
         });
     });
 }
+function setCurrentUser() {
+    return __awaiter(this, void 0, void 0, function () {
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        return __generator(this, function (_a) {
+            console.log(document.cookie);
+            currentStudentID = Number(getCookie("student"));
+            console.log(currentStudentID);
+            return [2 /*return*/];
+        });
+    });
+}
 function getStudent(id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler/" + id, "GET")];
+                case 0:
+                    setCurrentUser();
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler/" + currentStudentID, "GET")];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -99,7 +127,7 @@ function showStudent(student) {
             emailField = document.getElementById("emailField");
             emailField.setAttribute("value", student.email);
             passwordField = document.getElementById("passwordField");
-            passwordField.setAttribute("value", student.passwort);
+            passwordField.value = student.passwort;
             return [2 /*return*/];
         });
     });
@@ -116,14 +144,14 @@ function updateStudent() {
                     emailField = document.getElementById("emailField");
                     passwordField = document.getElementById("passwordField");
                     student = {
-                        name: nameField.getAttribute("value"),
-                        telefon: phoneField.getAttribute("value"),
-                        adresse: addressField.getAttribute("value"),
-                        email: emailField.getAttribute("value"),
-                        passwort: passwordField.getAttribute("value")
+                        name: nameField.value,
+                        telefon: phoneField.value,
+                        adresse: addressField.value,
+                        email: emailField.value,
+                        passwort: passwordField.value
                     };
                     console.log(student);
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler/1", "PUT", student)];
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler/" + currentStudentID, "PUT", student)];
                 case 1:
                     response = _a.sent();
                     console.log(response);
