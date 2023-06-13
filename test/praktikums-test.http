@@ -12,7 +12,7 @@ Content-Type: application/json
   "titel": "Prakikum in der Informatik",
   "beschreibung": "1 Montat praktikum in der Informatik \n Aufgaben: \n Entwickeln von Software \n Testen von Software \n Dokumentation von Software",
   "anforderungen": "Currently pursuing a degree in Computer Science or related field  \n  Strong programming skills in languages such as Java, Python, or C++  \n Good problem-solving abilities   \nExcellent communication and teamwork skills",
-  "firma": 1,
+  "firma": 2,
   "dauertage": 30,
   "gehalt": 1000
 }

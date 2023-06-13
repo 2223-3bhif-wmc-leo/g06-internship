@@ -1,5 +1,9 @@
 let currentCompanyId;
 
+window.addEventListener("load", async () => {
+    await loadInternships();
+});
+
 async function fetchRestEndpoint(
     route: string,
     method: "GET" | "POST" | "PUT" | "DELETE",
@@ -42,7 +46,7 @@ async function setCurrentCompany() {
     console.log(currentCompanyId);
 }
 
-async function loadInternships() {
+/*async function loadInternships() {
     await setCurrentCompany();
 
     const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/"+currentCompanyId, "GET");
@@ -228,4 +232,50 @@ async function showStudentDetails(student) {
     studentDetailsCard.appendChild(studentDetailsCardBody);
 
     studentDetails.appendChild(studentDetailsCard);
+}*/
+
+async function loadInternships() {
+    setCurrentCompany()
+    const internshipsDiv = document.getElementById("myInternships");
+    const myInternships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/" + currentCompanyId, "GET");
+    console.log(myInternships);
+    showInternships(myInternships);
+}
+
+async function getFirma(id: Number): Promise<any> {
+    return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
+}
+
+async function showInternships(internships) {
+    const listGroup = document.getElementById("list-group");
+    for (const internship of internships) {
+        const internshipCard = document.createElement("a");
+        internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
+        internshipCard.setAttribute("id", internship.id)
+        //internshipCard.addEventListener("click", () => showInternshipDetails(internship));
+
+        const internshipCardHeading = document.createElement("div");
+        internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
+
+        const internshipCardTitle = document.createElement("h5");
+        internshipCardTitle.classList.add("mb-1");
+        internshipCardTitle.innerText = internship.titel;
+
+
+        const internshipCardSmall = document.createElement("small");
+        internshipCardSmall.innerText = internship.dauertage + " Tage, Posted: " + internship.aufgegeben
+
+        const firma = await getFirma(internship.firma);
+
+        const internshipCardText = document.createElement("p");
+        internshipCardText.classList.add("mb-1");
+        internshipCardText.innerText = firma.name;
+
+        const internshipCardSmall2 = document.createElement("small");
+        internshipCardSmall2.innerText = firma.addresse;
+
+        internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
+        internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
+        listGroup.append(internshipCard);
+    }
 }
