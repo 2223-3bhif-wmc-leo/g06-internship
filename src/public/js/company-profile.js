@@ -169,3 +169,18 @@ function updateCompany() {
         });
     });
 }
+function deleteCompany() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "DELETE")];
+                case 1:
+                    response = _a.sent();
+                    console.log(response);
+                    window.location.href = "http://localhost:3000/index.html";
+                    return [2 /*return*/];
+            }
+        });
+    });
+}

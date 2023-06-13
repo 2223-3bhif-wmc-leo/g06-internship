@@ -99,3 +99,9 @@ async function updateCompany() {
     const response = await fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "PUT", company);
     console.log(response);
 }
+
+async function deleteCompany() {
+    const response = await fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "DELETE");
+    console.log(response);
+    window.location.href = "http://localhost:3000/index.html";
+}
