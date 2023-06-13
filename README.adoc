@@ -74,3 +74,4 @@ Die Plattform muss Benachrichtigungen über neue Praktikumsplätze und Bewerbung
 
 Die Plattform muss eine Suchfunktion bereitstellen, mit der Schüler/innen nach Praktikumsplätzen suchen können.
 
+*.js
