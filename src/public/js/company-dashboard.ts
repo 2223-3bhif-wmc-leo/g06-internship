@@ -1,3 +1,5 @@
+const currentCompanyId = 1;
+
 async function fetchRestEndpoint(
     route: string,
     method: "GET" | "POST" | "PUT" | "DELETE",
@@ -21,7 +23,7 @@ async function fetchRestEndpoint(
 
 
 async function loadInternships() {
-    const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
+    const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/"+currentCompanyId, "GET");
     console.log(internships);
     await showInternships(internships);
 }

@@ -12,6 +12,7 @@ import { join } from "path";
 import bewerberRouter from "./routers/bewerber-router";
 import {Unit} from "./unit";
 import * as bodyParser from "body-parser";
+import {StatusCodes} from "http-status-codes";
 
 const port: number = 3000;
 const app: Express = express();
@@ -30,10 +31,10 @@ app.use('/api/bewerber', bewerberRouter);
 
 app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+        return res.status(400).send(false);
     }
 
-    res.send('File uploaded successfully.');
+    res.status(StatusCodes.OK).send(true);
 });
 
 app.listen(port, (): void => {
