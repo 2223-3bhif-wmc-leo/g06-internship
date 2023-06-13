@@ -58,6 +58,7 @@ async function createInternship() {
             response = await fetchRestEndpoint("http://localhost:3000/api/praktika", "POST", internship);
         } catch (error) {
             console.log(error);
+            alert("Something went wrong");
         }
 
         if (response) {
