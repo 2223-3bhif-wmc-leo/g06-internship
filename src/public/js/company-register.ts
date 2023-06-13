@@ -2,7 +2,7 @@ let companySubmitBtn;
 
 window.addEventListener("DOMContentLoaded", () => {
     companySubmitBtn = document.getElementById("companySubmitBtn");
-    companySubmitBtn.addEventListener("click", postStudent);
+    companySubmitBtn.addEventListener("click", postCompany);
 });
 
 async function fetchRestEndpoint(
@@ -26,7 +26,7 @@ async function fetchRestEndpoint(
     }
 }
 
-async function postStudent() {
+async function postCompany() {
     let name = (<HTMLInputElement>document.getElementById("companyName")).value;
     let email = (<HTMLInputElement>document.getElementById("companyEmail")).value;
     let password = (<HTMLInputElement>document.getElementById("companyPassword")).value;
@@ -47,13 +47,21 @@ async function postStudent() {
         }
         let response;
 
-        console.log(registerData);
-        response = await fetchRestEndpoint("http://localhost:3000/api/firmen", "POST", registerData);
-        console.log(response);
-        if (response.status === 201) {
-            alert("Successfully registered");
+        try {
+            response = await fetchRestEndpoint("http://localhost:3000/api/firmen", "POST", registerData);
+        } catch (error) {
+            console.log(error);
+            if(error.message === "POST http://localhost:3000/api/firmen 406 (Not Acceptable)") {
+                alert("Email already exists");
+            }
+        }
+
+        if (response) {
+            alert("Register successful");
+            window.location.href = "http://localhost:3000/login.html";
         } else {
-            alert("Something went wrong");
+            if(response !== undefined)
+                alert("Register failed");
         }
     }
 }
