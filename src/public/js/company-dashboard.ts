@@ -4,6 +4,13 @@ window.addEventListener("load", async () => {
     await loadInternships();
 });
 
+window.addEventListener("load", () => {
+    const uploadButton = document.getElementById("updateBtn");
+    uploadButton.addEventListener("click", async () => {
+
+    });
+});
+
 async function fetchRestEndpoint(
     route: string,
     method: "GET" | "POST" | "PUT" | "DELETE",
@@ -24,6 +31,8 @@ async function fetchRestEndpoint(
         return await res.json();
     }
 }
+
+
 
 async function setCurrentCompany() {
     function getCookie(cname) {
