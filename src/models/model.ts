@@ -1,4 +1,4 @@
-    export interface IFirma {
+export interface ICompany {
     id?: number;
     name: string;
     email: string;
@@ -8,18 +8,18 @@
     passwort: string;
 }
 
-export interface IPraktikum {
+export interface IInternship {
     id?: number;
     titel: string;
     beschreibung: string;
     dauertage: number;
     anforderungen: string;
-    firma: IFirma;
+    firma: ICompany;
     aufgegeben?: string;
     gehalt?: string;
 }
 
-export interface ISchueler {
+export interface IStudent {
     id?: number;
     name: string;
     email: string;
@@ -28,9 +28,9 @@ export interface ISchueler {
     telefon: string;
 }
 
-export interface IBewerber {
+export interface IApplication {
     id?: number;
-    praktikumId: IPraktikum;
-    schuelerId: ISchueler;
+    praktikumId: IInternship;
+    schuelerId: IStudent;
     bewerbungFileName: string;
 }

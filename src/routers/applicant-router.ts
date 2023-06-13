@@ -3,16 +3,16 @@ import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
 
-import {IBewerber, IPraktikum} from "../models/model";
-import {BewerberService} from "../services/bewerber-service";
+import {IApplication, IInternship} from "../models/model";
+import {ApplicantService} from "../services/applicant-service";
 
 const router: Router = express.Router();
 
 router.get('/', async (_: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
-    const service = new BewerberService(unit);
+    const service = new ApplicantService(unit);
     try {
-        const bewerber: IBewerber[] = await service.getAll();
+        const bewerber: IApplication[] = await service.getAll();
         res.status(StatusCodes.OK).json(bewerber);
     } catch (error) {
         console.log(error);
@@ -23,9 +23,9 @@ router.get('/', async (_: Request, res: Response) => {
 }).get('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(true);
-    const service = new BewerberService(unit);
+    const service = new ApplicantService(unit);
     try {
-        const bewerber: IBewerber | null = await service.getById(id);
+        const bewerber: IApplication | null = await service.getById(id);
         if (bewerber === null) {
             res.sendStatus(StatusCodes.NOT_FOUND);
         } else {
@@ -40,9 +40,9 @@ router.get('/', async (_: Request, res: Response) => {
 }).put('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(false);
-    const service = new BewerberService(unit);
+    const service = new ApplicantService(unit);
     try {
-        const bewerber: IBewerber = {
+        const bewerber: IApplication = {
             id: id,
             schuelerId: req.body.schuelerId,
             praktikumId: req.body.praktikumId,
@@ -62,9 +62,9 @@ router.get('/', async (_: Request, res: Response) => {
     }
 }).post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
-    const service = new BewerberService(unit);
+    const service = new ApplicantService(unit);
     try {
-        const bewerber: IBewerber = {
+        const bewerber: IApplication = {
             schuelerId: req.body.schuelerId,
             praktikumId: req.body.praktikumId,
             bewerbungFileName: req.body.bewerbungFileName
@@ -86,7 +86,7 @@ router.get('/', async (_: Request, res: Response) => {
 }).delete('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(false);
-    const service = new BewerberService(unit);
+    const service = new ApplicantService(unit);
     try {
         const success: boolean = await service.delete(id);
         if (success) {
@@ -102,9 +102,9 @@ router.get('/', async (_: Request, res: Response) => {
 }).get('/schueler/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const unit: Unit = await Unit.create(true);
-    const service = new BewerberService(unit);
+    const service = new ApplicantService(unit);
     try {
-        const pratika: IPraktikum[] = await service.getPraktikaByStudentId(id);
+        const pratika: IInternship[] = await service.getPraktikaByStudentId(id);
         res.status(StatusCodes.OK).json(pratika);
     } catch (error) {
         console.log(error);

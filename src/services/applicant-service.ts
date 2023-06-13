@@ -1,24 +1,24 @@
 import {ServiceBase} from "./service-base";
-import {IBewerber, IPraktikum} from "../models/model";
+import {IApplication, IInternship} from "../models/model";
 import {Unit} from "../unit";
 
-export class BewerberService extends ServiceBase {
+export class ApplicantService extends ServiceBase {
 
     constructor(unit: Unit) {
         super(unit);
     }
 
-    public async getAll(): Promise<IBewerber[]> {
+    public async getAll(): Promise<IApplication[]> {
         const stmt = await this.unit.prepare("select * from Bewerber");
-        return await stmt.all<IBewerber[]>();
+        return await stmt.all<IApplication[]>();
     }
 
-    public async getById(id: number): Promise<IBewerber | null> {
+    public async getById(id: number): Promise<IApplication | null> {
         const stmt = await this.unit.prepare("select * from Bewerber where id = ?", id);
-        return ServiceBase.nullIfUndefined(await stmt.get<(IBewerber)>());
+        return ServiceBase.nullIfUndefined(await stmt.get<(IApplication)>());
     }
 
-    public async update(bewerber: IBewerber): Promise<boolean> {
+    public async update(bewerber: IApplication): Promise<boolean> {
         const stmt = await this.unit.prepare('update Bewerber set praktikum = ?2, schueler = ?3, bewerbungFileName = ?4 where id = ?1',
             {
                 1: bewerber.id,
@@ -31,7 +31,7 @@ export class BewerberService extends ServiceBase {
         return success;
     }
 
-    public async insert(bewerber: IBewerber): Promise<boolean> {
+    public async insert(bewerber: IApplication): Promise<boolean> {
         const stmt = await this.unit.prepare('insert into Bewerber (praktikum, schueler, bewerbungFileName) values (?1, ?2, ?3)',
             {
                 1: bewerber.praktikumId,
@@ -49,8 +49,8 @@ export class BewerberService extends ServiceBase {
         return success;
     }
 
-    public async getPraktikaByStudentId(schuelerId: number): Promise<IPraktikum[]> {
+    public async getPraktikaByStudentId(schuelerId: number): Promise<IInternship[]> {
         const stmt = await this.unit.prepare('select * from Praktikum where id in (select praktikum from Bewerber where schueler = ?)', schuelerId);
-        return await stmt.all<IPraktikum[]>();
+        return await stmt.all<IInternship[]>();
     }
 }

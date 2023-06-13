@@ -67,6 +67,12 @@ async function showStudent(student) {
 
     const passwordField : any = document.getElementById("passwordField");
     passwordField.value = student.passwort;
+
+    const name = document.getElementById("name");
+    name.setAttribute("value", student.name);
+
+    const email = document.getElementById("email");
+    email.setAttribute("value", student.email);
 }
 
 async function updateStudent() {

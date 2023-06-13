@@ -5,11 +5,11 @@ import cors from "cors";
 // @ts-ignore
 import multer, { Multer } from 'multer';
 
-import firmenRouter from "./routers/firmen-router";
-import praktikaRouter from "./routers/praktikum-router";
-import schuelerRouter from "./routers/schueler-router";
+import companyRouter from "./routers/company-router";
+import internshipRouter from "./routers/internship-router";
+import studentRouter from "./routers/student-router";
 import { join } from "path";
-import bewerberRouter from "./routers/bewerber-router";
+import applicantRouter from "./routers/applicant-router";
 import {Unit} from "./unit";
 import * as bodyParser from "body-parser";
 import {StatusCodes} from "http-status-codes";
@@ -26,10 +26,10 @@ app.use(cors());
 
 
 app.use("/", express.static(join(__dirname, "public")));
-app.use('/api/firmen', firmenRouter);
-app.use('/api/praktika', praktikaRouter);
-app.use('/api/schueler', schuelerRouter);
-app.use('/api/bewerber', bewerberRouter);
+app.use('/api/firmen', companyRouter);
+app.use('/api/praktika', internshipRouter);
+app.use('/api/schueler', studentRouter);
+app.use('/api/bewerber', applicantRouter);
 
 app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) {

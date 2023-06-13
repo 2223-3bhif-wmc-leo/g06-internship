@@ -2,17 +2,17 @@
 import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
-import {SchulerService} from "../services/schueler-service";
-import {IFirma, ISchueler} from "../models/model";
-import {FirmenService} from "../services/firmen-service";
+import {StudentService} from "../services/student-service";
+import {ICompany, IStudent} from "../models/model";
+import {CompanyService} from "../services/company-service";
 
 const router: Router = express.Router();
 
 router.get('/', async (_: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
     try {
-        const service: SchulerService = new SchulerService(unit);
-        const schueler: ISchueler[] = await service.getAll();
+        const service: StudentService = new StudentService(unit);
+        const schueler: IStudent[] = await service.getAll();
         res.status(StatusCodes.OK).json(schueler);
     } catch (error) {
         console.log(error);
@@ -25,8 +25,8 @@ router.get('/', async (_: Request, res: Response) => {
 
     const unit: Unit = await Unit.create(true);
     try {
-        const service: SchulerService = new SchulerService(unit);
-        const schueler: ISchueler | null = await service.getById(id);
+        const service: StudentService = new StudentService(unit);
+        const schueler: IStudent | null = await service.getById(id);
         if (schueler === null) {
             res.sendStatus(StatusCodes.NOT_FOUND);
         } else {
@@ -41,9 +41,9 @@ router.get('/', async (_: Request, res: Response) => {
 }).put('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(false);
-    const studentService: SchulerService = new SchulerService(unit);
+    const studentService: StudentService = new StudentService(unit);
 
-    const schueler: ISchueler = {
+    const schueler: IStudent = {
         id: id,
         name: req.body.name,
         email: req.body.email,
@@ -71,10 +71,10 @@ router.get('/', async (_: Request, res: Response) => {
     }
 }).post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
-    const schuelerService: SchulerService = new SchulerService(unit);
+    const schuelerService: StudentService = new StudentService(unit);
 
 
-    const schueler: ISchueler = {
+    const schueler: IStudent = {
         name: req.body.name,
         email: req.body.email,
         passwort: req.body.passwort,
@@ -113,8 +113,8 @@ router.get('/', async (_: Request, res: Response) => {
 
     const unit: Unit = await Unit.create(false);
     try {
-        const service: SchulerService = new SchulerService(unit);
-        const schueler: ISchueler | null = await service.getById(id);
+        const service: StudentService = new StudentService(unit);
+        const schueler: IStudent | null = await service.getById(id);
         if (schueler === null) {
             res.sendStatus(StatusCodes.NOT_FOUND);
         } else {
@@ -149,8 +149,8 @@ router.get('/', async (_: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
 
     try {
-        const service: SchulerService = new SchulerService(unit);
-        const schueler: ISchueler | null = await service.login(email, passwort);
+        const service: StudentService = new StudentService(unit);
+        const schueler: IStudent | null = await service.login(email, passwort);
 
         if (schueler === null) {
             res.sendStatus(StatusCodes.NOT_ACCEPTABLE);
@@ -166,10 +166,10 @@ router.get('/', async (_: Request, res: Response) => {
 }).get('/praktikum/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const unit: Unit = await Unit.create(true);
-    const schuelerService: SchulerService = new SchulerService(unit);
+    const schuelerService: StudentService = new StudentService(unit);
 
     try {
-        const schueler: ISchueler | null = await schuelerService.getById(id);
+        const schueler: IStudent | null = await schuelerService.getById(id);
         if (schueler === null) {
             res.status(StatusCodes.NOT_FOUND).send(false);
         } else {
