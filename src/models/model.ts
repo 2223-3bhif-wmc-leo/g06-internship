@@ -1,4 +1,4 @@
-export interface IFirma {
+    export interface IFirma {
     id?: number;
     name: string;
     email: string;
