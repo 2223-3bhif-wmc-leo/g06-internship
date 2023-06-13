@@ -30,14 +30,15 @@ export class FirmenService extends ServiceBase {
 
     public async update(firma: IFirma): Promise<boolean> {
         const stmt = await this.unit.prepare("" +
-            'update Firma set name = ?2, email = ?3, telefon = ?4, addresse =?5, beschreibung =?6 where id = ?1',
+            'update Firma set name = ?2, email = ?3, telefon = ?4, addresse =?5, beschreibung =?6, passwort=?7 where id = ?1',
             {
                 1: firma.id,
                 2: firma.name,
                 3: firma.email,
                 4: firma.telefon,
                 5: firma.addresse,
-                6: firma.beschreibung
+                6: firma.beschreibung,
+                7: firma.passwort
             }
         );
 

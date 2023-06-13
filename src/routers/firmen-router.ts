@@ -101,16 +101,16 @@ router.put('/:id', async (req: Request, res: Response) => {
         const success = await firmaService.update(firma);
         if (success) {
             await unit.complete(true);
-            res.sendStatus(StatusCodes.OK);
+            res.status(StatusCodes.OK).send(true);
         } else {
             await unit.complete(false);
-            res.sendStatus(StatusCodes.NOT_FOUND);
+            res.status(StatusCodes.NOT_FOUND).send(true);
         }
     } catch (e) {
         console.log(e);
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(true);
     } finally {
-        await unit.complete();
+        await unit.complete(false);
     }
 });
 

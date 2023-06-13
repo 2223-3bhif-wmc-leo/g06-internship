@@ -90,12 +90,15 @@ function loadCompany() {
         var company;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getCompany(1)];
+                case 0: return [4 /*yield*/, setCurrentCompany()];
                 case 1:
+                    _a.sent();
+                    return [4 /*yield*/, getCompany(currentCompanyID)];
+                case 2:
                     company = _a.sent();
                     console.log(company);
                     return [4 /*yield*/, showCompany(company)];
-                case 2:
+                case 3:
                     _a.sent();
                     return [2 /*return*/];
             }
@@ -106,11 +109,8 @@ function getCompany(id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, setCurrentCompany()];
-                case 1:
-                    _a.sent();
-                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET")];
-                case 2: return [2 /*return*/, _a.sent()];
+                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET")];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     });
@@ -148,12 +148,12 @@ function updateCompany() {
                     phoneField = document.getElementById("phoneField");
                     passwordField = document.getElementById("passwordField");
                     company = {
-                        name: nameField.getAttribute("value"),
-                        email: emailField.getAttribute("value"),
-                        beschreibung: descriptionField.getAttribute("value"),
-                        addresse: addressField.getAttribute("value"),
-                        telefon: phoneField.getAttribute("value"),
-                        passwort: passwordField.getAttribute("value")
+                        name: nameField.value,
+                        email: emailField.value,
+                        beschreibung: descriptionField.value,
+                        adresse: addressField.value,
+                        telefon: phoneField.value,
+                        passwort: passwordField.value
                     };
                     console.log(company);
                     return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/firmen/" + currentCompanyID, "PUT", company)];
