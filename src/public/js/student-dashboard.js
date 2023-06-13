@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,14 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
+exports.__esModule = true;
+var typescript_cookie_1 = require("typescript-cookie");
 var internships = [];
 var previousInternship = null;
 var previousInternshipDetails = null;
 var currentStudent = 1;
 window.addEventListener("load", function () {
     var uploadButton = document.getElementById("uploadBtn");
-    uploadButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+    uploadButton.addEventListener("click", function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, applyForInternship()];
@@ -74,6 +76,14 @@ function fetchRestEndpoint(route, method, data) {
                 case 2: return [2 /*return*/, _a.sent()];
                 case 3: return [2 /*return*/];
             }
+        });
+    });
+}
+function getCurrentUser() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            console.log((0, typescript_cookie_1.getCookie)("user"));
+            return [2 /*return*/];
         });
     });
 }

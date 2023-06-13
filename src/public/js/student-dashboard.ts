@@ -1,3 +1,5 @@
+import {setCookie, getCookie} from "typescript-cookie";
+
 let internships = [];
 let previousInternship = null;
 let previousInternshipDetails = null;
@@ -30,6 +32,10 @@ async function fetchRestEndpoint(
         return await res.json();
     }
 }
+
+async function getCurrentUser(){
+    console.log(getCookie("user"));
+}
 async function loadInternships(){
     internships = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
     console.log(internships);
@@ -42,6 +48,7 @@ async function getFirma(id : Number) : Promise<any> {
 
 
 async function showInternships(internships) {
+    getCurrentUser();
     const listGroup = document.getElementById("list-group");
     for (const internship of internships) {
         const internshipCard = document.createElement("a");
