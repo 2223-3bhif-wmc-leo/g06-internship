@@ -1,13 +1,13 @@
 import {Unit} from "../unit";
 import {ServiceBase} from "./service-base";
-import {IPraktikum} from "../models/model";
+import {IInternship} from "../models/model";
 
-export class PraktikumService extends ServiceBase {
+export class InternshipService extends ServiceBase {
     constructor(unit: Unit) {
         super(unit);
     }
 
-    public async updatePraktikum(praktikum: IPraktikum): Promise<boolean> {
+    public async updatePraktikum(praktikum: IInternship): Promise<boolean> {
         const stmt = await this.unit.prepare("" +
             `update Praktikum
              set titel         = ?1,
@@ -33,7 +33,7 @@ export class PraktikumService extends ServiceBase {
         return success;
     }
 
-    public async insertPraktikum(praktikum: IPraktikum): Promise<boolean> {
+    public async insertPraktikum(praktikum: IInternship): Promise<boolean> {
         const stmt = await this.unit.prepare(
             "insert into Praktikum (titel, beschreibung, dauertage, anforderungen, firma, gehalt, aufgegeben) values (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
             {
@@ -50,16 +50,16 @@ export class PraktikumService extends ServiceBase {
         return success;
     }
 
-    public async getPraktika(): Promise<IPraktikum[]> {
+    public async getPraktika(): Promise<IInternship[]> {
         const stmt = await this.unit.prepare(
             "select * from Praktikum");
-        return stmt.all<IPraktikum[]>();
+        return stmt.all<IInternship[]>();
     }
 
-    public async getPraktikumById(id: number): Promise<IPraktikum | null> {
+    public async getPraktikumById(id: number): Promise<IInternship | null> {
         const stmt = await this.unit.prepare(
             "select * from Praktikum where id = ?1", id);
-        return ServiceBase.nullIfUndefined(await stmt.get<IPraktikum>());
+        return ServiceBase.nullIfUndefined(await stmt.get<IInternship>());
     }
 
     public async delete(id: number): Promise<boolean> {
@@ -71,9 +71,9 @@ export class PraktikumService extends ServiceBase {
         return success;
     }
 
-    public async getPraktikaOfFirma(firmenId: number): Promise<IPraktikum[]> {
+    public async getPraktikaOfFirma(firmenId: number): Promise<IInternship[]> {
         const stmt = await this.unit.prepare(
             "select * from Praktikum where firma = ?1", firmenId);
-        return stmt.all<IPraktikum[]>();
+        return stmt.all<IInternship[]>();
     }
 }

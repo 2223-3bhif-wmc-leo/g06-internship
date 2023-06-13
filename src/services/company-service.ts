@@ -1,21 +1,21 @@
 import {Unit} from "../unit";
 import {ServiceBase} from "./service-base";
 import {Statement} from "sqlite";
-import {IFirma} from "../models/model";
+import {ICompany} from "../models/model";
 
-export class FirmenService extends ServiceBase {
+export class CompanyService extends ServiceBase {
     constructor(unit: Unit) {
         super(unit);
     }
 
-    public async getAll(): Promise<IFirma[]> {
+    public async getAll(): Promise<ICompany[]> {
         const stmt = await this.unit.prepare("select * from Firma");
-        return await stmt.all<IFirma[]>();
+        return await stmt.all<ICompany[]>();
     }
 
-    public async getById(id: number): Promise<IFirma | null> {
+    public async getById(id: number): Promise<ICompany | null> {
         const stmt = await this.unit.prepare("select * from Firma where id = ?", id);
-        const rawResult: IFirma | null = ServiceBase.nullIfUndefined(await stmt.get<(IFirma)>());
+        const rawResult: ICompany | null = ServiceBase.nullIfUndefined(await stmt.get<(ICompany)>());
 
         return rawResult === null ? null : {
             id: rawResult.id,
@@ -28,7 +28,7 @@ export class FirmenService extends ServiceBase {
         };
     }
 
-    public async update(firma: IFirma): Promise<boolean> {
+    public async update(firma: ICompany): Promise<boolean> {
         const stmt = await this.unit.prepare("" +
             'update Firma set name = ?2, email = ?3, telefon = ?4, addresse =?5, beschreibung =?6, passwort=?7 where id = ?1',
             {
@@ -46,7 +46,7 @@ export class FirmenService extends ServiceBase {
         return success;
     }
 
-    public async insert(firma: IFirma): Promise<[boolean, number|null]> {
+    public async insert(firma: ICompany): Promise<[boolean, number|null]> {
         const stmt = await this.unit.prepare(
             "insert into Firma (name, email, passwort, beschreibung, addresse, telefon) values (?1, ?2, ?3, ?4, ?5, ?6)",
             {
@@ -68,12 +68,12 @@ export class FirmenService extends ServiceBase {
         return success;
     }
 
-    public async login(email: string, passwort: string): Promise<IFirma | null> {
+    public async login(email: string, passwort: string): Promise<ICompany | null> {
         const stmt = await this.unit.prepare("select * from Firma where email = ?1 and passwort = ?2", {
             1: email,
             2: passwort
         });
-        const rawResult: IFirma | null = ServiceBase.nullIfUndefined(await stmt.get<(IFirma)>());
+        const rawResult: ICompany | null = ServiceBase.nullIfUndefined(await stmt.get<(ICompany)>());
 
         return rawResult === null ? null : {
             id: rawResult.id,

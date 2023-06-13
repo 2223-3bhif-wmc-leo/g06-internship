@@ -2,16 +2,16 @@
 import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
-import {SchulerService} from "../services/schueler-service";
-import {FirmenService} from "../services/firmen-service";
-import {PraktikumService} from "../services/praktikum-service";
-import {IFirma, ISchueler} from "../models/model";
+import {StudentService} from "../services/student-service";
+import {CompanyService} from "../services/company-service";
+import {InternshipService} from "../services/internship-service";
+import {ICompany, IStudent} from "../models/model";
 
 const router: Router = express.Router();
 router.get('/', async (_: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
     try {
-        const service: FirmenService = new FirmenService(unit);
+        const service: CompanyService = new CompanyService(unit);
         const firmen: any[] = await service.getAll();
         res.status(StatusCodes.OK).json(firmen);
     } catch (error) {
@@ -27,7 +27,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     const unit: Unit = await Unit.create(true);
     try {
-        const service: FirmenService = new FirmenService(unit);
+        const service: CompanyService = new CompanyService(unit);
         const firma: any | null = await service.getById(id);
 
         firma === null ? res.status(StatusCodes.NOT_FOUND).send("Firma not found")
@@ -42,10 +42,10 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
-    const firmaService: FirmenService = new FirmenService(unit);
+    const firmaService: CompanyService = new CompanyService(unit);
 
 
-    const firma: IFirma = {
+    const firma: ICompany = {
         name: req.body.name,
         email: req.body.email,
         passwort: req.body.passwort,
@@ -85,9 +85,9 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
     const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(false);
-    const firmaService: FirmenService = new FirmenService(unit);
+    const firmaService: CompanyService = new CompanyService(unit);
 
-    const firma: IFirma = {
+    const firma: ICompany = {
         id: id,
         name: req.body.name,
         email: req.body.email,
@@ -119,8 +119,8 @@ router.delete('/:id', async (req: Request, res: Response) => {
 
     const unit: Unit = await Unit.create(false);
     try {
-        const service: FirmenService = new FirmenService(unit);
-        const firma: IFirma | null = await service.getById(id);
+        const service: CompanyService = new CompanyService(unit);
+        const firma: ICompany | null = await service.getById(id);
 
         if (firma === null) {
             res.sendStatus(StatusCodes.NOT_FOUND);
@@ -156,8 +156,8 @@ router.delete('/:id', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
 
     try {
-        const service: FirmenService = new FirmenService(unit);
-        const firma: IFirma | null = await service.login(email, passwort);
+        const service: CompanyService = new CompanyService(unit);
+        const firma: ICompany | null = await service.login(email, passwort);
 
         if (firma === null) {
             res.sendStatus(StatusCodes.NOT_ACCEPTABLE);

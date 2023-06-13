@@ -2,14 +2,14 @@
 import express, {Request, Response, Router} from 'express';
 import {Unit} from "../unit";
 import {StatusCodes} from "http-status-codes";
-import {PraktikumService} from "../services/praktikum-service";
-import {IPraktikum} from "../models/model";
+import {InternshipService} from "../services/internship-service";
+import {IInternship} from "../models/model";
 
 const router: Router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(true);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
+    const praktikaService: InternshipService = new InternshipService(unit);
     try {
         const praktika = await praktikaService.getPraktika();
         res.status(StatusCodes.OK).json(praktika);
@@ -23,7 +23,7 @@ router.get('/', async (req: Request, res: Response) => {
 }).get('/firma/:id', async (req: Request, res: Response) => {
     const firmaId: number = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
+    const praktikaService: InternshipService = new InternshipService(unit);
     try {
         const praktikaOfFirma = await praktikaService.getPraktikaOfFirma(firmaId);
         if (praktikaOfFirma.length > 0) {
@@ -41,7 +41,7 @@ router.get('/', async (req: Request, res: Response) => {
 }).get('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(true);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
+    const praktikaService: InternshipService = new InternshipService(unit);
     try {
         const praktikum = await praktikaService.getPraktikumById(id);
         if (praktikum !== null) {
@@ -57,9 +57,9 @@ router.get('/', async (req: Request, res: Response) => {
     }
 }).post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
+    const praktikaService: InternshipService = new InternshipService(unit);
 
-    const praktikum: IPraktikum = {
+    const praktikum: IInternship = {
         titel: req.body.titel,
         beschreibung: req.body.beschreibung,
         dauertage: req.body.dauertage,
@@ -88,10 +88,10 @@ router.get('/', async (req: Request, res: Response) => {
 }).put('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(false);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
+    const praktikaService: InternshipService = new InternshipService(unit);
 
     try{
-        const praktikum: IPraktikum = {
+        const praktikum: IInternship = {
             id: id,
             titel: req.body.titel,
             beschreibung: req.body.beschreibung,
@@ -121,7 +121,7 @@ router.get('/', async (req: Request, res: Response) => {
 }).delete('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const unit: Unit = await Unit.create(false);
-    const praktikaService: PraktikumService = new PraktikumService(unit);
+    const praktikaService: InternshipService = new InternshipService(unit);
     try {
         const success = await praktikaService.delete(id);
         if (success) {
