@@ -13,6 +13,8 @@ import bewerberRouter from "./routers/bewerber-router";
 import {Unit} from "./unit";
 import * as bodyParser from "body-parser";
 import {StatusCodes} from "http-status-codes";
+import * as fs from "fs";
+import * as path from "path";
 
 const port: number = 3000;
 const app: Express = express();
@@ -34,7 +36,18 @@ app.post('/upload', upload.single('file'), (req, res) => {
         return res.status(400).send(false);
     }
 
-    res.status(StatusCodes.OK).send(true);
+    const originalFileName = req.file.originalname;
+    const uploadedFilePath = req.file.path;
+
+    const newFilePath = path.join(path.dirname(uploadedFilePath), originalFileName);
+    fs.rename(uploadedFilePath, newFilePath, (err) => {
+        if (err) {
+            console.error('Error renaming file:', err);
+            return res.status(500).send('Error renaming file.');
+        }
+
+        res.send('File uploaded successfully.');
+    });
 });
 
 app.listen(port, (): void => {
