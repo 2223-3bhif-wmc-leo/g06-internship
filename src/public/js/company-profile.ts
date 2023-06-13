@@ -42,13 +42,13 @@ async function setCurrentCompany() {
 }
 
 async function loadCompany() {
-    const company = await getCompany(1);
+    await setCurrentCompany();
+    const company = await getCompany(currentCompanyID);
     console.log(company);
     await showCompany(company);
 }
 
 async function getCompany(id: Number): Promise<any> {
-    await setCurrentCompany();
     return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
 }
 async function showCompany(company) {
@@ -72,20 +72,20 @@ async function showCompany(company) {
 }
 
 async function updateCompany() {
-    const nameField = document.getElementById("nameField");
-    const emailField = document.getElementById("emailField");
-    const descriptionField = document.getElementById("descriptionField");
-    const addressField = document.getElementById("addressField");
-    const phoneField = document.getElementById("phoneField");
-    const passwordField = document.getElementById("passwordField");
+    const nameField : any = document.getElementById("nameField");
+    const emailField : any = document.getElementById("emailField");
+    const descriptionField : any = document.getElementById("descriptionField");
+    const addressField: any = document.getElementById("addressField");
+    const phoneField:any  = document.getElementById("phoneField");
+    const passwordField: any = document.getElementById("passwordField");
 
     const company = {
-        name: nameField.getAttribute("value"),
-        email: emailField.getAttribute("value"),
-        beschreibung: descriptionField.getAttribute("value"),
-        addresse: addressField.getAttribute("value"),
-        telefon: phoneField.getAttribute("value"),
-        passwort: passwordField.getAttribute("value")
+        name: nameField.value,
+        email: emailField.value,
+        beschreibung: descriptionField.value,
+        adresse: addressField.value,
+        telefon: phoneField.value,
+        passwort: passwordField.value
     }
 
     console.log(company);

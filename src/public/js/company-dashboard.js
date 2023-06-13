@@ -36,6 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 var currentCompanyId;
+var previousInternship = null;
+var previousInternshipDetails = null;
 window.addEventListener("load", function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -46,6 +48,14 @@ window.addEventListener("load", function () { return __awaiter(_this, void 0, vo
         }
     });
 }); });
+window.addEventListener("load", function () {
+    var uploadButton = document.getElementById("updateBtn");
+    uploadButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/];
+        });
+    }); });
+});
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -313,43 +323,141 @@ function getFirma(id) {
 }
 function showInternships(internships) {
     return __awaiter(this, void 0, void 0, function () {
-        var listGroup, _i, internships_1, internship, internshipCard, internshipCardHeading, internshipCardTitle, internshipCardSmall, firma, internshipCardText, internshipCardSmall2;
+        var listGroup, _loop_1, _i, internships_1, internship;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     listGroup = document.getElementById("list-group");
+                    _loop_1 = function (internship) {
+                        var internshipCard, internshipCardHeading, internshipCardTitle, internshipCardSmall, firma, internshipCardText, internshipCardSmall2;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    internshipCard = document.createElement("a");
+                                    internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
+                                    internshipCard.setAttribute("id", internship.id);
+                                    internshipCard.addEventListener("click", function () { return showInternshipDetails(internship); });
+                                    internshipCardHeading = document.createElement("div");
+                                    internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
+                                    internshipCardTitle = document.createElement("h5");
+                                    internshipCardTitle.classList.add("mb-1");
+                                    internshipCardTitle.innerText = internship.titel;
+                                    internshipCardSmall = document.createElement("small");
+                                    internshipCardSmall.innerText = internship.dauertage + " Tage, Posted: " + internship.aufgegeben;
+                                    return [4 /*yield*/, getFirma(internship.firma)];
+                                case 1:
+                                    firma = _b.sent();
+                                    internshipCardText = document.createElement("p");
+                                    internshipCardText.classList.add("mb-1");
+                                    internshipCardText.innerText = firma.name;
+                                    internshipCardSmall2 = document.createElement("small");
+                                    internshipCardSmall2.innerText = firma.addresse;
+                                    internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
+                                    internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
+                                    listGroup.append(internshipCard);
+                                    return [2 /*return*/];
+                            }
+                        });
+                    };
                     _i = 0, internships_1 = internships;
                     _a.label = 1;
                 case 1:
                     if (!(_i < internships_1.length)) return [3 /*break*/, 4];
                     internship = internships_1[_i];
-                    internshipCard = document.createElement("a");
-                    internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
-                    internshipCard.setAttribute("id", internship.id);
-                    internshipCardHeading = document.createElement("div");
-                    internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
-                    internshipCardTitle = document.createElement("h5");
-                    internshipCardTitle.classList.add("mb-1");
-                    internshipCardTitle.innerText = internship.titel;
-                    internshipCardSmall = document.createElement("small");
-                    internshipCardSmall.innerText = internship.dauertage + " Tage, Posted: " + internship.aufgegeben;
-                    return [4 /*yield*/, getFirma(internship.firma)];
+                    return [5 /*yield**/, _loop_1(internship)];
                 case 2:
-                    firma = _a.sent();
-                    internshipCardText = document.createElement("p");
-                    internshipCardText.classList.add("mb-1");
-                    internshipCardText.innerText = firma.name;
-                    internshipCardSmall2 = document.createElement("small");
-                    internshipCardSmall2.innerText = firma.addresse;
-                    internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
-                    internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
-                    listGroup.append(internshipCard);
+                    _a.sent();
                     _a.label = 3;
                 case 3:
                     _i++;
                     return [3 /*break*/, 1];
                 case 4: return [2 /*return*/];
             }
+        });
+    });
+}
+function showInternshipDetails(internship) {
+    return __awaiter(this, void 0, void 0, function () {
+        var previousInternshipCard, internshipCard, internshipDetails, internshipDetailsContent;
+        return __generator(this, function (_a) {
+            if (previousInternship != null) {
+                previousInternshipCard = document.getElementById(previousInternship.id);
+                previousInternshipCard.classList.remove("active");
+            }
+            if (previousInternshipDetails != null) {
+                previousInternshipDetails.remove();
+            }
+            internshipCard = document.getElementById(internship.id);
+            internshipCard.classList.add("active");
+            internshipDetails = document.getElementById("internship-details");
+            internshipDetailsContent = document.createElement("div");
+            internshipDetails.innerHTML = "<section class=\"vh-100 gradient-custom w-100\">\n" +
+                "                    <div class=\"container-12 h-100 w-100\">\n" +
+                "                        <div class=\"row justify-content-center align-items-center w-100 h-100\">\n" +
+                "                            <div class=\"col-12 col-lg-9 col-xl-7\">\n" +
+                "                                <div class=\"card shadow-2-strong card-registration\" style=\"border-radius: 15px;\">\n" +
+                "                                    <div class=\"card-body p-4 p-md-5\">\n" +
+                "                                        <h3 class=\"mb-4 pb-2 pb-md-0 mb-md-5\">Register as a company</h3>\n" +
+                "                                        <form>\n" +
+                "                                            <div class=\"row\">\n" +
+                "                                                <div class=\"col-md-6 mb-4\">\n" +
+                "                                                    <div class=\"form-outline\">\n" +
+                "                                                        <label class=\"form-label\" for=\"companyName\">Name</label>\n" +
+                "                                                        <input type=\"text\" id=\"companyName\" class=\"form-control form-control-md\" placeholder=\"Name\"/>\n" +
+                "                                                    </div>\n" +
+                "                                                </div>\n" +
+                "                                                <div class=\"col-md-6 mb-4\">\n" +
+                "\n" +
+                "                                                    <div class=\"form-outline datepicker w-100\">\n" +
+                "                                                        <label for=\"companyPassword\" class=\"password\">Password</label>\n" +
+                "                                                        <input type=\"password\" class=\"form-control form-control-md\" id=\"companyPassword\" placeholder=\"Password\"/>\n" +
+                "                                                    </div>\n" +
+                "\n" +
+                "                                                </div>\n" +
+                "                                            </div>\n" +
+                "\n" +
+                "                                            <div class=\"row\">\n" +
+                "                                                <div class=\"col-md-6 mb-4\">\n" +
+                "                                                    <div class=\"form-outline\">\n" +
+                "                                                        <label class=\"email\" for=\"companyEmail\">Email</label>\n" +
+                "                                                        <input type=\"email\" id=\"companyEmail\" class=\"form-control form-control-md\" placeholder=\"Company email\"/>\n" +
+                "                                                    </div>\n" +
+                "                                                </div>\n" +
+                "                                                <div class=\"col-md-6 mb-4\">\n" +
+                "                                                    <div class=\"form-outline\">\n" +
+                "                                                        <label for=\"companyPhoneNumber\">Phone number</label>\n" +
+                "                                                        <input type=\"tel\" id=\"companyPhoneNumber\" class=\"form-control form-control-md\" placeholder=\"Company phone number\"/>\n" +
+                "                                                    </div>\n" +
+                "                                                </div>\n" +
+                "                                            </div>\n" +
+                "\n" +
+                "                                            <div class=\"row\">\n" +
+                "                                                <div class=\"col-md-12 mb-4 pb-2\">\n" +
+                "                                                    <div class=\"form-outline\">\n" +
+                "                                                        <label class=\"form-label\" for=\"companyAddress\">Address</label>\n" +
+                "                                                        <input type=\"text\" id=\"companyAddress\" class=\"form-control form-control-md\" placeholder=\"Company address\" />\n" +
+                "                                                    </div>\n" +
+                "                                                </div>\n" +
+                "                                            </div>\n" +
+                "\n" +
+                "                                            <div>\n" +
+                "                                                <label for=\"companyDescription\">Description</label>\n" +
+                "                                                <textarea id=\"companyDescription\" class=\"form-control form-control-md\" placeholder=\"What makes your company special?\" rows=\"4\"></textarea>\n" +
+                "                                            </div>\n" +
+                "\n" +
+                "                                            <div class=\"mt-4 pt-2\">\n" +
+                "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Submit\" id=\"companySubmitBtn\"/>\n" +
+                "                                            </div>\n" +
+                "                                        </form>\n" +
+                "                                    </div>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </section>";
+            previousInternshipDetails = internshipDetailsContent;
+            previousInternship = internship;
+            return [2 /*return*/];
         });
     });
 }

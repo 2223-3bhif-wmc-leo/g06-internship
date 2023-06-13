@@ -1,4 +1,6 @@
 let currentCompanyId;
+let previousInternship = null;
+let previousInternshipDetails = null;
 
 window.addEventListener("load", async () => {
     await loadInternships();
@@ -261,7 +263,7 @@ async function showInternships(internships) {
         const internshipCard = document.createElement("a");
         internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
         internshipCard.setAttribute("id", internship.id)
-        //internshipCard.addEventListener("click", () => showInternshipDetails(internship));
+        internshipCard.addEventListener("click", () => showInternshipDetails(internship));
 
         const internshipCardHeading = document.createElement("div");
         internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
@@ -287,4 +289,87 @@ async function showInternships(internships) {
         internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
         listGroup.append(internshipCard);
     }
+}
+
+async function showInternshipDetails(internship) {
+    if (previousInternship != null) {
+        const previousInternshipCard = document.getElementById(previousInternship.id);
+        previousInternshipCard.classList.remove("active");
+    }
+    if (previousInternshipDetails != null) {
+        previousInternshipDetails.remove();
+    }
+    const internshipCard = document.getElementById(internship.id);
+    internshipCard.classList.add("active");
+    const internshipDetails = document.getElementById("internship-details");
+    const internshipDetailsContent = document.createElement("div");
+
+    internshipDetails.innerHTML = "<section class=\"vh-100 gradient-custom w-100\">\n" +
+        "                    <div class=\"container-12 h-100 w-100\">\n" +
+        "                        <div class=\"row justify-content-center align-items-center w-100 h-100\">\n" +
+        "                            <div class=\"col-12 col-lg-9 col-xl-7\">\n" +
+        "                                <div class=\"card shadow-2-strong card-registration\" style=\"border-radius: 15px;\">\n" +
+        "                                    <div class=\"card-body p-4 p-md-5\">\n" +
+        "                                        <h3 class=\"mb-4 pb-2 pb-md-0 mb-md-5\">Update</h3>\n" +
+        "                                        <form>\n" +
+        "                                            <div class=\"row\">\n" +
+        "                                                <div class=\"col-md-6 mb-4\">\n" +
+        "                                                    <div class=\"form-outline\">\n" +
+        "                                                        <label class=\"form-label\" for=\"companyName\">Name</label>\n" +
+        "                                                        <input type=\"text\" id=\"companyName\" class=\"form-control form-control-md\" placeholder=\"Name\"/>\n" +
+        "                                                    </div>\n" +
+        "                                                </div>\n" +
+        "                                                <div class=\"col-md-6 mb-4\">\n" +
+        "\n" +
+        "                                                    <div class=\"form-outline datepicker w-100\">\n" +
+        "                                                        <label for=\"companyPassword\" class=\"password\">Password</label>\n" +
+        "                                                        <input type=\"password\" class=\"form-control form-control-md\" id=\"companyPassword\" placeholder=\"Password\"/>\n" +
+        "                                                    </div>\n" +
+        "\n" +
+        "                                                </div>\n" +
+        "                                            </div>\n" +
+        "\n" +
+        "                                            <div class=\"row\">\n" +
+        "                                                <div class=\"col-md-6 mb-4\">\n" +
+        "                                                    <div class=\"form-outline\">\n" +
+        "                                                        <label class=\"email\" for=\"companyEmail\">Email</label>\n" +
+        "                                                        <input type=\"email\" id=\"companyEmail\" class=\"form-control form-control-md\" placeholder=\"Company email\"/>\n" +
+        "                                                    </div>\n" +
+        "                                                </div>\n" +
+        "                                                <div class=\"col-md-6 mb-4\">\n" +
+        "                                                    <div class=\"form-outline\">\n" +
+        "                                                        <label for=\"companyPhoneNumber\">Phone number</label>\n" +
+        "                                                        <input type=\"tel\" id=\"companyPhoneNumber\" class=\"form-control form-control-md\" placeholder=\"Company phone number\"/>\n" +
+        "                                                    </div>\n" +
+        "                                                </div>\n" +
+        "                                            </div>\n" +
+        "\n" +
+        "                                            <div class=\"row\">\n" +
+        "                                                <div class=\"col-md-12 mb-4 pb-2\">\n" +
+        "                                                    <div class=\"form-outline\">\n" +
+        "                                                        <label class=\"form-label\" for=\"companyAddress\">Address</label>\n" +
+        "                                                        <input type=\"text\" id=\"companyAddress\" class=\"form-control form-control-md\" placeholder=\"Company address\" />\n" +
+        "                                                    </div>\n" +
+        "                                                </div>\n" +
+        "                                            </div>\n" +
+        "\n" +
+        "                                            <div>\n" +
+        "                                                <label for=\"companyDescription\">Description</label>\n" +
+        "                                                <textarea id=\"companyDescription\" class=\"form-control form-control-md\" placeholder=\"What makes your company special?\" rows=\"4\"></textarea>\n" +
+        "                                            </div>\n" +
+        "\n" +
+        "                                            <div class=\"mt-4 pt-2\">\n" +
+        "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Submit\" id=\"companySubmitBtn\"/>\n" +
+        "                                            </div>\n" +
+        "                                        </form>\n" +
+        "                                    </div>\n" +
+        "                                </div>\n" +
+        "                            </div>\n" +
+        "                        </div>\n" +
+        "                    </div>\n" +
+        "                </section>"
+
+
+    previousInternshipDetails = internshipDetailsContent;
+    previousInternship = internship;
 }
