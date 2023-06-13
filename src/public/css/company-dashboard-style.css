@@ -34,3 +34,17 @@
     font-style: italic;
     margin-top: 10px;
 }
+
+.gradient-custom {
+    background: white;
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 10px;
+    line-height: 1.5;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+.card-registration .select-arrow {
+    top: 13px;
+}
