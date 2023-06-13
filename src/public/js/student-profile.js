@@ -88,25 +88,48 @@ function getStudent(id) {
 }
 function showStudent(student) {
     return __awaiter(this, void 0, void 0, function () {
-        var studentCard, studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse;
+        var nameField, phoneField, addressField, emailField, passwordField;
         return __generator(this, function (_a) {
-            studentCard = document.getElementById("profile");
-            studentCardHeading = document.createElement("div");
-            studentCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
-            studentCardTitle = document.createElement("h5");
-            studentCardTitle.classList.add("mb-1");
-            studentCardTitle.innerText = student.name;
-            studentCardText = document.createElement("p");
-            studentCardText.classList.add("mb-1");
-            studentCardText.innerText = student.email;
-            studentCardTelefon = document.createElement("p");
-            studentCardTelefon.classList.add("mb-1");
-            studentCardTelefon.innerText = student.telefon;
-            studentCardAdresse = document.createElement("p");
-            studentCardAdresse.classList.add("mb-1");
-            studentCardAdresse.innerText = student.adresse;
-            studentCard.append(studentCardHeading, studentCardTitle, studentCardText, studentCardTelefon, studentCardAdresse);
+            nameField = document.getElementById("nameField");
+            nameField.setAttribute("value", student.name);
+            phoneField = document.getElementById("phoneField");
+            phoneField.setAttribute("value", student.telefon);
+            addressField = document.getElementById("addressField");
+            addressField.setAttribute("value", student.adresse);
+            emailField = document.getElementById("emailField");
+            emailField.setAttribute("value", student.email);
+            passwordField = document.getElementById("passwordField");
+            passwordField.setAttribute("value", student.passwort);
             return [2 /*return*/];
+        });
+    });
+}
+function updateStudent() {
+    return __awaiter(this, void 0, void 0, function () {
+        var nameField, phoneField, addressField, emailField, passwordField, student, response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    nameField = document.getElementById("nameField");
+                    phoneField = document.getElementById("phoneField");
+                    addressField = document.getElementById("addressField");
+                    emailField = document.getElementById("emailField");
+                    passwordField = document.getElementById("passwordField");
+                    student = {
+                        name: nameField.getAttribute("value"),
+                        telefon: phoneField.getAttribute("value"),
+                        adresse: addressField.getAttribute("value"),
+                        email: emailField.getAttribute("value"),
+                        passwort: passwordField.getAttribute("value")
+                    };
+                    console.log(student);
+                    return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/schueler/1", "PUT", student)];
+                case 1:
+                    response = _a.sent();
+                    console.log(response);
+                    alert("Update successful");
+                    return [2 /*return*/];
+            }
         });
     });
 }

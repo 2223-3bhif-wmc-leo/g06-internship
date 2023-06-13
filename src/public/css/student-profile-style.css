@@ -1,29 +1,38 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+    background: rgb(99, 39, 120)
 }
-h1 {
-    text-align: center;
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
 }
-.profile {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
 }
-.profile img {
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+
+.profile-button:hover {
+    background: #682773
 }
-.profile-details {
-    margin-left: 20px;
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
 }
-.profile-details h2 {
-    margin: 0;
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
 }
-.profile-details p {
-    margin: 5px 0;
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
 }
+
+.labels {
+    font-size: 11px
+}
+

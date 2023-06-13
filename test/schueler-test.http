@@ -4,15 +4,15 @@ GET http://localhost:3000/api/schueler/
 ### Get specific schueler
 GET http://localhost:3000/api/schueler/1
 
-### Add/Update schueler
+### Update schueler
 PUT http://localhost:3000/api/schueler/2
 Content-Type: application/json
 
 {
   "name": "Max Mustermann",
   "email": "max@mustermann",
-  "password": "123456",
-  "address": "Musterstraße 1",
+  "passwort": "123456",
+  "adresse": "Musterstraße 1",
   "telefon": "0123456789"
 }
 
