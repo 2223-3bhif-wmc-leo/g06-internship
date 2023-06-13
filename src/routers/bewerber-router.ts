@@ -75,10 +75,10 @@ router.get('/', async (_: Request, res: Response) => {
         const success: boolean = await service.insert(bewerber);
         if (success) {
             await unit.complete(true);
-            res.sendStatus(StatusCodes.CREATED);
+            res.status(StatusCodes.CREATED).send(true);
         } else {
             await unit.complete(false);
-            res.sendStatus(StatusCodes.NOT_FOUND);
+            res.status(StatusCodes.NOT_FOUND).send(false)
         }
     } finally {
         await unit.complete(false);

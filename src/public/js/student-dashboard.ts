@@ -189,13 +189,13 @@ async function uploadFile(file): Promise<void> {
             }*/
         });
 
-        const resonseBewerbung = await fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
+        const resonseBewerbung : boolean = await fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
             praktikumId: previousInternship.id,
             schuelerId: currentStudent,
             bewerbungFileName: file.name
         });
 
-        if (responseFile.ok && resonseBewerbung.ok) {
+        if (responseFile && resonseBewerbung) {
             alert("Bewerbung erfolgreich abgeschickt");
             console.log('File uploaded successfully');
         } else {
