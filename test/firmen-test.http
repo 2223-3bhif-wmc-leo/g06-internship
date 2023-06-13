@@ -15,13 +15,13 @@ Content-Type: application/json
   }
 
 ### Update firma
-PUT http://localhost:3000/api/firmen/3
+PUT http://localhost:3000/api/firmen/2
 Content-Type: application/json
 
 {
   "name": "Apple",
-  "email" : "apple@email.com",
-  "passwort" : "123456789",
+  "email" : "a@a",
+  "passwort" : "1",
   "beschreibung" : "Wir sind ein Unternehmen",
   "adresse" : "Bahnstraße 100",
   "telefon" : "123456789"
