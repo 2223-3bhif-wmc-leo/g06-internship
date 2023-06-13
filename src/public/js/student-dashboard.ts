@@ -128,11 +128,9 @@ async function showInternshipDetails(internship) {
     applyButton.setAttribute("type", "button");
     applyButton.setAttribute("class", "btn btn-primary");
     applyButton.innerText = "Apply";
-    /*applyButton.addEventListener("click", () => {
-        applyForInternship(internship);
-    });*/
     applyButton.setAttribute("data-toggle", "modal");
     applyButton.setAttribute("data-target", "#fileUploadModal");
+
     applyButtonContainer.append(applyButton, document.getElementById("fileUploadModal"));
 
 
