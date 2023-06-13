@@ -64,5 +64,4 @@ async function updateStudent() {
 
     const response = await fetchRestEndpoint("http://localhost:3000/api/schueler/1", "PUT", student);
     console.log(response);
-    alert("Update successful");
 }

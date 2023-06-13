@@ -39,36 +39,6 @@ router.get('/', async (_: Request, res: Response) => {
         await unit.complete();
     }
 }).put('/:id', async (req: Request, res: Response) => {
-    /*const id: number = Number(req.params.id);
-    const unit: Unit = await Unit.create(false);
-    const service: SchulerService = new SchulerService(unit);
-
-    const schueler: ISchueler = {
-        id: id,
-        name: req.body.name,
-        email: req.body.email,
-        passwort: req.body.passwort,
-        adresse: req.body.adresse,
-        telefon: req.body.telefon,
-    };
-
-    try {
-        const success = await service.update(schueler);
-
-        if (success) {
-            await unit.complete(true);
-            res.sendStatus(StatusCodes.OK);
-        } else {
-            await unit.complete(false);
-            res.sendStatus(StatusCodes.BAD_REQUEST);
-        }
-    } catch (error) {
-        console.log(error);
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    } finally {
-        await unit.complete(false);
-    }*/
-
     const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(false);
     const studentService: SchulerService = new SchulerService(unit);
@@ -88,10 +58,10 @@ router.get('/', async (_: Request, res: Response) => {
         const success = await studentService.update(schueler);
         if (success) {
             await unit.complete(true);
-            res.sendStatus(StatusCodes.OK);
+            res.status(StatusCodes.OK).send(true);
         } else {
             await unit.complete(false);
-            res.sendStatus(StatusCodes.NOT_FOUND);
+            res.status(StatusCodes.NOT_FOUND).send(false);
         }
     } catch (e) {
         console.log(e);
