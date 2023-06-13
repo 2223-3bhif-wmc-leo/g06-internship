@@ -434,7 +434,7 @@ function showInternships(internships) {
 }
 function showInternshipDetails(internship) {
     return __awaiter(this, void 0, void 0, function () {
-        var previousInternshipCard, internshipCard, internshipDetails, internshipDetailsContent, internshipUpdateBtn;
+        var previousInternshipCard, internshipCard, internshipDetails, internshipDetailsContent, btnDiv, internshipDeleteBtn, internshipUpdateBtn;
         return __generator(this, function (_a) {
             if (previousInternship != null) {
                 previousInternshipCard = document.getElementById(previousInternship.id);
@@ -484,7 +484,7 @@ function showInternshipDetails(internship) {
                 "                                                <textarea id=\"updateInternshipDescription\" class=\"form-control form-control-md\"  rows=\"4\"></textarea>\n" +
                 "                                            </div>\n" +
                 "\n" +
-                "                                            <div class=\"mt-4 pt-2\">\n" +
+                "                                            <div id='btnDiv' class=\"mt-4 pt-2\">\n" +
                 "                                                <input class=\"btn btn-primary btn-lg\" type=\"button\" value=\"Update\" id=\"internshipUpdateBtn\"/>\n" +
                 "                                            </div>\n" +
                 "                                        </form>\n" +
@@ -495,6 +495,12 @@ function showInternshipDetails(internship) {
                 "                    </div>\n" +
                 "                </section>";
             setInternshipDetails(internship);
+            btnDiv = document.getElementById("btnDiv");
+            internshipDeleteBtn = document.createElement("button");
+            internshipDeleteBtn.classList.add("btn", "btn-danger", "btn-lg", "me-2");
+            internshipDeleteBtn.addEventListener("click", function () { return deleteInternship(internship.id); });
+            internshipDeleteBtn.innerText = "Delete";
+            btnDiv.append(internshipDeleteBtn);
             internshipUpdateBtn = document.getElementById("internshipUpdateBtn");
             internshipUpdateBtn.addEventListener("click", function () { return updateInternship(); });
             //console.log(internship);
@@ -540,6 +546,62 @@ function updateInternship() {
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
+            }
+        });
+    });
+}
+function deleteInternship(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/api/praktika/" + id, "DELETE")];
+                case 1:
+                    _a.sent();
+                    window.location.reload();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function loadStudentsOfCompany(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var students, studentList, _i, students_1, student, internshipCard, internshipCardHeading, internshipCardTitle, internshipCardSmall, firma, internshipCardText, internshipCardSmall2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetchRestEndpoint("http://localhost:3000/schueler/praktikum/" + id, "GET")];
+                case 1:
+                    students = _a.sent();
+                    studentList = document.getElementById("student-list");
+                    console.log(students);
+                    _i = 0, students_1 = students;
+                    _a.label = 2;
+                case 2:
+                    if (!(_i < students_1.length)) return [3 /*break*/, 5];
+                    student = students_1[_i];
+                    internshipCard = document.createElement("a");
+                    internshipCardHeading = document.createElement("div");
+                    internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
+                    internshipCardTitle = document.createElement("h5");
+                    internshipCardTitle.classList.add("mb-1");
+                    internshipCardTitle.innerText = student.titel;
+                    internshipCardSmall = document.createElement("small");
+                    internshipCardSmall.innerText = student.dauertage + " Tage, Posted: " + student.aufgegeben;
+                    return [4 /*yield*/, getFirma(student.firma)];
+                case 3:
+                    firma = _a.sent();
+                    internshipCardText = document.createElement("p");
+                    internshipCardText.classList.add("mb-1");
+                    internshipCardText.innerText = firma.name;
+                    internshipCardSmall2 = document.createElement("small");
+                    internshipCardSmall2.innerText = firma.addresse;
+                    internshipCardHeading.append(internshipCardTitle, internshipCardSmall);
+                    internshipCard.append(internshipCardHeading, internshipCardText, internshipCardSmall2);
+                    studentList.append(internshipCard);
+                    _a.label = 4;
+                case 4:
+                    _i++;
+                    return [3 /*break*/, 2];
+                case 5: return [2 /*return*/];
             }
         });
     });
