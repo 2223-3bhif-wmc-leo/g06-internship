@@ -38,8 +38,9 @@ export class SchulerService extends ServiceBase {
                 1: schueler.id,
                 2: schueler.name,
                 3: schueler.email,
-                4: schueler.telefon,
-                5: schueler.passwort
+                4: schueler.adresse,
+                5: schueler.telefon,
+                6: schueler.passwort
             }
         );
 

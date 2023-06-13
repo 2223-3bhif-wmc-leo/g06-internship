@@ -38,8 +38,8 @@ router.get('/', async (_: Request, res: Response) => {
     } finally {
         await unit.complete();
     }
-})/*.put('/:id', async (req: Request, res: Response) => {
-    const id: number = Number(req.params.id);
+}).put('/:id', async (req: Request, res: Response) => {
+    /*const id: number = Number(req.params.id);
     const unit: Unit = await Unit.create(false);
     const service: SchulerService = new SchulerService(unit);
 
@@ -67,8 +67,39 @@ router.get('/', async (_: Request, res: Response) => {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     } finally {
         await unit.complete(false);
+    }*/
+
+    const id: number = Number(req.params.id);
+    const unit: Unit = await Unit.create(false);
+    const studentService: SchulerService = new SchulerService(unit);
+
+    const schueler: ISchueler = {
+        id: id,
+        name: req.body.name,
+        email: req.body.email,
+        passwort: req.body.passwort,
+        adresse: req.body.adresse,
+        telefon: req.body.telefon
+    };
+
+    console.log(schueler);
+
+    try {
+        const success = await studentService.update(schueler);
+        if (success) {
+            await unit.complete(true);
+            res.sendStatus(StatusCodes.OK);
+        } else {
+            await unit.complete(false);
+            res.sendStatus(StatusCodes.NOT_FOUND);
+        }
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    } finally {
+        await unit.complete(false);
     }
-})*/.post('/', async (req: Request, res: Response) => {
+}).post('/', async (req: Request, res: Response) => {
     const unit: Unit = await Unit.create(false);
     const schuelerService: SchulerService = new SchulerService(unit);
 

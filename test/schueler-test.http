@@ -4,7 +4,7 @@ GET http://localhost:3000/api/schueler/
 ### Get specific schueler
 GET http://localhost:3000/api/schueler/1
 
-### Add/Update schueler
+### Update schueler
 PUT http://localhost:3000/api/schueler/2
 Content-Type: application/json
 
