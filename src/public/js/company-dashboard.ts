@@ -1,4 +1,4 @@
-const currentCompanyId = 1;
+let currentCompanyId;
 
 async function fetchRestEndpoint(
     route: string,
@@ -21,8 +21,30 @@ async function fetchRestEndpoint(
     }
 }
 
+async function setCurrentCompany() {
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    console.log(document.cookie)
+    currentCompanyId = Number(getCookie("company"));
+    console.log(currentCompanyId);
+}
 
 async function loadInternships() {
+    await setCurrentCompany();
+
     const internships = await fetchRestEndpoint("http://localhost:3000/api/praktika/firma/"+currentCompanyId, "GET");
     console.log(internships);
     await showInternships(internships);

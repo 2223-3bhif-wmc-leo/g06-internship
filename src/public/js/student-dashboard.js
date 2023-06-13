@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,15 +34,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var typescript_cookie_1 = require("typescript-cookie");
+var _this = this;
 var internships = [];
 var previousInternship = null;
 var previousInternshipDetails = null;
-var currentStudent = 1;
+var currentStudentID = 1;
 window.addEventListener("load", function () {
     var uploadButton = document.getElementById("uploadBtn");
-    uploadButton.addEventListener("click", function () { return __awaiter(void 0, void 0, void 0, function () {
+    uploadButton.addEventListener("click", function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, applyForInternship()];
@@ -54,6 +52,31 @@ window.addEventListener("load", function () {
         });
     }); });
 });
+function setCurrentUser() {
+    return __awaiter(this, void 0, void 0, function () {
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        return __generator(this, function (_a) {
+            console.log(document.cookie);
+            currentStudentID = Number(getCookie("student"));
+            console.log(currentStudentID);
+            return [2 /*return*/];
+        });
+    });
+}
 function fetchRestEndpoint(route, method, data) {
     return __awaiter(this, void 0, void 0, function () {
         var options, res;
@@ -76,14 +99,6 @@ function fetchRestEndpoint(route, method, data) {
                 case 2: return [2 /*return*/, _a.sent()];
                 case 3: return [2 /*return*/];
             }
-        });
-    });
-}
-function getCurrentUser() {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            console.log((0, typescript_cookie_1.getCookie)("user"));
-            return [2 /*return*/];
         });
     });
 }
@@ -118,7 +133,9 @@ function showInternships(internships) {
         var listGroup, _loop_1, _i, internships_1, internship;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
+                case 0: return [4 /*yield*/, setCurrentUser()];
+                case 1:
+                    _a.sent();
                     listGroup = document.getElementById("list-group");
                     _loop_1 = function (internship) {
                         var internshipCard, internshipCardHeading, internshipCardTitle, internshipCardSmall, firma, internshipCardText, internshipCardSmall2;
@@ -152,18 +169,18 @@ function showInternships(internships) {
                         });
                     };
                     _i = 0, internships_1 = internships;
-                    _a.label = 1;
-                case 1:
-                    if (!(_i < internships_1.length)) return [3 /*break*/, 4];
+                    _a.label = 2;
+                case 2:
+                    if (!(_i < internships_1.length)) return [3 /*break*/, 5];
                     internship = internships_1[_i];
                     return [5 /*yield**/, _loop_1(internship)];
-                case 2:
-                    _a.sent();
-                    _a.label = 3;
                 case 3:
+                    _a.sent();
+                    _a.label = 4;
+                case 4:
                     _i++;
-                    return [3 /*break*/, 1];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 2];
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -217,9 +234,6 @@ function showInternshipDetails(internship) {
                     applyButton.setAttribute("type", "button");
                     applyButton.setAttribute("class", "btn btn-primary");
                     applyButton.innerText = "Apply";
-                    /*applyButton.addEventListener("click", () => {
-                        applyForInternship(internship);
-                    });*/
                     applyButton.setAttribute("data-toggle", "modal");
                     applyButton.setAttribute("data-target", "#fileUploadModal");
                     applyButtonContainer.append(applyButton, document.getElementById("fileUploadModal"));
@@ -275,7 +289,7 @@ function uploadFile(file) {
                     responseFile = _a.sent();
                     return [4 /*yield*/, fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
                             praktikumId: previousInternship.id,
-                            schuelerId: currentStudent,
+                            schuelerId: currentStudentID,
                             bewerbungFileName: file.name
                         })];
                 case 2:

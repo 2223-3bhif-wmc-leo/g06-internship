@@ -1,5 +1,3 @@
-import { getCookie, setCookie } from 'typescript-cookie'
-
 let companyBtn;
 let studentBtn;
 let loginBtn;
@@ -111,7 +109,7 @@ async function login() {
 
             if (response) {
                 console.log(response);
-                setCookie("currentUser", response);
+                document.cookie = `company=${response.id}`;
                 window.location.href = "http://localhost:3000/company-dashboard.html";
             } else {
                 alert("Login failed");
@@ -129,6 +127,8 @@ async function login() {
 
             if (response) {
                 console.log(response);
+                document.cookie = `student=${response.id}`;
+                console.log(document.cookie)
                 window.location.href = "http://localhost:3000/student-dashboard.html";
             } else {
                 alert("Login failed");

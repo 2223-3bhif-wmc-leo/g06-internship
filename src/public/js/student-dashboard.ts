@@ -1,16 +1,37 @@
-import {setCookie, getCookie} from "typescript-cookie";
-
 let internships = [];
 let previousInternship = null;
 let previousInternshipDetails = null;
-let currentStudent = 1;
+let currentStudentID = 1;
+
 
 window.addEventListener("load", () => {
     const uploadButton = document.getElementById("uploadBtn");
     uploadButton.addEventListener("click", async () => {
         await applyForInternship();
+
     });
 });
+
+async function setCurrentUser() {
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    console.log(document.cookie)
+    currentStudentID = Number(getCookie("student"));
+    console.log(currentStudentID);
+}
 
 async function fetchRestEndpoint(
     route: string,
@@ -33,36 +54,33 @@ async function fetchRestEndpoint(
     }
 }
 
-async function getCurrentUser(){
-    console.log(getCookie("user"));
-}
-async function loadInternships(){
+async function loadInternships() {
     internships = await fetchRestEndpoint("http://localhost:3000/api/praktika", "GET");
     console.log(internships);
     await showInternships(internships);
 }
 
-async function getFirma(id : Number) : Promise<any> {
-    return  await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
+async function getFirma(id: Number): Promise<any> {
+    return await fetchRestEndpoint("http://localhost:3000/api/firmen/" + id, "GET");
 }
 
 
 async function showInternships(internships) {
-    getCurrentUser();
+    await setCurrentUser();
+
     const listGroup = document.getElementById("list-group");
     for (const internship of internships) {
         const internshipCard = document.createElement("a");
-        internshipCard.setAttribute("class","list-group-item list-group-item-action flex-column align-items-start");
+        internshipCard.setAttribute("class", "list-group-item list-group-item-action flex-column align-items-start");
         internshipCard.setAttribute("id", internship.id)
-        internshipCard.addEventListener("click", ()  => showInternshipDetails(internship));
+        internshipCard.addEventListener("click", () => showInternshipDetails(internship));
 
         const internshipCardHeading = document.createElement("div");
-        internshipCardHeading.setAttribute("class","d-flex w-100 justify-content-between");
+        internshipCardHeading.setAttribute("class", "d-flex w-100 justify-content-between");
 
         const internshipCardTitle = document.createElement("h5");
         internshipCardTitle.classList.add("mb-1");
         internshipCardTitle.innerText = internship.titel;
-
 
 
         const internshipCardSmall = document.createElement("small");
@@ -84,11 +102,11 @@ async function showInternships(internships) {
 }
 
 async function showInternshipDetails(internship) {
-    if(previousInternship != null){
+    if (previousInternship != null) {
         const previousInternshipCard = document.getElementById(previousInternship.id);
         previousInternshipCard.classList.remove("active");
     }
-    if(previousInternshipDetails != null){
+    if (previousInternshipDetails != null) {
         previousInternshipDetails.remove();
     }
     const internshipCard = document.getElementById(internship.id);
@@ -120,16 +138,15 @@ async function showInternshipDetails(internship) {
     payHeader.innerText = "Bezahlung";
     const payParagraph = document.createElement("p");
 
-    if(internship.gehalt != null || internship.gehalt != undefined) {
-         payParagraph.innerText = internship.gehalt + "€";
-    }
-    else {
+    if (internship.gehalt != null || internship.gehalt != undefined) {
+        payParagraph.innerText = internship.gehalt + "€";
+    } else {
         payParagraph.innerText = "-";
     }
     //<button type="button" class="btn btn-primary">Primary</button>
 
     const applyButtonContainer = document.createElement("div");
-    applyButtonContainer.setAttribute("class","d-flex justify-content ");
+    applyButtonContainer.setAttribute("class", "d-flex justify-content ");
 
     const applyButton = document.createElement("button");
     applyButton.setAttribute("type", "button");
@@ -158,7 +175,7 @@ async function showInternshipDetails(internship) {
         payParagraph,
         applyButtonContainer,
         info
-        );
+    );
     internshipDetails.append(internshipDetailsContent);
 
 
@@ -170,10 +187,9 @@ async function showInternshipDetails(internship) {
 async function applyForInternship() {
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     const file = fileInput.files?.[0];
-    if(file != null || file != undefined){
+    if (file != null || file != undefined) {
         await uploadFile(file);
-    }
-    else {
+    } else {
         alert("Please select a file");
     }
 }
@@ -186,7 +202,7 @@ async function uploadFile(file): Promise<void> {
         /*formData.append('internshipId', previousInternship.id.toString());
         formData.append('studentId', "1")*/
 
-        const responseFile  = await fetch('http://localhost:3000/upload', {
+        const responseFile = await fetch('http://localhost:3000/upload', {
             method: 'POST',
             body: formData,
             /*headers: {
@@ -194,9 +210,9 @@ async function uploadFile(file): Promise<void> {
             }*/
         });
 
-        const resonseBewerbung : boolean = await fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
+        const resonseBewerbung: boolean = await fetchRestEndpoint('http://localhost:3000/api/bewerber', "POST", {
             praktikumId: previousInternship.id,
-            schuelerId: currentStudent,
+            schuelerId: currentStudentID,
             bewerbungFileName: file.name
         });
 

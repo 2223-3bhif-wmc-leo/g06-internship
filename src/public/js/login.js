@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,8 +34,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var typescript_cookie_1 = require("typescript-cookie");
 var companyBtn;
 var studentBtn;
 var loginBtn;
@@ -156,7 +153,7 @@ function login() {
                 case 5:
                     if (response) {
                         console.log(response);
-                        (0, typescript_cookie_1.setCookie)("currentUser", response);
+                        document.cookie = "company=".concat(response.id);
                         window.location.href = "http://localhost:3000/company-dashboard.html";
                     }
                     else {
@@ -180,6 +177,8 @@ function login() {
                 case 10:
                     if (response) {
                         console.log(response);
+                        document.cookie = "student=".concat(response.id);
+                        console.log(document.cookie);
                         window.location.href = "http://localhost:3000/student-dashboard.html";
                     }
                     else {
